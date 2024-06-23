@@ -1,4 +1,4 @@
-package main.java.io.finsight.finsightapi.model;
+package io.finsight.finsightapi.model;
 
 import java.util.List;
 

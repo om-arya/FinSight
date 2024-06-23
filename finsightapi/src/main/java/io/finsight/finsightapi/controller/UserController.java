@@ -1,6 +1,7 @@
-package main.java.io.finsight.finsightapi.controller;
+package io.finsight.finsightapi.controller;
 
 import io.finsight.finsightapi.service.UserService;
+import io.finsight.finsightapi.model.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ public class UserController {
     
     @PostMapping(path = "/users")
     public User createUser(@RequestBody User user) {
-        userService.createUser(user);
+        return userService.createUser(user);
     }
 
 }

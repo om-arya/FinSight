@@ -1,4 +1,6 @@
-package main.java.io.finsight.finsightapi.service;
+package io.finsight.finsightapi.service;
+
+import io.finsight.finsightapi.model.User;
 
 public interface UserService {
     User createUser(User user);

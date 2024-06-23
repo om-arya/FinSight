@@ -1,4 +1,6 @@
-package main.java.io.finsight.finsightapi.controller;
+package io.finsight.finsightapi.controller;
+
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AssetController {
