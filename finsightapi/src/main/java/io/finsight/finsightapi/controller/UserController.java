@@ -5,6 +5,7 @@ import io.finsight.finsightapi.model.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 public class UserController {
@@ -17,6 +18,11 @@ public class UserController {
     
     @PostMapping(path = "/users")
     public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
+    }
+    
+    @GetMapping(path = "/users")
+    public User getUser(@RequestBody User user) {
         return userService.createUser(user);
     }
 

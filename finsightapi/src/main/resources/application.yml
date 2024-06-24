@@ -1,0 +1,11 @@
+spring:
+    application:
+        name: finsightapi
+    datasource:
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: omarya
+        password: changeinprod
+        driver-class-name: org.postgresql.Driver
+    sql:
+        init:
+            mode: always
