@@ -17,7 +17,7 @@ public class CorsConfig {
         var corsConfiguration = new CorsConfiguration();
 
         corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedHeaders(List.of("http://localhost:5173/"));
+        corsConfiguration.setAllowedHeaders(List.of("http://localhost:5173/", "http://localhost:8080/"));
 
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 

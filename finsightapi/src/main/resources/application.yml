@@ -6,6 +6,7 @@ spring:
         username: omarya
         password: changeinprod
         driver-class-name: org.postgresql.Driver
-    sql:
-        init:
-            mode: always
+    jpa:
+        open-in-view: false
+        hibernate:
+            ddl-auto: update
