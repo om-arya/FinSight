@@ -2,11 +2,11 @@ package io.finsight.finsightapi.config;
 
 import java.util.List;
 
-import org.apache.catalina.filters.CorsFilter;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 public class CorsConfig {
@@ -15,14 +15,11 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         var urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         var corsConfiguration = new CorsConfiguration();
-
-        corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedHeaders(List.of("http://localhost:5173/", "http://localhost:8080/"));
-
+        corsConfiguration.setAllowedOrigins(List.of("*"));
+        corsConfiguration.setAllowedHeaders(List.of("*"));
+        corsConfiguration.setExposedHeaders(List.of("*"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
-
-        // return new CorsFilter(urlBasedCorsConfigurationSource);
-        return new CorsFilter();
+        return new CorsFilter(urlBasedCorsConfigurationSource);
     }
-
 }

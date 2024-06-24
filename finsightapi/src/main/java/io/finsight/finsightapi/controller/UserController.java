@@ -9,22 +9,24 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 public class UserController {
-
     private UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
     
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping(path = "/users")
-    public User createUser(@RequestBody User user) {
+    public User createUser(@RequestBody final User user) {
         return userService.createUser(user);
     }
     
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(path = "/users")
     public User getUser() {
         return User.builder()

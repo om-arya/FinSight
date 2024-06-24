@@ -1,4 +1,7 @@
 h1 {
-  font-size: 10rem;
-  color: white;
+  padding: 10rem;
+  text-align: left;
+  font-size: 2rem;
+  font-weight: 300;
+  color: black;
 }
