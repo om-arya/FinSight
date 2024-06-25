@@ -1,23 +1,32 @@
 import React, {useState, useEffect} from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import axios from 'axios';
+
+import {API_URL, getUser} from './api/UserAPI.js';
 import './App.css';
 
-const apiUrl = "http://localhost:8080/";
 function App() {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    axios.get(apiUrl + "users")
+    axios.get(API_URL + "users")
     .then(response => {
       setName(response.data.name);
     })
     .catch(error => console.log(error));
   }, []);
   
-
   return (
     <>
-      <h1>Someone named { name } used this app.</h1>
+      <h1>Welcome to FinSight</h1>
+      <h2>Get started now.</h2>
+      <Router>
+        <Link className="signup" to="/signup">Sign Up</Link>
+
+        <Routes>
+          <Route path="/signup" component={App} />
+        </Routes>
+      </Router>
     </>
   )
 }
