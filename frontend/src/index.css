@@ -1,14 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/alliance-no1');
+                
 
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
   text-decoration: none;
 }
 
 :root {
-  --bg-main-color: white;
+  --bg-main-color: #fcfcfcff;
+  --bg-second-color: white;
+  --bg-third-color: #e7e7e7ff;
+  --text-main-color: black;
+
+  --custom-orange: #f5a226ff;
+  --custom-purple: #b14fffff;
+  --custom-darkblue: #011430ff;
+  --custom-gray: #3f3f3f;
+
+  background: var(--bg-third-color);
+  height: 50vh;
 }
 
 html {
@@ -17,5 +31,64 @@ html {
 }
 
 body {
+  width: 100vw;
   background: var(--bg-main-color);
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: .5rem 3rem .1rem;
+  height: 3.5rem;
+  align-items: stretch;
+  justify-content: left;
+  background: var(--bg-second-color);
+  box-shadow: 0 0 .2rem rgba(0, 0, 0, .5);
+  color: var(--text-main-color);
+}
+
+.site-title {
+  font-size: 1.5rem;
+  align-self: center;
+}
+
+.nav-button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-button-container a {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  transition: box-shadow .2s ease;
+}
+
+a:visited {
+  color: var(--text-main-color);
+}
+
+.nav-button-container a.active,
+.nav-button-container a:hover {
+  box-shadow: 0 .2rem 0 var(--custom-purple);
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: black;
+}
+
+h2 {
+  text-align: center;
+}
+
+p {
+  text-align: center;
 }

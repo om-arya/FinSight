@@ -1,32 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import axios from 'axios';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-import {API_URL, getUser} from './api/UserAPI.ts';
-import './App.css';
+import Navbar from './Navbar.tsx';
+import Home from './home/Home.tsx';
+import Dashboard from './dashboard/Dashboard.tsx';
+import Portfolio from './portfolio/Portfolio.tsx';
+import About from './about/About.tsx';
 
 const App: React.FC = () => {
-  const [name, setName] = useState("");
-
-  useEffect(() => {
-    axios.get(`${API_URL}users`)
-    .then(response => {
-      setName(response.data.name);
-    })
-    .catch(error => console.log(error));
-  }, []);
-  
   return (
     <>
-      <h1>Welcome to FinSight</h1>
-      <h2>Get started now.</h2>
-      <Router>
-        <Link className="signup" to="/signup">Sign Up</Link>
-
-        <Routes>
-          <Route path="/signup" element={< App />} />
-        </Routes>
-      </Router>
+      <Navbar></Navbar>
+      <Routes>
+        <Route path="/" element={ <Home /> }></Route>
+        <Route path="/dashboard" element={ <Dashboard /> }></Route>
+        <Route path="/portfolio" element={ <Portfolio /> }></Route>
+        <Route path="/about" element={ <About /> }></Route>
+      </Routes>
     </>
   )
 }
