@@ -2,14 +2,14 @@ import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import axios from 'axios';
 
-import {API_URL, getUser} from './api/UserAPI.js';
+import {API_URL, getUser} from './api/UserAPI.ts';
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    axios.get(API_URL + "users")
+    axios.get(`${API_URL}users`)
     .then(response => {
       setName(response.data.name);
     })
@@ -24,7 +24,7 @@ function App() {
         <Link className="signup" to="/signup">Sign Up</Link>
 
         <Routes>
-          <Route path="/signup" component={App} />
+          <Route path="/signup" element={< App />} />
         </Routes>
       </Router>
     </>
