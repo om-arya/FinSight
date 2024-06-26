@@ -10,7 +10,6 @@ import About from './about/About.tsx';
 const App: React.FC = () => {
   return (
     <>
-      <Navbar></Navbar>
       <Routes>
         <Route path="/" element={ <Home /> }></Route>
         <Route path="/dashboard" element={ <Dashboard /> }></Route>

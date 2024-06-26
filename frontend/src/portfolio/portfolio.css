@@ -1,0 +1,47 @@
+.portfolio {
+    padding: 5.5rem 0;
+    margin: 0 10rem;
+}
+
+.asset-card-container {
+    display: grid;
+    grid-template-columns: 20rem 20rem 20rem;
+    gap: 5rem;
+    padding: 5rem 0;
+    align-items: top;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.asset-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    width: 20rem;
+    height: 14rem;
+    align-items: center;
+    text-align: center;
+    border-top: solid 2px green;
+    border-radius: 10px;
+    box-shadow: 0 0 .5rem var(--bg-third-color);
+    background: var(--bg-second-color);
+}
+
+.asset-card h3 {
+    padding: .3rem 0;
+    width: 50%;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    background: green;
+    color: var(--bg-second-color);
+}
+
+.asset-card h4 {
+    padding: .3rem 0;
+    width: 50%;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-main-color);
+}

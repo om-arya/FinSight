@@ -1,0 +1,89 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10rem 15rem;
+}
+
+.home h1 {
+    font-size: 5rem;
+}
+
+.home p {
+    font-size: 2rem;
+}
+
+.entry-button-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10rem;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    height: 100%;
+}
+
+.entry-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12rem;
+    height: 6rem;
+    border-radius: 10px;
+    transition: box-shadow .3s ease;
+    cursor: pointer;
+}
+
+.entry-button h3 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--bg-second-color);
+}
+
+.signup-button {
+    box-shadow: 0 0 .2rem var(--custom-darkblue);
+    background: var(--custom-darkblue);
+}
+
+.signup-button:hover {
+    box-shadow: 0 0 .5rem var(--custom-darkblue);
+}
+
+.login-button {
+    box-shadow: 0 0 .2rem var(--custom-orange);
+    background: var(--custom-orange);
+}
+
+.login-button:hover {
+    box-shadow: 0 0 .5rem var(--custom-orange);
+}
+
+.submit-button {
+    align-self: center;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    box-shadow: 0 0 .2rem var(--custom-darkblue);
+    background: var(--custom-darkblue);
+    color: var(--bg-second-color);
+    transition: box-shadow .3s ease;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    box-shadow: 0 0 .5rem var(--custom-darkblue);
+}
+
+.demo-button {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 .5rem var(--text-main-color);
+    transition: box-shadow .3s ease;
+}
+
+.demo-button:hover {
+    box-shadow: 0 0 .7rem var(--text-main-color);
+}

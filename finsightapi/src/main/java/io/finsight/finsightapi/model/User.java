@@ -21,10 +21,10 @@ public class User {
 
     @Id
     private String username;
-
     private String password;
 
-    private String name;
+    private String firstName;
+    private String lastName;
 
     private String emailAddress;
     

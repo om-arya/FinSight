@@ -1,0 +1,71 @@
+.dashboard {
+    padding: 6.5rem 2rem;
+}
+
+.dashboard h1 span {
+    font-weight: 600;
+}
+
+.dashboard h1 {
+    font-size: 2.7rem;
+    font-weight: 300;
+}
+
+.returns-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.returns-box {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 0 .8rem;
+    justify-content: center;
+    width: 17rem;
+    height: 6.5rem;
+    border-radius: 10px;
+    color: white;
+    transition: box-shadow .3s ease;
+    cursor: default;
+}
+
+.returns-box:nth-child(1) {
+    box-shadow: 0 0 .2rem var(--custom-orange);
+    background: var(--custom-orange);
+}
+
+.returns-box:nth-child(1):hover {
+    box-shadow: 0 0 .5rem var(--custom-orange);
+}
+
+.returns-box:nth-child(2) {
+    box-shadow: 0 0 .2rem var(--custom-purple);
+    background: var(--custom-purple);
+}
+
+.returns-box:nth-child(2):hover {
+    box-shadow: 0 0 .5rem var(--custom-purple);
+}
+
+.returns-box h3 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.returns-box p {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.graph-container {
+    width: 50rem;
+    height: auto;
+    border-radius: 10px;
+    background: white;
+}

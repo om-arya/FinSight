@@ -1,22 +1,18 @@
 .about {
     margin: 0 28rem;
-    padding: 3rem 0;
+    padding: 6.5rem 0;
 }
 
 .about h1 {
     margin-bottom: 1.5rem;
-    text-align: left;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: 500;
-    color: var(--custom-gray);
     text-decoration: underline;
     text-underline-offset: .5rem;
 }
 
 .about p {
     margin-bottom: 1.5rem;
-    text-align: left;
     line-height: 1.5rem;
     font-size: 1rem;
-    color: var(--custom-gray);
 }
