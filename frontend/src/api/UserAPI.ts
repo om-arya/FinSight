@@ -1,8 +1,14 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/";
+export const API_URL = "http://localhost:8080/";
 
-interface User {
+export interface ResponseEntity {
+    data: any;
+    status: number;
+    headers: any;
+}
+
+export interface User {
     username: string;
     password: string;
     firstName: string;
@@ -12,12 +18,11 @@ interface User {
     assetAmounts: Array<number>
 }
 
-async function createUser(user: User): Promise<void> {
-    return await axios.post(API_URL, user)
+export async function createUser(user: User): Promise<ResponseEntity> {
+    const response = await axios.post(API_URL + "users", user);
+    return response as ResponseEntity;
 }
 
-async function getUser(username: string): Promise<void> {
-    return await axios.get(`${API_URL}/${username}`);
+export async function getUser(username: string): Promise<void> {
+    return await axios.get(API_URL + "users");
 }
-
-export {API_URL, User, createUser, getUser}

@@ -1,6 +1,4 @@
-package io.finsight.finsightapi.model;
-
-import java.util.List;
+package io.finsight.finsightapi.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -16,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "assets")
-public class Asset {
+public class AssetEntity {
 
     @Id
     private String name;
@@ -27,5 +25,5 @@ public class Asset {
 
     private String color;
     
-    private List<Double> prices;
+    private Double[] prices;
 }

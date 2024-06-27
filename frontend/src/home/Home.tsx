@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { User, createUser } from '../api/UserAPI.ts';
+import { Link, useNavigate } from 'react-router-dom';
+import { ResponseEntity, User, createUser } from '../api/UserAPI.ts';
 import './home.css';
 
 import Modal from '../Modal.tsx';
 
 const Home: React.FC = () => {
+    const navigate = useNavigate();
+
     useEffect(() => {
         const root = document.querySelector(':root') as HTMLElement;
         
@@ -15,6 +17,9 @@ const Home: React.FC = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [modalContent, setModalContent] = useState(<></>);
+
+    const [registerMessage, setRegisterMessage] = useState("");
+    const [registerSuccess, setRegisterSuccess] = useState(false);
 
     function openSignup() {
         setModalContent(
@@ -39,7 +44,7 @@ const Home: React.FC = () => {
         setIsOpen(true);
     }
 
-    function registerUser() {
+    async function registerUser() {
         const inputs = document.getElementsByTagName('input');
 
         const firstName: string = inputs[0].value;
@@ -58,7 +63,28 @@ const Home: React.FC = () => {
             assetAmounts: []
         };
 
-        createUser(user);
+        const response: ResponseEntity = await createUser(user);
+        const status: string = response.data;
+        const registerMessage = document.querySelector('.register-message') as HTMLElement;
+
+        if (status === "OK") {
+            setRegisterSuccess(true);
+            setRegisterMessage("Success! Logging you in...");
+            registerMessage.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+            setTimeout(() => {
+                closeModal();
+                navigate("/dashboard");
+            }, 3000);
+        } else if (status === "USERNAME_CONFLICT") {
+            setRegisterMessage("* Username is already taken. Please choose a different username.");
+            registerMessage.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+        } else if (status === "EMAIL_ADDRESS_CONFLICT") {
+            setRegisterMessage("* Email address is already taken. Please use a different email address.");
+            registerMessage.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+        } else {
+            setRegisterMessage("* Internal server error. Please try again later.");
+            registerMessage.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+        }
     }
 
     function openLogin() {
@@ -75,10 +101,6 @@ const Home: React.FC = () => {
         setIsOpen(true);
     }
 
-    function openDemo() {
-
-    }
-
     function closeModal() {
         setModalContent(<></>);
         setIsOpen(false);
@@ -92,6 +114,7 @@ const Home: React.FC = () => {
                 
                 <Modal open={isOpen}>
                     { modalContent }
+                    <div className={registerSuccess ? "register-message success" : "register-message failure"}>{registerMessage}</div>
                 </Modal>
 
                 <div className="entry-button-container">
@@ -108,4 +131,4 @@ const Home: React.FC = () => {
     )
 }
 
-export default Home
+export default Home;

@@ -2,15 +2,15 @@ package io.finsight.finsightapi.service;
 
 import org.springframework.stereotype.Service;
 
-import io.finsight.finsightapi.model.Asset;
+import io.finsight.finsightapi.model.entity.AssetEntity;
 
 @Service
 public class AssetService {
-    public Asset createAsset(Asset asset) {
-        return new Asset();
+    public AssetEntity createAsset(AssetEntity asset) {
+        return new AssetEntity();
     }
 
-    public Asset getAsset(String name) {
+    public AssetEntity getAsset(String name) {
         return null;
     }
 }

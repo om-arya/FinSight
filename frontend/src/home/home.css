@@ -32,6 +32,7 @@
     height: 6rem;
     border-radius: 10px;
     transition: box-shadow .3s ease;
+    user-select: none;
     cursor: pointer;
 }
 
@@ -86,4 +87,16 @@
 
 .demo-button:hover {
     box-shadow: 0 0 .7rem var(--text-main-color);
+}
+
+.register-message {
+    margin-top: 1rem;
+}
+
+.register-message.success {
+    color: green;
+}
+
+.register-message.failure {
+    color: red;
 }

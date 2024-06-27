@@ -11,7 +11,7 @@
 }
 
 :root {
-  --bg-main-color: #fcfcfcff;
+  --bg-main-color: #fafafa;
   --bg-second-color: white;
   --bg-third-color: #e7e7e7ff;
   --text-main-color: black;
@@ -51,11 +51,17 @@ body {
   background: var(--bg-second-color);
   box-shadow: 0 0 .2rem rgba(0, 0, 0, .5);
   color: var(--text-main-color);
+  user-select: none;
 }
 
-.site-title {
+.navbar .site-title {
   font-size: 1.5rem;
   align-self: center;
+  transition: color .2s ease;
+}
+
+.navbar .site-title:hover {
+  color: var(--custom-orange);
 }
 
 .nav-button-container {

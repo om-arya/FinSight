@@ -1,7 +1,4 @@
-package io.finsight.finsightapi.model;
-
-
-import java.util.List;
+package io.finsight.finsightapi.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -17,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     private String username;
@@ -28,6 +25,9 @@ public class User {
 
     private String emailAddress;
     
-    private List<String> assetNames;
-    private List<Integer> assetAmounts;
+    // Keep track of asset purchases, separated by date for
+    // accurate statistical displays
+    private String[] purchaseNames;
+    private Integer[] purchaseAmounts;
+    private String[] purchaseDates;
 }

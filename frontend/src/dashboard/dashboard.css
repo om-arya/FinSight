@@ -32,6 +32,7 @@
     border-radius: 10px;
     color: white;
     transition: box-shadow .3s ease;
+    user-select: none;
     cursor: default;
 }
 
@@ -64,8 +65,15 @@
 }
 
 .graph-container {
+    margin-top: 1rem;
     width: 50rem;
     height: auto;
     border-radius: 10px;
+    box-shadow: 0 0 .5rem rgba(0, 0, 0, .2);
     background: white;
+    transition : box-shadow .2s ease;
+}
+
+.graph-container:hover {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, .2);
 }

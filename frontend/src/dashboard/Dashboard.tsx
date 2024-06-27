@@ -8,7 +8,7 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         const root = document.querySelector(':root') as HTMLElement;
         
-        root.style.setProperty("--bg-main-color", "#fcfcfcff");
+        root.style.setProperty("--bg-main-color", "#fafafa");
         root.style.background = "var(--bg-third-color)";
     }, [])
 
@@ -38,4 +38,4 @@ const Dashboard: React.FC = () => {
     )
 }
 
-export default Dashboard
+export default Dashboard;

@@ -7,7 +7,7 @@ const About: React.FC = () => {
     useEffect(() => {
         const root = document.querySelector(':root') as HTMLElement;
 
-        root.style.setProperty("--bg-main-color", "#fcfcfcff");
+        root.style.setProperty("--bg-main-color", "#fafafa");
         root.style.background = "var(--bg-main-color)";
     }, [])
 
