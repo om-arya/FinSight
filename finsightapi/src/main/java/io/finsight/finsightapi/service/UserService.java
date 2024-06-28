@@ -11,7 +11,6 @@ import io.finsight.finsightapi.repository.UserRepository;
 
 @Service
 public class UserService {
-
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -63,8 +62,8 @@ public class UserService {
      * user does not exist, return a NOT_FOUND status.
      * 
      * @param username of the user to get from the database.
-     * @return a ResponseEntity consisting of an (optional) user, which is
-     *         empty if not found, along with an HTTP status.
+     * @return a ResponseEntity consisting of a user entity optional, which
+     *         is empty if not found, along with an HTTP status.
      */
     public ResponseEntity<Optional<UserEntity>> getUserByUsername(String username) {
         try {
@@ -84,8 +83,8 @@ public class UserService {
      * the user does not exist, return a NOT_FOUND status.
      * 
      * @param emailAddress of the user to get from the database.
-     * @return a ResponseEntity consisting of an (optional) user, which is
-     *         empty if not found, along with an HTTP status.
+     * @return a ResponseEntity consisting of a user entity optional, which
+     *         is empty if not found, along with an HTTP status.
      */
     public ResponseEntity<Optional<UserEntity>> getUserByEmailAddress(String emailAddress) {
         try {

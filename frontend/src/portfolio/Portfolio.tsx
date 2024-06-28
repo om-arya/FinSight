@@ -15,8 +15,8 @@ const Portfolio: React.FC = () => {
         <>
             <Navbar />
             <div className="portfolio">
-                <h1>GOOG</h1>
-                <h1>AMZN</h1>
+                <h1>Your Portfolio</h1>
+                <p>Today is a good day to invest in your future. We're here to help you get on track.</p>
 
                 <div className = "asset-card-container">
                     <div className="asset-card">

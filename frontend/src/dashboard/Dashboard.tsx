@@ -16,8 +16,8 @@ const Dashboard: React.FC = () => {
         <>
             <Navbar />
             <div className="dashboard">
-                <h1>👋 <span>Hi Guest,</span> welcome back.</h1>
-                <p>How would you like to invest today?</p>
+                <h1>👋 Hi <strong>Guest,</strong> welcome back.</h1>
+                <p>What would you like to accomplish today?</p>
 
                 <div className="returns-container">
                     <div className="returns-box">

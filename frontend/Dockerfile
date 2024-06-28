@@ -10,5 +10,4 @@ COPY . .
 
 RUN npm run build
 
-# Specify the command to run your React application
 CMD ["npm", "run", "dev"]

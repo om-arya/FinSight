@@ -4,7 +4,7 @@ import { Link, useMatch, useResolvedPath } from 'react-router-dom';
 const Navbar: React.FC = () => {
     return (
         <nav className="navbar">
-            <a href="/dashboard" className="site-title">FinSight</a>
+            <a href="/dashboard" className="site-title">Fin<strong>Sight</strong></a>
             <div className="nav-button-container">
                     <CustomLink to="/dashboard">Dashboard</CustomLink>
                     <CustomLink to="/portfolio">Portfolio</CustomLink>

@@ -1,6 +1,17 @@
 .portfolio {
-    padding: 5.5rem 0;
+    padding: 7rem 0;
     margin: 0 10rem;
+}
+
+.portfolio h1 {
+    margin-bottom: .5rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.portfolio p {
+    text-align: center;
 }
 
 .asset-card-container {
@@ -34,8 +45,9 @@
     border-radius: 10px;
     font-size: 1.2rem;
     font-weight: 500;
-    background: green;
+    background: var(--custom-green);
     color: var(--bg-second-color);
+    user-select: none;
 }
 
 .asset-card h4 {
@@ -44,4 +56,9 @@
     font-size: 1.2rem;
     font-weight: 500;
     color: var(--text-main-color);
+}
+
+.asset-card p,
+.asset-card span {
+    font-size: 1rem;
 }

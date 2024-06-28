@@ -20,6 +20,7 @@
   --custom-purple: #b14fff;
   --custom-darkblue: #011430ff;
   --custom-gray: #3f3f3f;
+  --custom-green: #0c5d00;
 
   background: var(--bg-third-color);
   height: 45vh;
@@ -35,6 +36,10 @@ body {
   width: 100vw;
   height: 55vh;
   background: var(--bg-main-color);
+}
+
+strong {
+  font-weight: 600;
 }
 
 .navbar {
@@ -87,6 +92,10 @@ a:visited {
 .nav-button-container a.active,
 .nav-button-container a:hover {
   box-shadow: 0 .2rem 0 var(--custom-purple);
+}
+
+.nav-button-container a.active {
+  font-weight: 600;
 }
 
 .overlay {

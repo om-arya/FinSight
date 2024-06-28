@@ -8,12 +8,19 @@ import io.finsight.finsightapi.model.mapper.Mapper;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class UserController {
     private UserService userService;
@@ -24,16 +31,129 @@ public class UserController {
         this.userMapper = userMapper;
     }
     
-    @CrossOrigin(origins = "http://localhost:5173")
+    /* CREATE METHODS */
+
+    /**
+     * Create a new user to save into the database. If a user with this
+     * username or emailAddress already exists, the service returns a
+     * CONFLICT status.
+     * 
+     * @param userDto to save as a UserEntity into the database.
+     * @return a ResponseEntity consisting of a custom status to
+     *         differentiate username and email address conflicts, along
+     *         with an HTTP status.
+     */
     @PostMapping(path = "/users")
     public ResponseEntity<UserOperationStatus> createUser(@RequestBody UserDto userDto) {
         UserEntity userEntity = userMapper.mapFrom(userDto);
         return userService.createUser(userEntity);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
-    @DeleteMapping(path = "/users")
-    public ResponseEntity<Void> deleteUser(@RequestBody String username) {
+    /* READ METHODS */
+
+    /**
+     * Get the user from the database with the specified username. If the
+     * user does not exist, the service returns a NOT_FOUND status.
+     * 
+     * @param username of the user to get from the database.
+     * @return a ResponseEntity consisting of a user DTO, which is empty
+     *         if not found, along with an HTTP status.
+     */
+    @GetMapping(path = "/users/username/{username}")
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username) {
+        ResponseEntity<Optional<UserEntity>> responseEntity = userService.getUserByUsername(username);
+
+        Optional<UserEntity> optionalUserEntity = responseEntity.getBody();
+        UserEntity userEntity = optionalUserEntity != null ? optionalUserEntity.get() : null;
+
+        UserDto userDto = userMapper.mapTo(userEntity);
+        return new ResponseEntity<>(userDto, responseEntity.getStatusCode());
+    }
+
+    /**
+     * Get the user from the database with the specified email address. If
+     * the user does not exist, the service returns a NOT_FOUND status.
+     * 
+     * @param emailAddress of the user to get from the database.
+     * @return a ResponseEntity consisting of a user DTO, which is empty
+     *         if not found, along with an HTTP status.
+     */
+    @GetMapping(path = "/users/emailaddress")
+    public ResponseEntity<UserDto> getUserByEmailAddress(@RequestParam String emailAddress) {
+        ResponseEntity<Optional<UserEntity>> responseEntity = userService.getUserByEmailAddress(emailAddress);
+
+        Optional<UserEntity> optionalUserEntity = responseEntity.getBody();
+        UserEntity userEntity = optionalUserEntity != null ? optionalUserEntity.get() : null;
+
+        UserDto userDto = userMapper.mapTo(userEntity);
+        return new ResponseEntity<>(userDto, responseEntity.getStatusCode());
+    }
+
+    /* UPDATE METHODS */
+
+    /**
+     * Update the firstName of the user who has the specified username. If
+     * the user does not exist, the service returns a NOT_FOUND status.
+     * 
+     * @param username of the user to update the firstName of.
+     * @param newFirstName to update to.
+     * @return a ResponseEntity consisting of an HTTP status.
+     */
+    @PatchMapping(path = "/users/firstname/{username}")
+    public ResponseEntity<Void> setUserFirstName(@PathVariable String username, @RequestParam String newFirstName) {
+        return userService.setUserFirstName(username, newFirstName);
+    }
+
+    /**
+     * Update the lastName of the user who has the specified username. If
+     * the user does not exist, the service returns a NOT_FOUND status.
+     * 
+     * @param username of the user to update the lastName of.
+     * @param newLastName to update to.
+     * @return a ResponseEntity consisting of an HTTP status.
+     */
+    @PatchMapping(path = "/users/lastname/{username}")
+    public ResponseEntity<Void> setUserLastName(@PathVariable String username, @RequestParam String newLastName) {
+        return userService.setUserLastName(username, newLastName);
+    }
+
+    /**
+     * Update the emailAddress of the user who has the specified username. If
+     * the user does not exist, the service returns a NOT_FOUND status.
+     * 
+     * @param username of the user to update the emailAddress of.
+     * @param newEmailAddress to update to.
+     * @return a ResponseEntity consisting of an HTTP status.
+     */
+    @PatchMapping(path = "/users/emailaddress/{username}")
+    public ResponseEntity<Void> setUserEmailAddress(@PathVariable String username, @RequestParam String newEmailAddress) {
+        return userService.setUserEmailAddress(username, newEmailAddress);
+    }
+
+    /**
+     * Update the password of the user who has the specified username. If
+     * the user does not exist, the service returns a NOT_FOUND status.
+     * 
+     * @param username of the user to update the password of.
+     * @param newPassword to update to.
+     * @return a ResponseEntity consisting of an HTTP status.
+     */
+    @PatchMapping(path = "/users/password/{username}")
+    public ResponseEntity<Void> setUserPassword(@PathVariable String username, @RequestParam String newPassword) {
+        return userService.setUserPassword(username, newPassword);
+    }
+
+    /* DELETE METHODS */
+
+    /**
+     * Delete the user with the specified username from the database. If
+     * the user does not exist, it is silently ignored.
+     * 
+     * @param username of the user to delete from the database.
+     * @return a ResponseEntity consisting of an HTTP status.
+     */
+    @DeleteMapping(path = "/users/{username}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String username) {
         return userService.deleteUserByUsername(username);
     }
 }
