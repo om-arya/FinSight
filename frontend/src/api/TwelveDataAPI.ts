@@ -42,7 +42,7 @@ async function updateAssetPrices() {
 
 /**
  * Fetch the EOD data for each of the provided tickers.
- * The process will take (# of tickers / 8) minutes.
+ * The process will take 70 seconds for 8 requests at a time.
  * 
  * @param tickers to fetch the EOD data for.
  * @returns a JSON object consisting of EOD data for each of the
@@ -77,4 +77,6 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
     return responses;
 }
 
-// node --loader ts-node/esm TwelveDataAPI.ts
+// TODO: For each CSV, get asset data and create asset.
+
+// Run this file with "node --loader ts-node/esm TwelveDataAPI.ts"

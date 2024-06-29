@@ -17,6 +17,35 @@ public class AssetService {
         this.assetRepository = assetRepository;
     }
 
+    /* CREATE OPERATIONS */
+
+    /**
+     * Create a new asset to save into the database. If an asset with this
+     * ticker already exists, return a CONFLICT status.
+     * 
+     * @param asset to save into the database.
+     * @return a ResponseEntity consisting of an HTTP status.
+     */
+    public ResponseEntity<Void> createAsset(AssetEntity asset) {
+        ResponseEntity<Optional<AssetEntity>> assetResponseEntity = getAssetByTicker(asset.getTicker());
+
+        if (assetResponseEntity.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        Optional<AssetEntity> assetOptional = assetResponseEntity.getBody();
+        if (assetOptional != null && assetOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        try {
+            assetRepository.save(asset);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     /* READ OPERATIONS */
 
     /**
@@ -62,8 +91,8 @@ public class AssetService {
         }
 
         AssetEntity asset = optionalAsset.get();
-
         Double[] currentPrices = asset.getPrices();
+        
         Double[] newPrices = new Double[currentPrices.length + 1];
         System.arraycopy(currentPrices, 0, newPrices, 0, currentPrices.length);
         newPrices[currentPrices.length] = newPrice;
@@ -76,4 +105,22 @@ public class AssetService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /* DELETE OPERATIONS */
+
+    /**
+     * Delete the asset with the specified ticker from the database. If
+     * the asset does not exist, it is silently ignored.
+     * 
+     * @param ticker of the asset to delete from the database.
+     * @return a ResponseEntity consisting of an HTTP status.
+     */
+     public ResponseEntity<Void> deleteAsset(String ticker) {
+        try {
+            assetRepository.deleteById(ticker);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+     }
 }

@@ -21,7 +21,8 @@ public class UserService {
 
     /**
      * Create a new user to save into the database. If a user with this
-     * username or emailAddress already exists, return a CONFLICT status.
+     * username or emailAddress already exists, return a CONFLICT user
+     * operation status (with an OK HTTP status).
      * 
      * @param user to save into the database.
      * @return a ResponseEntity consisting of a custom status to

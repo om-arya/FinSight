@@ -36,7 +36,7 @@ public class UserController {
     /**
      * Create a new user to save into the database. If a user with this
      * username or emailAddress already exists, the service returns a
-     * CONFLICT status.
+     * CONFLICT custom operation status (with an OK HTTP status).
      * 
      * @param userDto to save as a UserEntity into the database.
      * @return a ResponseEntity consisting of a custom status to

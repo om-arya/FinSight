@@ -1,12 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "http://localhost:8080/users";
-
-export interface ResponseEntity {
-    data: any;
-    status: number;
-    headers: any;
-}
+const API_URL = "http://localhost:8080/users";
 
 export interface User {
     username: string;
@@ -19,17 +13,23 @@ export interface User {
     holdingDates: string[];
 }
 
+export interface ResponseEntity {
+    data: any;
+    status: number;
+    headers: any;
+}
+
 /* CREATE ENDPOINTS */
 
 /**
  * Create a new user to save into the database. If a user with this
  * username or emailAddress already exists, the controller returns a
- * CONFLICT status.
+ * CONFLICT custom operation status (with an OK HTTP status).
  * 
  * @param user object to save as an entity in the database.
- * @return a ResponseEntity consisting of a custom status to
- *         differentiate username and email address conflicts, along
- *         with an HTTP status.
+ * @returns a ResponseEntity consisting of a custom status to
+ *          differentiate username and email address conflicts, along
+ *          with an HTTP status.
  */
 export async function createUser(user: User): Promise<ResponseEntity> {
     const response = await axios.post<ResponseEntity>(API_URL, user);
@@ -44,7 +44,7 @@ export async function createUser(user: User): Promise<ResponseEntity> {
  * 
  * @param username of the user to get from the database.
  * @returns a ResponseEntity consisting of a user object, which is empty
- *         if not found, along with an HTTP status.
+ *          if not found, along with an HTTP status.
  */
 export async function getUserByUsername(username: string): Promise<ResponseEntity> {
     const response = await axios.get<ResponseEntity>(API_URL + '/' + username);
@@ -57,7 +57,7 @@ export async function getUserByUsername(username: string): Promise<ResponseEntit
  * 
  * @param emailAddress of the user to get from the database.
  * @returns a ResponseEntity consisting of a user object, which is empty
- *         if not found, along with an HTTP status.
+ *          if not found, along with an HTTP status.
  */
 export async function getUserByEmailAddress(emailAddress: any): Promise<ResponseEntity> {
     const response = await axios.get<ResponseEntity>(API_URL, emailAddress);
