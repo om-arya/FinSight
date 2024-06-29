@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "http://localhost:8080/users/";
+export const API_URL = "http://localhost:8080/users";
 
 export interface ResponseEntity {
     data: any;
@@ -47,7 +47,7 @@ export async function createUser(user: User): Promise<ResponseEntity> {
  *         if not found, along with an HTTP status.
  */
 export async function getUserByUsername(username: string): Promise<ResponseEntity> {
-    const response = await axios.get<ResponseEntity>(API_URL + username);
+    const response = await axios.get<ResponseEntity>(API_URL + '/' + username);
     return response;
 }
 
@@ -75,7 +75,7 @@ export async function getUserByEmailAddress(emailAddress: any): Promise<Response
  * @returns a ResponseEntity consisting of an HTTP status.
  */
 export async function setUserFirstName(username: string, newFirstName: string): Promise<ResponseEntity> {
-    const response = await axios.patch<ResponseEntity>(API_URL + username, newFirstName);
+    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username, newFirstName);
     return response;
 }
 
@@ -88,7 +88,7 @@ export async function setUserFirstName(username: string, newFirstName: string): 
  * @returns a ResponseEntity consisting of an HTTP status.
  */
 export async function setUserLastName(username: string, newLastName: string): Promise<ResponseEntity> {
-    const response = await axios.patch<ResponseEntity>(API_URL + username, newLastName);
+    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username, newLastName);
     return response;
 }
 
@@ -101,7 +101,7 @@ export async function setUserLastName(username: string, newLastName: string): Pr
  * @returns a ResponseEntity consisting of an HTTP status.
  */
 export async function setUserEmailAddress(username: string, newEmailAddress: string): Promise<ResponseEntity> {
-    const response = await axios.patch<ResponseEntity>(API_URL + username, newEmailAddress);
+    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username, newEmailAddress);
     return response;
 }
 
@@ -114,7 +114,7 @@ export async function setUserEmailAddress(username: string, newEmailAddress: str
  * @returns a ResponseEntity consisting of an HTTP status.
  */
 export async function setUserPassword(username: string, newPassword: string): Promise<ResponseEntity> {
-    const response = await axios.patch<ResponseEntity>(API_URL + username, newPassword);
+    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username, newPassword);
     return response;
 }
 
@@ -128,6 +128,6 @@ export async function setUserPassword(username: string, newPassword: string): Pr
  * @returns a ResponseEntity consisting of an HTTP status.
  */
 export async function deleteUser(username: string): Promise<ResponseEntity> {
-    const response = await axios.delete<ResponseEntity>(API_URL + username);
+    const response = await axios.delete<ResponseEntity>(API_URL + '/' + username);
     return response;
 }

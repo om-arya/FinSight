@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "http://localhost:8080/assets/";
+export const API_URL = "http://localhost:8080/assets";
 
 export interface ResponseEntity {
     data: any;
@@ -19,7 +19,7 @@ export interface ResponseEntity {
  *         empty if not found, along with an HTTP status.
  */
 export async function getAssetByTicker(ticker: string) {
-    const response = await axios.get<ResponseEntity>(API_URL + ticker);
+    const response = await axios.get<ResponseEntity>(API_URL + '/' + ticker);
     return response;
 }
 
@@ -36,6 +36,6 @@ export async function getAssetByTicker(ticker: string) {
  */
 
 export async function addAssetPrice(ticker: string, newPrice: number) {
-    const response = await axios.patch<ResponseEntity>(API_URL + ticker, newPrice);
+    const response = await axios.patch<ResponseEntity>(API_URL + '/' + ticker, newPrice);
     return response;
 }
