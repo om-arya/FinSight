@@ -49,16 +49,17 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
     const TD_URL = `https://api.twelvedata.com/eod?apikey=${TD_PROD_KEY}&dp=2&symbol=`;
 
     let responses: EODData[] = [];
+    const batchLimit = 8;
     let count = 1;
     // API limit is 8 requests per minute, so we send 8 requests
     // every 70 seconds.
     while (count < tickers.length) {
-        const ticker_batch: string[] = tickers.slice(count, count + 8);
+        const ticker_batch: string[] = tickers.slice(count, count + batchLimit);
 
         try {
             const response = await axios.get(TD_URL + ticker_batch.join(',')) as EODData;
             responses.push(response);
-            count += 8;
+            count += batchLimit;
         } catch (error) {
             console.error(error);
         }

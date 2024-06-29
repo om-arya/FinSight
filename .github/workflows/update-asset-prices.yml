@@ -21,6 +21,14 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+    
+    - name: Launch Spring Boot / React apps
+      run: ./start.sh
+    
+    - name: Wait for apps (fixed duration)
+      uses: actions/checkout@v3
+      with:
+        args: --single-branch --no-fetch -f sleep 20
 
     - name: Run update script
       run: cd frontend/src/api && node --loader ts-node/esm TwelveDataAPI.ts
