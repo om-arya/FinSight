@@ -14,9 +14,9 @@ export interface User {
     firstName: string;
     lastName: string
     emailAddress: string;
-    purchaseNames: Array<string>
-    purchaseAmounts: Array<number>
-    holdingDates: Array<string>
+    purchaseNames: string[];
+    purchaseAmounts: number[];
+    holdingDates: string[];
 }
 
 /* CREATE ENDPOINTS */

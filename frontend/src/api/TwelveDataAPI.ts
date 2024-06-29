@@ -5,7 +5,9 @@ import { TD_KEY, BACKUP_TD_KEY } from './TD_KEY.ts';
 import { TICKERS } from './tickers/TICKERS.ts';
 
 interface EODData {
+    symbol: string;
     data: any;
+    close: number;
 }
 
 /**
@@ -20,14 +22,14 @@ cron.schedule('0 0 * * *', () => {
  * to be stored in the database.
  */
 async function updateAssetPrices() {
-    const responses: Array<EODData> = getEODData(TICKERS);
+    const responses: EODData[] = await getEODData(TICKERS);
 
-    const tickers: Array<string> = []
-    const prices: Array<number> = []
+    const tickers: string[] = []
+    const prices: number[] = []
 
     responses.forEach((response) => {
-        let data = response.data;
-        for (const key in data) {
+        for (const key in response.data) {
+            const data = response.data[key];
             tickers.push(data[key].symbol);
             prices.push(data[key].close);
         }
@@ -46,37 +48,31 @@ async function updateAssetPrices() {
  * @returns a JSON object consisting of EOD data for each of the
  *          provided tickers.
  */
-function getEODData(tickers: Array<string>): Array<EODData> {
+async function getEODData(tickers: string[]): Promise<EODData[]> {
     const TD_URL_BEGINNING = "https://api.twelvedata.com/eod?symbol=";
     const TD_URL_END = `&dp=2&apikey=${TD_KEY}`;
     let TD_URL = "";
 
-    let ticker_batch: Array<string> = [];
-    let responses: Array<EODData> = [];
+    let responses: EODData[] = [];
     let count = 1;
     // API limit is 8 requests per minute, so we send 8 requests
     // every 70 seconds.
-    const interval = setInterval(async () => {
-        while (ticker_batch.length < 8 && count <= tickers.length) {
-            ticker_batch.push(tickers[count]);
-            count++;
-        }
-
-        if (count - 1 == tickers.length) {
-            clearInterval(interval);
-        }
-
+    while (count < tickers.length) {
+        const ticker_batch: string[] = tickers.slice(count, count + 8);
         TD_URL = TD_URL_BEGINNING + ticker_batch.join(",") + TD_URL_END;
 
         try {
-            let response = await axios.get(TD_URL) as EODData;
+            const response = await axios.get(TD_URL) as EODData;
             responses.push(response);
         } catch (error) {
             console.error(error);
         }
 
-        ticker_batch.length = 0;
-    }, 70000);
+        count += 8;
+        if (count < tickers.length) {
+            await new Promise(resolve => setTimeout(resolve, 70000));
+        }
+    }
 
     return responses;
 }
