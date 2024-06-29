@@ -8,9 +8,13 @@ export interface User {
     firstName: string;
     lastName: string
     emailAddress: string;
-    purchaseNames: string[];
-    purchaseAmounts: number[];
-    holdingDates: string[];
+    transactions: Transaction[];
+}
+
+export interface Transaction {
+    date: string;
+    ticker: string;
+    amount: number;
 }
 
 export interface ResponseEntity {

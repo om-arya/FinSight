@@ -12,6 +12,8 @@ dist-ssr
 *.local
 TD_KEY.*
 **/api/tickers
+**/api/assets
+*.py
 
 .vscode/*
 !.vscode/extensions.json

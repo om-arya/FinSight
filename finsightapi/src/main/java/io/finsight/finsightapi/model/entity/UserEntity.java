@@ -1,5 +1,6 @@
 package io.finsight.finsightapi.model.entity;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -25,9 +26,6 @@ public class UserEntity {
 
     private String emailAddress;
     
-    // Keep track of asset purchases, separated by date for
-    // accurate statistical displays
-    private String[] purchaseNames;
-    private Integer[] purchaseAmounts;
-    private String[] holdingDates; // (price on date sold) - (price on date bought) used for calculations
+    @ElementCollection
+    private Transaction[] transactions;
 }

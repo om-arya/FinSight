@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AssetDto {
-    private String name;
-
     private String ticker;
 
-    private String type;
+    private String name;
 
-    private String color;
+    private String exchange;
+
+    private String sector;
     
     private Double[] prices;
 }

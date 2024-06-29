@@ -6,7 +6,7 @@ export interface Asset {
     ticker: string;
     name: string;
     exchange: string;
-    type: string;
+    sector: string;
     prices: number[];
 }
 
@@ -18,19 +18,19 @@ export interface ResponseEntity {
 
 /* CREATE ENDPOINTS */
 
+// For internal use only. The user does NOT have the ability to
+// create assets.
+
 /**
- * For internal use only. The user does NOT have the ability to
- * create assets.
- * 
  * Create a new asset to save into the database. If an asset with
- * this ticker already exists, the controller returns a CONFLICT
- * HTTP status.
+ * this ticker already exists, it is silently ignored.
  * 
  * @param asset object to save as an entity in the database.
  * @returns a ResponseEntity consisting of an HTTP status.
  */
 export async function createAsset(asset: Asset) {
     const response = await axios.post<ResponseEntity>(API_URL, asset);
+    return response;
 }
 
 /* READ ENDPOINTS */
@@ -50,6 +50,9 @@ export async function getAssetByTicker(ticker: string) {
 
 /* UPDATE ENDPOINTS */
 
+// For internal use only. The user does NOT have the ability to
+// change asset data.
+
 /**
  * Add the new price to the prices of the asset with the specified
  * ticker. If the asset does not exist, the controller returns a
@@ -67,10 +70,10 @@ export async function addAssetPrice(ticker: string, newPrice: number) {
 
 /* DELETE ENDPOINTS */
 
+// For internal use only. The user does NOT have the ability to
+// delete assets.
+
 /**
- * For internal use only. The user does NOT have the ability to
- * delete assets.
- * 
  * Delete the asset with the specified ticker from the database. If
  * the asset does not exist, it is silently ignored.
  * 

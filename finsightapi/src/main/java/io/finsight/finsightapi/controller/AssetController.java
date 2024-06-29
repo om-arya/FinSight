@@ -34,7 +34,7 @@ public class AssetController {
 
     /**
      * Create a new asset to save into the database. If an asset with this
-     * ticker already exists, the service returns a CONFLICT status.
+     * ticker already exists, it is silently ignored.
      * 
      * @param asset to save into the database.
      * @return a ResponseEntity consisting of an HTTP status.

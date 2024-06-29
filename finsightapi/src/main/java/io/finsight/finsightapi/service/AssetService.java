@@ -21,7 +21,7 @@ public class AssetService {
 
     /**
      * Create a new asset to save into the database. If an asset with this
-     * ticker already exists, return a CONFLICT status.
+     * ticker already exists, it is silently ignored.
      * 
      * @param asset to save into the database.
      * @return a ResponseEntity consisting of an HTTP status.
@@ -35,7 +35,7 @@ public class AssetService {
 
         Optional<AssetEntity> assetOptional = assetResponseEntity.getBody();
         if (assetOptional != null && assetOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
         try {

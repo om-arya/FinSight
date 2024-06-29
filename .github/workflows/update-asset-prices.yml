@@ -1,0 +1,28 @@
+name: Update Asset Prices
+
+on:
+  schedule:
+    # Run at 05:00 UTC (12:00 AM EST) daily
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run update script
+      run: cd frontend/src/api && node --loader ts-node/esm TwelveDataAPI.ts
+      env:
+        TD_PROD_KEY: ${{ secrets.TD_PROD_KEY }}

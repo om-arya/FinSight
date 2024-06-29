@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ResponseEntity, User, createUser } from '../api/UserAPI.ts';
+import { User, Transaction, ResponseEntity, createUser } from '../api/UserAPI.ts';
 import './home.css';
 
 import Modal from '../Modal.tsx';
@@ -59,9 +59,7 @@ const Home: React.FC = () => {
             firstName: firstName,
             lastName: lastName,
             emailAddress: emailAddress,
-            purchaseNames: [],
-            purchaseAmounts: [],
-            holdingDates: []
+            transactions: []
         };
 
         const response: ResponseEntity = await createUser(user);

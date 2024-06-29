@@ -23,7 +23,7 @@ public class AssetEntity {
 
     private String exchange;
 
-    private String type;
+    private String sector;
     
     private Double[] prices;
 }
