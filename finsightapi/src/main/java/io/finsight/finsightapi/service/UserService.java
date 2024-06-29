@@ -84,7 +84,7 @@ public class UserService {
      * 
      * @param emailAddress of the user to get from the database.
      * @return a ResponseEntity consisting of a user entity optional, which
-     *         is xempty if not found, along with an HTTP status.
+     *         is empty if not found, along with an HTTP status.
      */
     public ResponseEntity<Optional<UserEntity>> getUserByEmailAddress(String emailAddress) {
         try {
