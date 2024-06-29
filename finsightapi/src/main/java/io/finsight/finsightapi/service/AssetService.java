@@ -20,16 +20,16 @@ public class AssetService {
     /* READ OPERATIONS */
 
     /**
-     * Get the asset from the database with the specified name. If the
+     * Get the asset from the database with the specified ticker. If the
      * asset does not exist, return a NOT_FOUND status.
      * 
-     * @param name of the asset to get from the database.
+     * @param ticker of the asset to get from the database.
      * @return a ResponseEntity consisting of an asset entity optional,
      *         which is empty if not found, along with an HTTP status.
      */
-    public ResponseEntity<Optional<AssetEntity>> getAssetByName(String name) {
+    public ResponseEntity<Optional<AssetEntity>> getAssetByTicker(String ticker) {
         try {
-            Optional<AssetEntity> asset = assetRepository.findById(name);
+            Optional<AssetEntity> asset = assetRepository.findById(ticker);
             if (asset.isEmpty()) {
                 return new ResponseEntity<>(asset, HttpStatus.NOT_FOUND);
             }
@@ -43,15 +43,15 @@ public class AssetService {
     /* UPDATE OPERATIONS */
 
     /**
-     * Update the prices of the asset with the specified name. If the
-     * asset does not exist, return a NOT_FOUND status.
+     * Add the new price to the prices of the asset with the specified
+     * ticker. If the asset does not exist, return a NOT_FOUND status.
      * 
-     * @param name of the asset to update the prices of.
-     * @param newPrices to update to.
+     * @param ticker of the asset to update the prices of.
+     * @param newPrice to add to the prices.
      * @return a ResponseEntity consisting of an HTTP status.
      */
-    public ResponseEntity<Void> setAssetPrices(String name, Double[] newPrices) {
-        ResponseEntity<Optional<AssetEntity>> assetResponseEntity = getAssetByName(name);
+    public ResponseEntity<Void> addAssetPrice(String ticker, Double newPrice) {
+        ResponseEntity<Optional<AssetEntity>> assetResponseEntity = getAssetByTicker(ticker);
         if (assetResponseEntity.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -62,6 +62,12 @@ public class AssetService {
         }
 
         AssetEntity asset = optionalAsset.get();
+
+        Double[] currentPrices = asset.getPrices();
+        Double[] newPrices = new Double[currentPrices.length + 1];
+        System.arraycopy(currentPrices, 0, newPrices, 0, currentPrices.length);
+        newPrices[currentPrices.length] = newPrice;
+
         try {
             asset.setPrices(newPrices);
             assetRepository.save(asset);
@@ -70,8 +76,4 @@ public class AssetService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    /* AUTOMATED TASKS */
-
-    // public void dailyAssetPriceUpdate()
 }

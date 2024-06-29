@@ -59,8 +59,9 @@ const Home: React.FC = () => {
             firstName: firstName,
             lastName: lastName,
             emailAddress: emailAddress,
-            assetNames: [],
-            assetAmounts: []
+            purchaseNames: [],
+            purchaseAmounts: [],
+            holdingDates: []
         };
 
         const response: ResponseEntity = await createUser(user);

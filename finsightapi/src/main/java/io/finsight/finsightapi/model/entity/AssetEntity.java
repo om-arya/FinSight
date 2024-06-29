@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 public class AssetEntity {
 
     @Id
-    private String name;
-
     private String ticker;
 
-    private String type;
+    private String name;
 
-    private String color;
+    private String exchange;
+
+    private String type;
     
     private Double[] prices;
 }

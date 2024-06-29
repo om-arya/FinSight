@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -27,19 +27,19 @@ public class AssetController {
         this.assetMapper = assetMapper;
     }
 
-    /* READ METHODS */
+    /* READ ENDPOINTS */
 
     /**
-     * Get the asset from the database with the specified name. If the
+     * Get the asset from the database with the specified ticker. If the
      * asset does not exist, the service returns a NOT_FOUND status.
      * 
-     * @param name of the asset to get from the database.
+     * @param ticker of the asset to get from the database.
      * @return a ResponseEntity consisting of an asset DTO, which is
      *         empty if not found, along with an HTTP status.
      */
-    @GetMapping(path = "/assets/{name}")
-    public ResponseEntity<AssetDto> getAssetByName(@PathVariable String name) {
-        ResponseEntity<Optional<AssetEntity>> responseEntity = assetService.getAssetByName(name);
+    @GetMapping(path = "/assets/{ticker}")
+    public ResponseEntity<AssetDto> getAssetByTicker(@PathVariable String ticker) {
+        ResponseEntity<Optional<AssetEntity>> responseEntity = assetService.getAssetByTicker(ticker);
 
         Optional<AssetEntity> optionalAssetEntity = responseEntity.getBody();
         AssetEntity assetEntity = optionalAssetEntity != null ? optionalAssetEntity.get() : null;
@@ -49,18 +49,19 @@ public class AssetController {
         return new ResponseEntity<>(assetDto, status);
     }
 
-    /* UPDATE METHODS */
+    /* UPDATE ENDPOINTS */
 
     /**
-     * Update the prices of the asset with the specified name. If the
-     * asset does not exist, the service returns a NOT_FOUND status.
+     * Add the new price to the prices of the asset with the specified
+     * ticker. If the asset does not exist, the service returns a
+     * NOT_FOUND status.
      * 
-     * @param name of the asset to update the prices of.
-     * @param newPrices to update to.
+     * @param ticker of the asset to update the prices of.
+     * @param newPrice to add to the prices.
      * @return a ResponseEntity consisting of an HTTP status.
      */
-    @PatchMapping(path = "/assets/{name}")
-    public ResponseEntity<Void> setAssetPrices(@PathVariable String name, @RequestBody Double[] newPrices) {
-        return assetService.setAssetPrices(name, newPrices);
+    @PatchMapping(path = "/assets/{ticker}")
+    public ResponseEntity<Void> addAssetPrice(@PathVariable String ticker, @RequestParam Double newPrice) {
+        return assetService.addAssetPrice(ticker, newPrice);
     }
 }

@@ -29,5 +29,5 @@ public class UserEntity {
     // accurate statistical displays
     private String[] purchaseNames;
     private Integer[] purchaseAmounts;
-    private String[] purchaseDates;
+    private String[] holdingDates; // (price on date sold) - (price on date bought) used for calculations
 }

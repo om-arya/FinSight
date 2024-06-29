@@ -31,7 +31,7 @@ public class UserController {
         this.userMapper = userMapper;
     }
     
-    /* CREATE METHODS */
+    /* CREATE ENDPOINTS */
 
     /**
      * Create a new user to save into the database. If a user with this
@@ -49,7 +49,7 @@ public class UserController {
         return userService.createUser(userEntity);
     }
 
-    /* READ METHODS */
+    /* READ ENDPOINTS */
 
     /**
      * Get the user from the database with the specified username. If the
@@ -89,7 +89,7 @@ public class UserController {
         return new ResponseEntity<>(userDto, responseEntity.getStatusCode());
     }
 
-    /* UPDATE METHODS */
+    /* UPDATE ENDPOINTS */
 
     /**
      * Update the firstName of the user who has the specified username. If
@@ -143,7 +143,7 @@ public class UserController {
         return userService.setUserPassword(username, newPassword);
     }
 
-    /* DELETE METHODS */
+    /* DELETE ENDPOINTS */
 
     /**
      * Delete the user with the specified username from the database. If
@@ -154,6 +154,6 @@ public class UserController {
      */
     @DeleteMapping(path = "/users/{username}")
     public ResponseEntity<Void> deleteUser(@PathVariable String username) {
-        return userService.deleteUserByUsername(username);
+        return userService.deleteUser(username);
     }
 }
