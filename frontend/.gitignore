@@ -10,8 +10,7 @@ node_modules
 dist
 dist-ssr
 *.local
-TD_KEY.*
-**/api/tickers
+tickers.txt
 **/api/assets
 *.py
 
