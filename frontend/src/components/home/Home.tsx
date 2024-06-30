@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { User, Transaction, ResponseEntity, createUser } from '../api/UserAPI.ts';
-import './home.css';
+import { User, Transaction, ResponseEntity, createUser } from '../../api/UserAPI.ts';
+import '../../static/home.css';
 
 import Modal from '../Modal.tsx';
 
@@ -12,6 +12,7 @@ const Home: React.FC = () => {
         const root = document.querySelector(':root') as HTMLElement;
         
         root.style.setProperty("--bg-main-color", "white");
+        root.style.setProperty("--text-main-color", "black");
         root.style.background = "var(--bg-main-color)";
     }, [])
 
@@ -108,14 +109,6 @@ const Home: React.FC = () => {
     return (
         <>
             <div className="home">
-                <h1>Welcome to FinSight.</h1>
-                <p>Get started now.</p>
-                
-                <Modal open={isOpen}>
-                    { modalContent }
-                    <div className={registerSuccess ? "register-message success" : "register-message failure"}>{registerMessage}</div>
-                </Modal>
-
                 <div className="entry-button-container">
                     <div className="entry-button signup-button" onClick={() => openSignup()}>
                         <h3>Sign Up</h3>
@@ -123,8 +116,21 @@ const Home: React.FC = () => {
                     <div className="entry-button login-button" onClick={() => openLogin()}>
                         <h3>Log In</h3>
                     </div>
+                    <div className="guest-login-container">
+                        <a href="/dashboard" className="guest-login-button" target="_blank"><h3>Try FinSight →</h3></a>
+                        <p>Log in as Guest.<br />Note: Your changes will not be saved.</p>
+                    </div>
                 </div>
-                <Link to="/dashboard" className="demo-button" target="_blank"><h3>Try a Demo →</h3></Link>
+
+                <div className="welcome-text-container">
+                    <h1>Welcome to FinSight.</h1>
+                    <p>Get started now.</p>
+                </div>
+                
+                <Modal open={isOpen}>
+                    { modalContent }
+                    <div className={registerSuccess ? "register-message success" : "register-message failure"}>{registerMessage}</div>
+                </Modal>
             </div>
         </>
     )

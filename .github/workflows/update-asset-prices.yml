@@ -2,8 +2,8 @@ name: Update Asset Prices
 
 on:
   schedule:
-    # Run at 05:00 UTC (12:00 AM EST) daily
-    - cron: '0 5 * * *'
+    # Run at 06:00 UTC (2:00 AM EST) daily
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      run: npm install
+      run: cd frontend && npm install
     
     - name: Launch Spring Boot / React apps
       run: ./start.sh

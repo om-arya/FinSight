@@ -1,26 +1,40 @@
 .home {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    padding: 10rem 15rem;
+    justify-content: center;
+    padding: 15rem 20rem;
 }
 
-.home h1 {
+.home > * {
+    font-family: 'Alliance No.1';
+}
+
+.welcome-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.welcome-text-container h1 {
+    text-align: right;
     font-size: 5rem;
+    font-weight: 500;
 }
 
-.home p {
+.welcome-text-container p {
+    margin-top: 2rem;
+    text-align: right;
     font-size: 2rem;
 }
 
 .entry-button-container {
     display: flex;
-    flex-direction: row;
-    margin-top: 10rem;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    width: 100%;
+    width: 50%;
     height: 100%;
 }
 
@@ -28,8 +42,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 12rem;
-    height: 6rem;
+    width: 20rem;
+    height: 4rem;
     border-radius: 10px;
     transition: box-shadow .3s ease;
     user-select: none;
@@ -43,21 +57,21 @@
 }
 
 .signup-button {
-    box-shadow: 0 0 .2rem var(--custom-darkblue);
-    background: var(--custom-darkblue);
+    box-shadow: 0 0 .2rem var(--custom-sunsetpink);
+    background: var(--custom-sunsetpink);
 }
 
 .signup-button:hover {
-    box-shadow: 0 0 .5rem var(--custom-darkblue);
+    box-shadow: 0 0 .5rem var(--custom-sunsetpink);
 }
 
 .login-button {
-    box-shadow: 0 0 .2rem var(--custom-orange);
-    background: var(--custom-orange);
+    box-shadow: 0 0 .2rem var(--custom-sunsetpink);
+    background: var(--custom-sunsetpink);
 }
 
 .login-button:hover {
-    box-shadow: 0 0 .5rem var(--custom-orange);
+    box-shadow: 0 0 .5rem var(--custom-sunsetpink);
 }
 
 .submit-button {
@@ -77,15 +91,31 @@
     box-shadow: 0 0 .5rem var(--custom-darkblue);
 }
 
-.demo-button {
+.guest-login-container {
+    display: flex;
+    flex-direction: column;
     margin-top: 2rem;
+    gap: .5rem;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.guest-login-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 1rem;
+    width: 20rem;
+    height: 4rem;
     border-radius: 10px;
     box-shadow: 0 0 .5rem var(--text-main-color);
     transition: box-shadow .3s ease;
+    user-select: none;
+    cursor: pointer;
 }
 
-.demo-button:hover {
+.guest-login-button:hover {
     box-shadow: 0 0 .7rem var(--text-main-color);
 }
 
@@ -94,9 +124,9 @@
 }
 
 .register-message.success {
-    color: green;
+    color: var(--custom-green);
 }
 
 .register-message.failure {
-    color: red;
+    color: var(--custom-red);
 }

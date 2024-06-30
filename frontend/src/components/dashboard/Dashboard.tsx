@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import './dashboard.css';
+import { getAssetByTicker } from '../../api/AssetAPI.ts';
+import '../../static/dashboard.css';
 
-import Navbar from '../Navbar';
+import Navbar from '../Navbar.tsx';
 import Graph from './Graph';
 
 const Dashboard: React.FC = () => {
@@ -9,6 +10,7 @@ const Dashboard: React.FC = () => {
         const root = document.querySelector(':root') as HTMLElement;
         
         root.style.setProperty("--bg-main-color", "#fafafa");
+        root.style.setProperty("--text-main-color", "black");
         root.style.background = "var(--bg-third-color)";
     }, [])
 

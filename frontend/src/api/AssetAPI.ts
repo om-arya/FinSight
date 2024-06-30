@@ -40,12 +40,11 @@ export async function createAsset(asset: Asset) {
  * asset does not exist, the controller returns a NOT_FOUND status.
  * 
  * @param ticker of the asset to get from the database.
- * @returns a ResponseEntity consisting of an asset object, which is
- *          empty if not found, along with an HTTP status.
+ * @returns an asset object, which is empty if not found.
  */
 export async function getAssetByTicker(ticker: string) {
     const response = await axios.get<ResponseEntity>(API_URL + '/' + ticker);
-    return response;
+    return response.data;
 }
 
 /* UPDATE ENDPOINTS */

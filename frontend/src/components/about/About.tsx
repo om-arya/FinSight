@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './about.css';
+import '../../static/about.css';
 
 import Navbar from '../Navbar';
 
@@ -8,6 +8,7 @@ const About: React.FC = () => {
         const root = document.querySelector(':root') as HTMLElement;
 
         root.style.setProperty("--bg-main-color", "#fafafa");
+        root.style.setProperty("--text-main-color", "black");
         root.style.background = "var(--bg-main-color)";
     }, [])
 
@@ -25,9 +26,9 @@ const About: React.FC = () => {
 
                 <h1>Why FinSight?</h1>
                 <p>
-                    You may be wondering to yourself: "Why should I use FinSight? There are so many other portfolio trackers out there."
-                    Well, FinSight is not just <i>any</i> portfolio tracker, but a portfolio <i>manager</i>. This software provides
-                    unparalleled functionality compared to its competitors, such as performance metrics and market prediction embedded
+                    You may be wondering to yourself: "Why should I use FinSight over other portfolio trackers?"
+                    Well, FinSight is not just any portfolio tracker, but a portfolio <i>manager</i>. This software provides
+                    unparalleled functionality compared to its competitors, such as performance metrics and market rankings embedded
                     right into your dashboard.
                 </p>
 
@@ -40,7 +41,7 @@ const About: React.FC = () => {
                 <h1>Closing</h1>
                 <p>
                     Thank you for using FinSight. I hope this software was able to provide value to your life in some way. If you have
-                    any feedback, please don't hesitate to reach out!
+                    any feedback, please don't hesitate to reach out.
                 </p>
                 <p>Best Regards,<br />Om</p>
             </div>

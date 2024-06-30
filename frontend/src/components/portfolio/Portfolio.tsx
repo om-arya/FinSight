@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
-import './portfolio.css';
+import React, { useEffect, useState } from 'react';
+import { Asset, ResponseEntity, getAssetByTicker } from '../../api/AssetAPI.ts';
+import '../../static/portfolio.css';
 
 import Navbar from '../Navbar';
 
@@ -8,8 +9,19 @@ const Portfolio: React.FC = () => {
         const root = document.querySelector(':root') as HTMLElement;
         
         root.style.setProperty("--bg-main-color", "#fafafa");
+        root.style.setProperty("--text-main-color", "black");
         root.style.background = "var(--bg-third-color)";
     }, [])
+
+    const [data, setData] = useState(null);
+
+    async function displayAsset(ticker: string) {
+        const response: any = await getAssetByTicker(ticker);
+        setData(response.prices[response.prices.length - 1]);
+    }
+
+    displayAsset('AAPL');
+
 
     return (
         <>
@@ -32,9 +44,9 @@ const Portfolio: React.FC = () => {
                         <span>-23.23%↓</span>
                     </div>
                     <div className="asset-card">
-                        <h3>APPL</h3>
+                        <h3>AAPL</h3>
                         <h4>Apple</h4>
-                        <p>$123.14</p>
+                        <p>${ data }</p>
                         <span>+1.33%↑</span>
                     </div>
                 </div>
