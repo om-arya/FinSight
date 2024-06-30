@@ -1,4 +1,4 @@
-package io.finsight.finsightapi.model.entity;
+package io.finsight.finsightapi.model;
 
 import jakarta.persistence.Embeddable;
 import lombok.Data;

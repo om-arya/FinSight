@@ -1,5 +1,6 @@
 package io.finsight.finsightapi.model.entity;
 
+import io.finsight.finsightapi.model.Transaction;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
