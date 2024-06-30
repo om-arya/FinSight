@@ -10,13 +10,14 @@ interface EODData {
 }
 
 // Update asset prices daily at midnight (12:00 AM EST) via GitHub Actions.
-updateAssetPrices().catch(console.error);
+updateAssetPrices();
 
 /**
  * Get the new prices for each ticker and send them to the back end
  * to be stored in the database.
  */
 async function updateAssetPrices() {
+    console.log("POINT1");
     const responses: EODData[] = await getEODData(TICKERS);
 
     const tickers: string[] = []
@@ -32,6 +33,7 @@ async function updateAssetPrices() {
 
     for (let i = 0; i < tickers.length; i++) {
         await addAssetPrice(tickers[i], prices[i]);
+        console.log("POINT3")
     }
 }
 
@@ -46,6 +48,7 @@ const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
  *          provided tickers.
  */
 async function getEODData(tickers: string[]): Promise<EODData[]> {
+    console.log("POINT2");
     const TD_URL = `https://api.twelvedata.com/eod?apikey=${TD_PROD_KEY}&dp=2&symbol=`;
 
     let responses: EODData[] = [];
