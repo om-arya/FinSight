@@ -43,11 +43,6 @@ jobs:
     
     - name: Launch apps
       run: ./start.sh
-    
-    - name: Wait for apps (fixed duration)
-      uses: actions/checkout@v4
-      with:
-        args: --single-branch --no-fetch -f sleep 20
 
     - name: Run update script
       run: cd frontend/src/api && node --loader ts-node/esm TwelveDataAPI.ts
