@@ -20,6 +20,9 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    - name: Install dependencies
+      run: mvn clean install
+
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
