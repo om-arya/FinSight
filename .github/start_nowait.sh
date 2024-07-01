@@ -6,7 +6,7 @@ pg_ctl -D "/Users/omarya/Library/Application Support/Postgres/FinSightServer" st
 sleep 2
 
 echo "Starting Spring Boot application..."
-cd finsightapi
+cd ../finsightapi
 ./mvnw spring-boot:run &
 BACKEND_PID=$!
 
