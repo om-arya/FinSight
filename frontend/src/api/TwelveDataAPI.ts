@@ -19,20 +19,13 @@ updateAssetPrices();
 async function updateAssetPrices() {
     const responses: EODData[] = await getEODData(TICKERS);
 
-    const tickers: string[] = []
-    const prices: number[] = []
-
-    responses.forEach((response) => {
+    responses.forEach(async (response) => {
         for (const key in response.data) {
             const data = response.data[key];
-            tickers.push(data[key].symbol);
-            prices.push(data[key].close);
+            console.log(data);
+            await addAssetPrice(data.symbol, data.close);
         }
     })
-
-    for (let i = 0; i < tickers.length; i++) {
-        await addAssetPrice(tickers[i], prices[i]);
-    }
 }
 
 const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));

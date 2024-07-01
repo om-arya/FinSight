@@ -9,6 +9,8 @@
     font-family: 'Inter';
 }
 
+/* LEFT SIDE */
+
 .home .left-side {
     display: flex;
     flex-direction: column;
@@ -32,9 +34,12 @@
     box-shadow: 0 0 1rem var(--bg-main-color);
 }
 
+/* RIGHT SIDE */
+
 .home .right-side {
     display: flex;
     flex-direction: column;
+    padding: 0 2rem;
     align-items: center;
     justify-content: center;
     width: 50%;
@@ -43,10 +48,11 @@
 }
 
 .login-header {
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
 }
 
 .login-header h1 {
+    text-align: left;
     font-size: 2.7rem;
     font-weight: 600;
     color: var(--custom-red);
@@ -57,24 +63,28 @@
     font-size: 1rem;
 }
 
-.home .input-container {
+.login-panel .error-message {
+    color: var(--custom-lightred);
+}
+
+.login-panel .input-container {
     position: relative;
 }
 
-.home .input-container .icon {
+.login-panel .input-container .icon {
     position: absolute;
     top: 1.5rem;
     left: .5rem;
     font-size: 2rem;
 }
 
-.home .input-container #user-icon {
+.login-panel .input-container #user-icon {
     top: 1.6rem;
     left: .65rem;
     font-size: 1.7rem;
 }
 
-.home input {
+.login-panel input {
     margin-top: 1rem;
     padding: 1rem 1rem 1rem 2.8rem;
     width: 100%;
@@ -82,11 +92,11 @@
     font-size: 1.1rem;
 }
 
-.create-account-button {
+.login-panel .create-account-button {
     margin-top: .4rem;
 }
 
-.create-account-button p {
+.login-panel .create-account-button p {
     margin-left: -.8rem;
     padding: .7rem;
     width: 11rem;
@@ -97,8 +107,8 @@
     transition: .2s ease;
 }
 
-.create-account-button p:hover {
-    background: rgba(29, 112, 195, .05);
+.login-panel .create-account-button p:hover {
+    background: var(--translucent-blue);
 }
 
 .login-button {
@@ -108,7 +118,7 @@
     justify-content: center;
     width: 100%;
     height: 4rem;
-    border-radius: 10px;
+    border-radius: 25px;
     background: var(--custom-red);
     cursor: pointer;
     user-select: none;
@@ -130,7 +140,7 @@
     margin-top: 1.4rem;
 }
 
-.home .right-side span {
+.guest-login span {
     margin-left: .1rem;
     padding: .3rem;
     border-radius: 20px;
@@ -138,6 +148,127 @@
     transition: .2s ease;
 }
 
-.home .right-side span:hover {
-    background: rgba(29, 112, 195, .05);
+.guest-login span:hover {
+    background: var(--translucent-blue);
+}
+
+/* SIGNUP PANEL */
+
+.signup-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+}
+
+.signup-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .5rem;
+    gap: .3rem;
+}
+
+.signup-header h1 {
+    text-align: center;
+    font-weight: 500;
+    color: var(--custom-red);
+}
+
+.signup-header p {
+    margin-top: .3rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.signup-panel .error-message {
+    align-self: center;
+    width: 25rem;
+    text-align: center;
+    color: var(--custom-lightred);
+}
+
+.signup-panel .input-container {
+    position: relative;
+}
+
+.signup-panel .input-container .icon {
+    position: absolute;
+    top: 1.5rem;
+    left: .5rem;
+    font-size: 2rem;
+}
+
+.signup-panel .input-container #user-icon {
+    top: 1.6rem;
+    left: .65rem;
+    font-size: 1.7rem;
+}
+
+.signup-panel input {
+    margin-top: 1rem;
+    padding: 1rem 1rem 1rem 2.8rem;
+    width: 100%;
+    height: 3rem;
+    font-size: 1.1rem;
+}
+
+.signup-button-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5rem;
+    align-self: center;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.cancel-button {
+    display: flex;
+    margin-top: .4rem;
+    justify-self: left;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    height: 2.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.cancel-button:hover {
+    background: var(--translucent-blue);
+}
+
+.cancel-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--custom-blue);
+}
+
+.signup-button {
+    display: flex;
+    margin-top: .4rem;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 55%;
+    height: 3rem;
+    border-radius: 20px;
+    background: var(--custom-red);
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.signup-button:hover {
+    box-shadow: 0 0 .3rem var(--custom-midred);
+    background: var(--custom-midred);
+}
+
+.signup-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--bg-main-color);
 }
