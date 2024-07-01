@@ -23,16 +23,20 @@
     display: flex;
     width: 35vw;
     height: 35vw;
+    border-radius: 100%;
     user-select: none;
-    pointer-events: none;
+    transition: box-shadow .2s ease;
+}
+
+.home .left-side .logo:hover {
+    box-shadow: 0 0 1rem var(--bg-main-color);
 }
 
 .home .right-side {
     display: flex;
     flex-direction: column;
-    padding: 10rem 0;
     align-items: center;
-    justify-content: top;
+    justify-content: center;
     width: 50%;
     height: 100vh;
     background: var(--bg-main-color);
@@ -44,11 +48,12 @@
 
 .login-header h1 {
     font-size: 2.7rem;
+    font-weight: 600;
     color: var(--custom-red);
 }
 
 .login-header p {
-    margin-top: 1rem;
+    margin-top: .7rem;
     font-size: 1rem;
 }
 
@@ -63,6 +68,12 @@
     font-size: 2rem;
 }
 
+.home .input-container #user-icon {
+    top: 1.6rem;
+    left: .65rem;
+    font-size: 1.7rem;
+}
+
 .home input {
     margin-top: 1rem;
     padding: 1rem 1rem 1rem 2.8rem;
@@ -72,18 +83,27 @@
 }
 
 .create-account-button {
-    margin-top: 1.5rem;
+    margin-top: .4rem;
 }
 
 .create-account-button p {
-    text-align: left;
+    margin-left: -.8rem;
+    padding: .7rem;
+    width: 11rem;
+    text-align: center;
+    border-radius: 20px;
     color: var(--custom-blue);
     cursor: pointer;
+    transition: .2s ease;
+}
+
+.create-account-button p:hover {
+    background: rgba(29, 112, 195, .05);
 }
 
 .login-button {
     display: flex;
-    margin-top: 1.5rem;
+    margin-top: .4rem;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -92,11 +112,12 @@
     background: var(--custom-red);
     cursor: pointer;
     user-select: none;
-    transition: box-shadow .2s ease;
+    transition: .2s ease;
 }
 
 .login-button:hover {
-    box-shadow: 0 0 .3rem var(--custom-red);
+    box-shadow: 0 0 .3rem var(--custom-midred);
+    background: var(--custom-midred);
 }
 
 .login-button p {
@@ -106,9 +127,17 @@
 }
 
 .guest-login {
-    margin-top: 2rem;
+    margin-top: 1.4rem;
 }
 
 .home .right-side span {
+    margin-left: .1rem;
+    padding: .3rem;
+    border-radius: 20px;
     color: var(--custom-blue);
+    transition: .2s ease;
+}
+
+.home .right-side span:hover {
+    background: rgba(29, 112, 195, .05);
 }

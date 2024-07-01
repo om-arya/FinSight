@@ -47,18 +47,18 @@ const LoginPanel: React.FC = () => {
     return (
         <div className="login-panel">
             <div className="login-header">
-                <h1>Welcome to FinSight</h1>
+                <h1>Welcome to FinSight.</h1>
                 <p>Please enter your credentials to log in to your account.</p>
             </div>
 
             <div className="input-container">
-                <FaRegUser className="icon" />
+                <FaRegUser className="icon" id="user-icon" />
                 <input type="text" name="usernameOrEmail" placeholder="Your username or email"
                        onChange={e => setUsernameOrEmail(e.target.value)}/>
             </div>
             <div className="input-container">
                 <MdLockOutline className="icon" />
-                <input type="text" name="password" placeholder="Your password"
+                <input type="password" name="password" placeholder="Your password"
                        onChange={e => setPassword(e.target.value)}/>
             </div>
 

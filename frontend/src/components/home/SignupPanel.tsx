@@ -19,7 +19,7 @@ const SignupPanel: React.FC = () => {
             <p>Please fill out the following fields to create your account.</p>
 
             <div className="input-container">
-                <FaRegUser className="icon" />
+                <FaRegUser className="icon" id="user-icon" />
                 <input type="text" name="username" placeholder="Your username"/>
             </div>
             <div className="input-container">
@@ -28,11 +28,11 @@ const SignupPanel: React.FC = () => {
             </div>
             <div className="input-container">
                 <MdLockOutline className="icon" />
-                <input type="text" name="password" placeholder="Your password"/>
+                <input type="password" name="password" placeholder="Your password"/>
             </div>
             <div className="input-container">
                 <MdLockOutline className="icon" />
-                <input type="text" name="confirmPassword" placeholder="Confirm your password"/>
+                <input type="password" name="confirmPassword" placeholder="Confirm your password"/>
             </div>
 
             <div className="signup-button" onClick={() => createAccount()}>

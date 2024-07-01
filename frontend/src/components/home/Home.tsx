@@ -22,7 +22,7 @@ const Home: React.FC = () => {
             </div>
             <div className="right-side">
                 <LoginPanel />
-                <p className="guest-login">Just visiting? <Link to="/dashboard" target="_blank"><span>Log in as a Guest.</span></Link></p>
+                <p className="guest-login">Just visiting?<Link to="/dashboard" target="_blank"><span>Log in as a Guest.</span></Link></p>
             </div>
         </div>
     )
