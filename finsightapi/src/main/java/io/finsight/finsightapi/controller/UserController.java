@@ -59,7 +59,7 @@ public class UserController {
      * @return a ResponseEntity consisting of a user DTO, which is empty
      *         if not found, along with an HTTP status.
      */
-    @GetMapping(path = "/users/username/{username}")
+    @GetMapping(path = "/users/{username}")
     public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username) {
         ResponseEntity<Optional<UserEntity>> responseEntity = userService.getUserByUsername(username);
 

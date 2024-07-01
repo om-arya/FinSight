@@ -16,6 +16,3 @@ echo "Starting React application..."
 cd ../frontend
 npm run dev &
 FRONTEND_PID=$!
-
-wait $BACKEND_PID
-wait $FRONTEND_PID

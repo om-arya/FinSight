@@ -3,130 +3,112 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 15rem 20rem;
 }
 
 .home > * {
-    font-family: 'Alliance No.1';
+    font-family: 'Inter';
 }
 
-.welcome-text-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.welcome-text-container h1 {
-    text-align: right;
-    font-size: 5rem;
-    font-weight: 500;
-}
-
-.welcome-text-container p {
-    margin-top: 2rem;
-    text-align: right;
-    font-size: 2rem;
-}
-
-.entry-button-container {
+.home .left-side {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
     width: 50%;
-    height: 100%;
+    height: 100vh;
+    background: var(--custom-darkred);
 }
 
-.entry-button {
+.home .left-side .logo {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20rem;
-    height: 4rem;
-    border-radius: 10px;
-    transition: box-shadow .3s ease;
+    width: 35vw;
+    height: 35vw;
     user-select: none;
-    cursor: pointer;
+    pointer-events: none;
 }
 
-.entry-button h3 {
+.home .right-side {
+    display: flex;
+    flex-direction: column;
+    padding: 10rem 0;
+    align-items: center;
+    justify-content: top;
+    width: 50%;
+    height: 100vh;
+    background: var(--bg-main-color);
+}
+
+.login-header {
+    margin-bottom: 3rem;
+}
+
+.login-header h1 {
+    font-size: 2.7rem;
+    color: var(--custom-red);
+}
+
+.login-header p {
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+.home .input-container {
+    position: relative;
+}
+
+.home .input-container .icon {
+    position: absolute;
+    top: 1.5rem;
+    left: .5rem;
     font-size: 2rem;
-    font-weight: 400;
-    color: var(--bg-second-color);
 }
 
-.signup-button {
-    box-shadow: 0 0 .2rem var(--custom-sunsetpink);
-    background: var(--custom-sunsetpink);
+.home input {
+    margin-top: 1rem;
+    padding: 1rem 1rem 1rem 2.8rem;
+    width: 100%;
+    height: 3rem;
+    font-size: 1.1rem;
 }
 
-.signup-button:hover {
-    box-shadow: 0 0 .5rem var(--custom-sunsetpink);
+.create-account-button {
+    margin-top: 1.5rem;
+}
+
+.create-account-button p {
+    text-align: left;
+    color: var(--custom-blue);
+    cursor: pointer;
 }
 
 .login-button {
-    box-shadow: 0 0 .2rem var(--custom-sunsetpink);
-    background: var(--custom-sunsetpink);
+    display: flex;
+    margin-top: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 4rem;
+    border-radius: 10px;
+    background: var(--custom-red);
+    cursor: pointer;
+    user-select: none;
+    transition: box-shadow .2s ease;
 }
 
 .login-button:hover {
-    box-shadow: 0 0 .5rem var(--custom-sunsetpink);
+    box-shadow: 0 0 .3rem var(--custom-red);
 }
 
-.submit-button {
-    align-self: center;
-    padding: 1rem;
+.login-button p {
     text-align: center;
-    font-size: 1.3rem;
-    border-radius: 10px;
-    box-shadow: 0 0 .2rem var(--custom-darkblue);
-    background: var(--custom-darkblue);
-    color: var(--bg-second-color);
-    transition: box-shadow .3s ease;
-    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--bg-main-color);
 }
 
-.submit-button:hover {
-    box-shadow: 0 0 .5rem var(--custom-darkblue);
-}
-
-.guest-login-container {
-    display: flex;
-    flex-direction: column;
+.guest-login {
     margin-top: 2rem;
-    gap: .5rem;
-    width: 100%;
-    height: 100%;
-    text-align: center;
 }
 
-.guest-login-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    width: 20rem;
-    height: 4rem;
-    border-radius: 10px;
-    box-shadow: 0 0 .5rem var(--text-main-color);
-    transition: box-shadow .3s ease;
-    user-select: none;
-    cursor: pointer;
-}
-
-.guest-login-button:hover {
-    box-shadow: 0 0 .7rem var(--text-main-color);
-}
-
-.register-message {
-    margin-top: 1rem;
-}
-
-.register-message.success {
-    color: var(--custom-green);
-}
-
-.register-message.failure {
-    color: var(--custom-red);
+.home .right-side span {
+    color: var(--custom-blue);
 }

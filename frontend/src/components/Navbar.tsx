@@ -5,7 +5,7 @@ import '../index.css';
 const Navbar: React.FC = () => {
     return (
         <nav className="navbar">
-            <a href="/dashboard" className="site-logo"><img src="../../public/fs_logo.jpg" /></a>
+            <a href="/dashboard" className="site-logo"><img src="/fs_olivebranches.png" /></a>
             <div className="nav-button-container">
                     <CustomLink id="dashboard-link" to="/dashboard">Dashboard</CustomLink>
                     <CustomLink id="portfolio-link" to="/portfolio">Portfolio</CustomLink>

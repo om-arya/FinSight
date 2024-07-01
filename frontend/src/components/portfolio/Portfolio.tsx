@@ -7,10 +7,12 @@ import Navbar from '../Navbar';
 const Portfolio: React.FC = () => {
     useEffect(() => {
         const root = document.querySelector(':root') as HTMLElement;
+        const html = document.querySelector('html') as HTMLElement;
         
         root.style.setProperty("--bg-main-color", "#fafafa");
         root.style.setProperty("--text-main-color", "black");
         root.style.background = "var(--bg-third-color)";
+        html.style["overflow-y"] = "scroll";
     }, [])
 
     const [data, setData] = useState(null);
