@@ -63,7 +63,7 @@ export async function getAssetByTicker(ticker: string) {
  */
 
 export async function addAssetPrice(ticker: string, newPrice: number) {
-    const response = await axios.patch<ResponseEntity>(API_URL + '/' + ticker, newPrice);
+    const response = await axios.patch<ResponseEntity>(API_URL + '/' + ticker + "?newPrice=" + newPrice);
     return response;
 }
 

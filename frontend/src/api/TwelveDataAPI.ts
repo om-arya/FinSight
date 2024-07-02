@@ -9,7 +9,7 @@ interface EODData {
     close: number;
 }
 
-// Update asset prices daily at midnight (12:00 AM EST) via GitHub Actions.
+// Update asset prices daily at 2:00 AM EST via GitHub Actions.
 updateAssetPrices();
 
 /**
@@ -22,8 +22,9 @@ async function updateAssetPrices() {
     responses.forEach(async (response) => {
         for (const key in response.data) {
             const data = response.data[key];
-            console.log(data);
-            await addAssetPrice(data.symbol, data.close);
+            const ticker: string = data.symbol;
+            const newPrice: number = parseFloat(data.close);
+            await addAssetPrice(ticker, newPrice);
         }
     })
 }
@@ -32,7 +33,7 @@ const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 /**
  * Fetch the EOD data for each of the provided tickers.
- * The process will take 70 seconds for 8 requests at a time.
+ * The process will take 65 seconds for 8 requests at a time.
  * 
  * @param tickers to fetch the EOD data for.
  * @returns a JSON object consisting of EOD data for each of the
@@ -45,7 +46,7 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
     const batchLimit = 8;
     let count = 1;
     // API limit is 8 requests per minute, so we send 8 requests
-    // every 70 seconds.
+    // every 65 seconds.
     while (count < tickers.length) {
         const ticker_batch: string[] = tickers.slice(count, count + batchLimit);
 
@@ -58,7 +59,7 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
         }
 
         if (count < tickers.length) {
-            await sleep(70000);
+            await sleep(65000);
         }
     }
 

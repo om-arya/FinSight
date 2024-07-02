@@ -24,7 +24,6 @@ const Portfolio: React.FC = () => {
 
     displayAsset('AAPL');
 
-
     return (
         <>
             <Navbar />
