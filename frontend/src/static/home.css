@@ -137,14 +137,19 @@
 }
 
 .guest-login {
-    margin-top: 1.4rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1.3rem;
 }
 
 .guest-login span {
+    display: flex;
     margin-left: .1rem;
     padding: .3rem;
     border-radius: 20px;
     color: var(--custom-blue);
+    cursor: pointer;
     transition: .2s ease;
 }
 
@@ -229,7 +234,7 @@
     justify-self: left;
     align-items: center;
     justify-content: center;
-    width: 25%;
+    width: 30%;
     height: 2.5rem;
     border-radius: 20px;
     cursor: pointer;

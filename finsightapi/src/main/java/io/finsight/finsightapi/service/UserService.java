@@ -1,5 +1,6 @@
 package io.finsight.finsightapi.service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -60,7 +61,7 @@ public class UserService {
 
     /**
      * Get the user from the database with the specified username. If the
-     * user does not exist, return a NOT_FOUND status.
+     * user does not exist, return an empty body.
      * 
      * @param username of the user to get from the database.
      * @return a ResponseEntity consisting of a user entity optional, which
@@ -69,11 +70,9 @@ public class UserService {
     public ResponseEntity<Optional<UserEntity>> getUserByUsername(String username) {
         try {
             Optional<UserEntity> user = userRepository.findById(username);
-            if (user.isEmpty()) {
-                return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
-            }
-
             return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
         } catch (Exception exception) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -81,7 +80,7 @@ public class UserService {
 
     /**
      * Get the user from the database with the specified emailAddress. If
-     * the user does not exist, return a NOT_FOUND status.
+     * the user does not exist, return an empty body.
      * 
      * @param emailAddress of the user to get from the database.
      * @return a ResponseEntity consisting of a user entity optional, which
@@ -90,11 +89,9 @@ public class UserService {
     public ResponseEntity<Optional<UserEntity>> getUserByEmailAddress(String emailAddress) {
         try {
             Optional<UserEntity> user = userRepository.findByEmailAddress(emailAddress);
-            if (user.isEmpty()) {
-                return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
-            }
-
             return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
         } catch (Exception exception) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

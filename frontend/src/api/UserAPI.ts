@@ -8,13 +8,9 @@ export interface User {
     firstName: string;
     lastName: string
     emailAddress: string;
-    transactions: Transaction[];
-}
-
-export interface Transaction {
-    date: string;
-    ticker: string;
-    amount: number;
+    transactionDates: string[];
+    transactionTickers: string[];
+    transactionAmounts: string[];
 }
 
 export interface ResponseEntity {
@@ -44,7 +40,7 @@ export async function createUser(user: User): Promise<ResponseEntity> {
 
 /**
  * Get the user from the database with the specified username. If the
- * user does not exist, the controller returns a NOT_FOUND status.
+ * user does not exist, the controller returns an empty body.
  * 
  * @param username of the user to get from the database.
  * @returns a ResponseEntity consisting of a user object, which is empty
@@ -57,14 +53,14 @@ export async function getUserByUsername(username: string): Promise<ResponseEntit
 
 /**
  * Get the user from the database with the specified email address. If
- * the user does not exist, the controller returns a NOT_FOUND status.
+ * the user does not exist, the controller returns an empty body.
  * 
  * @param emailAddress of the user to get from the database.
  * @returns a ResponseEntity consisting of a user object, which is empty
  *          if not found, along with an HTTP status.
  */
 export async function getUserByEmailAddress(emailAddress: any): Promise<ResponseEntity> {
-    const response = await axios.get<ResponseEntity>(API_URL, emailAddress);
+    const response = await axios.get<ResponseEntity>(API_URL + "/emailaddress?emailAddress=" + emailAddress);
     return response;
 }
 
@@ -79,7 +75,7 @@ export async function getUserByEmailAddress(emailAddress: any): Promise<Response
  * @returns a ResponseEntity consisting of an HTTP status.
  */
 export async function setUserFirstName(username: string, newFirstName: string): Promise<ResponseEntity> {
-    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username, newFirstName);
+    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username + "?newFirstName=" + newFirstName);
     return response;
 }
 
@@ -92,7 +88,7 @@ export async function setUserFirstName(username: string, newFirstName: string): 
  * @returns a ResponseEntity consisting of an HTTP status.
  */
 export async function setUserLastName(username: string, newLastName: string): Promise<ResponseEntity> {
-    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username, newLastName);
+    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username + "?newLastName=" + newLastName);
     return response;
 }
 
@@ -105,7 +101,7 @@ export async function setUserLastName(username: string, newLastName: string): Pr
  * @returns a ResponseEntity consisting of an HTTP status.
  */
 export async function setUserEmailAddress(username: string, newEmailAddress: string): Promise<ResponseEntity> {
-    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username, newEmailAddress);
+    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username + "?newEmailAddress=" + newEmailAddress);
     return response;
 }
 
@@ -118,7 +114,7 @@ export async function setUserEmailAddress(username: string, newEmailAddress: str
  * @returns a ResponseEntity consisting of an HTTP status.
  */
 export async function setUserPassword(username: string, newPassword: string): Promise<ResponseEntity> {
-    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username, newPassword);
+    const response = await axios.patch<ResponseEntity>(API_URL + '/' + username + "?newPassword=" + newPassword);
     return response;
 }
 

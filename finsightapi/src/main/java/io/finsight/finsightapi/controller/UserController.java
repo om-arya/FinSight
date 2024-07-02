@@ -53,7 +53,7 @@ public class UserController {
 
     /**
      * Get the user from the database with the specified username. If the
-     * user does not exist, the service returns a NOT_FOUND status.
+     * user does not exist, the service returns an empty body.
      * 
      * @param username of the user to get from the database.
      * @return a ResponseEntity consisting of a user DTO, which is empty
@@ -64,15 +64,15 @@ public class UserController {
         ResponseEntity<Optional<UserEntity>> responseEntity = userService.getUserByUsername(username);
 
         Optional<UserEntity> optionalUserEntity = responseEntity.getBody();
-        UserEntity userEntity = optionalUserEntity != null ? optionalUserEntity.get() : null;
+        UserEntity userEntity = optionalUserEntity != null && optionalUserEntity.isPresent() ? optionalUserEntity.get() : null;
 
-        UserDto userDto = userMapper.mapTo(userEntity);
+        UserDto userDto = userEntity != null ? userMapper.mapTo(userEntity) : null;
         return new ResponseEntity<>(userDto, responseEntity.getStatusCode());
     }
 
     /**
      * Get the user from the database with the specified email address. If
-     * the user does not exist, the service returns a NOT_FOUND status.
+     * the user does not exist, the service returns an empty body.
      * 
      * @param emailAddress of the user to get from the database.
      * @return a ResponseEntity consisting of a user DTO, which is empty
@@ -83,9 +83,9 @@ public class UserController {
         ResponseEntity<Optional<UserEntity>> responseEntity = userService.getUserByEmailAddress(emailAddress);
 
         Optional<UserEntity> optionalUserEntity = responseEntity.getBody();
-        UserEntity userEntity = optionalUserEntity != null ? optionalUserEntity.get() : null;
+        UserEntity userEntity = optionalUserEntity != null && optionalUserEntity.isPresent() ? optionalUserEntity.get() : null;
 
-        UserDto userDto = userMapper.mapTo(userEntity);
+        UserDto userDto = userEntity != null ? userMapper.mapTo(userEntity) : null;
         return new ResponseEntity<>(userDto, responseEntity.getStatusCode());
     }
 

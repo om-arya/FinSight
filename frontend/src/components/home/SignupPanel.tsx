@@ -30,8 +30,8 @@ const SignupPanel: React.FC<any> = ({ cancelSignup }) => {
     const shortPasswordError = "Error: Your password must be at least 6 characters.";
     const longPasswordError = "Error: Your password must be less than 250 characters.";
     const passwordMismatchError = "Error: Your passwords do not match.";
-    const usernameTakenError = "Error: This username is already taken. Please choose a different one.";
-    const emailTakenError = "Error: This email address is already being used. Please use a different one.";
+    const usernameConflictError = "Error: This username is already taken. Please choose a different one.";
+    const emailConflictError = "Error: This email address is already in use. Please use a different one.";
 
     function handleCreateAccountClick() {
         if (firstName.length < 1 || lastName.length < 1 || username.length < 1 || email.length < 1) {
@@ -94,31 +94,39 @@ const SignupPanel: React.FC<any> = ({ cancelSignup }) => {
     }, [password]);
 
     async function createAccount() {
-        const userByUsername = await getUserByUsername(username);
-        const userByEmailAddress = await getUserByEmailAddress(email);
-        if (userByUsername) {
-            setErrorMessage(usernameTakenError);
-        } else if (userByEmailAddress) {
-            setErrorMessage(emailTakenError);
-        } else {
-            const newUser: User = {
-                firstName: firstName,
-                lastName: lastName,
-                username: username,
-                emailAddress: email,
-                password: password,
-                transactions: []
-            }
-            createUser(newUser);
-            navigate("/dashboard");
+        const newUser: User = {
+            username: username,
+            password: password,
+            firstName: firstName,
+            lastName: lastName,
+            emailAddress: email,
+            transactionDates: [],
+            transactionTickers: [],
+            transactionAmounts: []
         }
+
+        const response: ResponseEntity = await createUser(newUser);
+        if (response.data === "USERNAME_CONFLICT") {
+            setErrorMessage(usernameConflictError);
+        } else if (response.data === "EMAIL_ADDRESS_CONFLICT") {
+            setErrorMessage(emailConflictError);
+        } else {
+            logInUser();
+        }
+    }
+
+    async function logInUser() {
+        setErrorMessage(<br />);
+        const newUserObj = await getUserByUsername(username);
+        sessionStorage.setItem("user", JSON.stringify(newUserObj.data));
+        navigate("/dashboard");
     }
 
     return (
         <div className="signup-panel">
             <div className="signup-header">
                 <h1>Create an account</h1>
-                <p>Please fill out the following fields to create your account.</p>
+                <p>Welcome to FinSight!</p>
             </div>
 
             <div className="error-message">{ errorMessage }</div>

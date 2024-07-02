@@ -1,7 +1,5 @@
 package io.finsight.finsightapi.model.entity;
 
-import io.finsight.finsightapi.model.Transaction;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -27,6 +25,7 @@ public class UserEntity {
 
     private String emailAddress;
     
-    @ElementCollection
-    private Transaction[] transactions;
+    private String[] transactionDates;
+    private String[] transactionTickers;
+    private String[] transactionAmounts;
 }

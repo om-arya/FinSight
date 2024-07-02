@@ -1,8 +1,15 @@
 import React from 'react';
-import { Link, useMatch, useResolvedPath } from 'react-router-dom';
+import { useNavigate, Link, useMatch, useResolvedPath } from 'react-router-dom';
 import '../index.css';
 
 const Navbar: React.FC = () => {
+    const navigate = useNavigate();
+
+    function handleSignout() {
+        sessionStorage.removeItem("user");
+        navigate("/");
+    }
+
     return (
         <nav className="navbar">
             <a href="/dashboard" className="site-logo"><img src="/fs_olivebranches.png" /></a>
@@ -11,7 +18,7 @@ const Navbar: React.FC = () => {
                     <CustomLink id="portfolio-link" to="/portfolio">Portfolio</CustomLink>
                     <CustomLink id="about-link" to="/about">About</CustomLink>
             </div>
-            <a className="sign-out-button" href="/">Sign Out →</a>
+            <div className="sign-out-button" onClick={() => handleSignout()}><p>Sign out →</p></div>
         </nav>
     )
 }

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaRegUser } from 'react-icons/fa6';
 import { MdLockOutline } from 'react-icons/md';
-import { TbLetterX } from 'react-icons/tb';
 import '../../static/home.css';
 
 import { ResponseEntity, getUserByUsername, getUserByEmailAddress } from '../../api/UserAPI';
@@ -35,7 +34,7 @@ const LoginPanel: React.FC = () => {
 
     const [errorMessage, setErrorMessage]: any = useState(<br />);
 
-    const emptyFieldError = "Error: You must fill out every field.";
+    const emptyFieldError = "Error: You must enter your credentials.";
     const userDoesNotExistError = "Error: Invalid username/email address.";
     const incorrectPasswordError = "Error: Incorrect password.";
 
@@ -45,14 +44,27 @@ const LoginPanel: React.FC = () => {
             return;
         }
 
-        let response: ResponseEntity = await getUserByUsername(usernameOrEmail);
-        if (!response || response.status !== 200) {
-            response = await getUserByEmailAddress(usernameOrEmail);
-            if (!response || response.status !== 200) {
-                setErrorMessage(userDoesNotExistError);
+        const responseByUsername: ResponseEntity = await getUserByUsername(usernameOrEmail);
+        const responseByEmail: ResponseEntity = await getUserByEmailAddress(usernameOrEmail);
+        if (responseByUsername.data) {
+            const user = responseByUsername.data;
+            if (password === user.password) {
+                setErrorMessage(<br />);
+                sessionStorage.setItem("user", JSON.stringify(user));
+                navigate("/dashboard")
+            } else {
+                setErrorMessage(incorrectPasswordError);
+            }
+        } else if (responseByEmail.data) {
+            const user = responseByEmail.data;
+            if (password === user.password) {
+                setErrorMessage(<br />);
+                sessionStorage.setItem("user", JSON.stringify(user));
+            } else {
+                setErrorMessage(incorrectPasswordError);
             }
         } else {
-            navigate("/dashboard");
+            setErrorMessage(userDoesNotExistError);
         }
     }
 
@@ -68,7 +80,7 @@ const LoginPanel: React.FC = () => {
             <form>
                 <div className="input-container">
                     <FaRegUser className="icon" id="user-icon" />
-                    <input type="text" name="usernameOrEmail" placeholder="Your username or email" autoComplete="on"
+                    <input type="text" name="usernameOrEmail" placeholder="Your username or email address" autoComplete="on"
                         onChange={e => setUsernameOrEmail(e.target.value)}/>
                 </div>
                 <div className="input-container">

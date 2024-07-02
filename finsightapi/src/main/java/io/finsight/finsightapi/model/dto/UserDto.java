@@ -1,7 +1,5 @@
 package io.finsight.finsightapi.model.dto;
 
-import io.finsight.finsightapi.model.Transaction;
-import jakarta.persistence.ElementCollection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +16,7 @@ public class UserDto {
 
     private String emailAddress;
     
-    @ElementCollection
-    private Transaction[] transactions;
+    private String[] transactionDates;
+    private String[] transactionTickers;
+    private String[] transactionAmounts;
 }
