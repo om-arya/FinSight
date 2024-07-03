@@ -45,16 +45,16 @@ const Navbar: React.FC = () => {
         <nav className="navbar">
             <a href="/dashboard" className="site-logo"><img src="/fs_olivebranches.png" /></a>
             <div className="nav-button-container">
-                    <CustomLink id="dashboard-link" to="/dashboard" onClick={() => handleEntryDualColorPropSwitch()}>Dashboard</CustomLink>
-                    <CustomLink id="portfolio-link" to="/portfolio" onClick={() => handleEntryDualColorPropSwitch()}>Portfolio</CustomLink>
-                    <CustomLink id="about-link" to="/about" onClick={() => handleEntrySingleColorPropSwitch()}>About</CustomLink>
+                    <NavLink id="dashboard-link" to="/dashboard" onClick={() => handleEntryDualColorPropSwitch()}>Dashboard</NavLink>
+                    <NavLink id="portfolio-link" to="/portfolio" onClick={() => handleEntryDualColorPropSwitch()}>Portfolio</NavLink>
+                    <NavLink id="about-link" to="/about" onClick={() => handleEntrySingleColorPropSwitch()}>About</NavLink>
             </div>
             <div className="sign-out-button" onClick={() => handleSignout()}><p>Sign out →</p></div>
         </nav>
     )
 }
 
-function CustomLink({ to, children, ...props }) {
+function NavLink({ to, children, ...props }) {
     const resolvedPath = useResolvedPath(to);
     const isActive = useMatch({ path: resolvedPath.pathname, end: true});
     return (

@@ -26,9 +26,6 @@ async function updateAssetPrices() {
             const data = response.data[key];
             const ticker: string = data.symbol;
             const newPrice: number = parseFloat(data.close);
-            console.log("TICKER: " + ticker + "\nNEW PRICE: " + newPrice);
-            const asset = await assetApi.getAssetByTicker(ticker);
-            console.log("ASSET: " + asset);
             await assetApi.addAssetPrice(ticker, newPrice);
         }
     })
@@ -78,7 +75,7 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
  * We run this only when historical asset data must be replaced.
 */
 /*
-import assetsObj from './assets/assets.json' with { type : "json" };
+import assetsObj from './data/assets.json' with { type : "json" };
 async function createAllAssets() {
     for (const key in assetsObj) {
         assetApi.createAsset(assetsObj[key]);

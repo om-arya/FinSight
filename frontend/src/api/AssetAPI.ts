@@ -64,9 +64,7 @@ const AssetAPI = () => {
      */
 
     async function addAssetPrice(ticker: string, newPrice: number): Promise<HttpStatusCode> {
-        console.log("Requesting: " + API_URL + '/' + ticker + "?newPrice=" + newPrice);
         const response = await axios.patch(API_URL + '/' + ticker + "?newPrice=" + newPrice) as ResponseEntity;
-        console.log("Status: " + response.status);
         return response.status as HttpStatusCode;
     }
 
