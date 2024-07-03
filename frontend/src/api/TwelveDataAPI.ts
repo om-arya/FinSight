@@ -27,6 +27,8 @@ async function updateAssetPrices() {
             const ticker: string = data.symbol;
             const newPrice: number = parseFloat(data.close);
             console.log("TICKER: " + ticker + "\nNEW PRICE: " + newPrice);
+            const asset = await assetApi.getAssetByTicker(ticker);
+            console.log(asset);
             await assetApi.addAssetPrice(ticker, newPrice);
         }
     })
