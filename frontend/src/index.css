@@ -12,10 +12,10 @@
 }
 
 :root {
-  --bg-main-color: #fafafa;
+  --bg-main-color: white;
   --bg-second-color: white;
   --bg-third-color: #e7e7e7ff;
-  --text-main-color: white;
+  --text-main-color: black;
 
   --custom-red: #c80707;
   --custom-lightred: #ff0000;
@@ -35,13 +35,13 @@
   --translucent-blue: rgba(29, 112, 195, .05);
   --translucent-black: rgba(0, 0, 0, .2);
 
-  background: var(--bg-third-color);
+  background: var(--bg-main-color);
   height: 45vh;
 }
 
 html {
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 body {

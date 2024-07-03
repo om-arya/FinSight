@@ -28,12 +28,12 @@
 .asset-card {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding: 2rem 0;
     width: 20rem;
     height: 14rem;
     align-items: center;
     text-align: center;
-    border-top: solid 2px green;
+    border-top: solid 2px var(--custom-blue);
     border-radius: 10px;
     box-shadow: 0 0 .5rem var(--bg-third-color);
     background: var(--bg-second-color);
@@ -45,15 +45,15 @@
     border-radius: 10px;
     font-size: 1.2rem;
     font-weight: 500;
-    background: var(--custom-green);
+    background: var(--custom-blue);
     color: var(--bg-second-color);
     user-select: none;
 }
 
 .asset-card h4 {
     padding: .3rem 0;
-    width: 50%;
-    font-size: 1.2rem;
+    width: 100%;
+    font-size: 1.15rem;
     font-weight: 500;
     color: var(--text-main-color);
 }

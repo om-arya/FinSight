@@ -143,6 +143,23 @@ public class UserController {
         return userService.setUserPassword(username, newPassword);
     }
 
+    /**
+     * Make a 'transaction' (ticker, amount, and profit) by updating the
+     * corresponding fields (heldTickers, heldAmounts, and heldProfits)
+     * of the user with the specified username.
+     * 
+     * @param username of the user to update the 'held___' fields of.
+     * @param ticker of asset in the transaction.
+     * @param amount of the the asset bought (+) or sold (-) in the transaction.
+     * @param profit made from the transaction.
+     * @return a ResponseEntity consisting of an HTTP status.
+     */
+    @PatchMapping(path = "/users/{username}")
+    public ResponseEntity<Void> makeTransaction(@PathVariable String username, @RequestParam String ticker,
+                                                @RequestParam Integer amount, @RequestParam Double profit) {
+        return userService.makeTransaction(username, ticker, amount, profit);
+    }
+
     /* DELETE ENDPOINTS */
 
     /**

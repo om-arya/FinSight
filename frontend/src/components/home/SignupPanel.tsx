@@ -5,10 +5,10 @@ import { FaRegUser } from 'react-icons/fa6';
 import { MdEmail, MdLockOutline } from 'react-icons/md';
 import '../../static/home.css';
 
-import { User, ResponseEntity, createUser, getUserByEmailAddress, getUserByUsername } from '../../api/UserAPI';
+import UserAPI, { User } from '../../api/UserAPI';
 
-const SignupPanel: React.FC<any> = ({ cancelSignup }) => {
-    const navigate = useNavigate();
+const SignupPanel: React.FC<any> = ({ handleLogin, cancelSignup }) => {
+    const userApi = UserAPI();
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -30,8 +30,8 @@ const SignupPanel: React.FC<any> = ({ cancelSignup }) => {
     const shortPasswordError = "Error: Your password must be at least 6 characters.";
     const longPasswordError = "Error: Your password must be less than 250 characters.";
     const passwordMismatchError = "Error: Your passwords do not match.";
-    const usernameConflictError = "Error: This username is already taken. Please choose a different one.";
-    const emailConflictError = "Error: This email address is already in use. Please use a different one.";
+    const usernameConflictError = "Error: This username is already taken. Please choose another one.";
+    const emailConflictError = "Error: This email address is already in use. Please use another one.";
 
     function handleCreateAccountClick() {
         if (firstName.length < 1 || lastName.length < 1 || username.length < 1 || email.length < 1) {
@@ -44,7 +44,7 @@ const SignupPanel: React.FC<any> = ({ cancelSignup }) => {
         } else if (password !== confirmPassword) {
             setErrorMessage(passwordMismatchError);
         } else {
-            createAccount();
+            handleSignup();
         }
     }
 
@@ -93,33 +93,21 @@ const SignupPanel: React.FC<any> = ({ cancelSignup }) => {
         }
     }, [password]);
 
-    async function createAccount() {
-        const newUser: User = {
-            username: username,
-            password: password,
-            firstName: firstName,
-            lastName: lastName,
-            emailAddress: email,
-            transactionDates: [],
-            transactionTickers: [],
-            transactionAmounts: []
-        }
+    const navigate = useNavigate();
 
-        const response: ResponseEntity = await createUser(newUser);
-        if (response.data === "USERNAME_CONFLICT") {
+    async function handleSignup() {
+        const response: string = await userApi.createUser(username, password, firstName, lastName, email);
+        if (response === "USERNAME_CONFLICT") {
             setErrorMessage(usernameConflictError);
-        } else if (response.data === "EMAIL_ADDRESS_CONFLICT") {
+        } else if (response === "EMAIL_ADDRESS_CONFLICT") {
             setErrorMessage(emailConflictError);
         } else {
-            logInUser();
-        }
-    }
+            setErrorMessage(<br />);
 
-    async function logInUser() {
-        setErrorMessage(<br />);
-        const newUserObj = await getUserByUsername(username);
-        sessionStorage.setItem("user", JSON.stringify(newUserObj.data));
-        navigate("/dashboard");
+            const newUser: User = await userApi.getUserByUsername(username);
+            handleLogin(newUser);
+            navigate("/dashboard");
+        }
     }
 
     return (

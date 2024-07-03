@@ -1,28 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import { Asset, ResponseEntity, getAssetByTicker } from '../../api/AssetAPI.ts';
+import React, { useEffect, useState, createElement, DetailedReactHTMLElement } from 'react';
 import '../../static/portfolio.css';
+
+import SessionState from '../../state/SessionState.ts';
+import UserAPI, { User, Holding } from '../../api/UserAPI.ts';
+import AssetAPI, { Asset } from '../../api/AssetAPI.ts';
+import { TICKERS } from '../../api/asset_data/TICKERS.ts';
 
 import Navbar from '../Navbar';
 
 const Portfolio: React.FC = () => {
+    const state = SessionState();
+    const user = state.getUser() as User;
+    const holdings = state.getHoldings() as Holding[];
+    
+    const userApi = UserAPI();
+    const assetApi = AssetAPI();
+
+    const [assetCards, setAssetCards] = useState(null);
+
     useEffect(() => {
-        const root = document.querySelector(':root') as HTMLElement;
-        const html = document.querySelector('html') as HTMLElement;
-        
-        root.style.setProperty("--bg-main-color", "#fafafa");
-        root.style.setProperty("--text-main-color", "black");
-        root.style.background = "var(--bg-third-color)";
-        html.style["overflow-y"] = "scroll";
+        createAssetCards();
     }, [])
 
-    const [data, setData] = useState(null);
+    async function createAssetCards() {
+        const assetObjs = await Promise.all(holdings.map(async holding => {
+            const assetObj: Asset = await assetApi.getAssetByTicker(holding.ticker);
+            return assetObj;
+        }));
 
-    async function displayAsset(ticker: string) {
-        const response: any = await getAssetByTicker(ticker);
-        setData(response.prices[response.prices.length - 1]);
+        const cards: DetailedReactHTMLElement<any, any>[] = assetObjs.map((assetObj) => {
+            const ticker = assetObj.ticker;
+            const name = assetObj.name;
+            const price = assetObj.prices[assetObj.prices.length - 1]
+            const diff = ((price / assetObj.prices[assetObj.prices.length - 2]) * 100 - 100).toFixed(2) + "%";
+
+            return createElement('div', { key: `asset-card-${assetObj.ticker}`, className: "asset-card"},
+                [
+                createElement('h3', { key: `ticker-${assetObj.ticker}`, onClick: () => handleBuy(ticker, 1, price) }, ticker),
+                createElement('h4', { key: `name-${assetObj.ticker}`}, name),
+                createElement('p', {key: `price-${assetObj.ticker}`}, price),
+                createElement('p', {key: `diff-${assetObj.ticker}`}, diff)
+                ]
+            );
+        })
+        setAssetCards(cards);
     }
 
-    displayAsset('AAPL');
+    async function handleBuy(ticker: string, amount: number, price: number) {
+        await userApi.makeTransaction(user.username, ticker, amount, -1 * price);
+    }
+
+    async function handleSell(ticker: string, amount: number, price: number) {
+        await userApi.makeTransaction(user.username, ticker, amount, price);
+    }
 
     return (
         <>
@@ -32,24 +62,7 @@ const Portfolio: React.FC = () => {
                 <p>Today is a good day to invest in your future; we're here to help you get on track.</p>
 
                 <div className = "asset-card-container">
-                    <div className="asset-card">
-                        <h3>GOOG</h3>
-                        <h4>Google</h4>
-                        <p>$159.42</p>
-                        <span>+43.23%↑</span>
-                    </div>
-                    <div className="asset-card">
-                        <h3>AMZN</h3>
-                        <h4>Amazon</h4>
-                        <p>$134.52</p>
-                        <span>-23.23%↓</span>
-                    </div>
-                    <div className="asset-card">
-                        <h3>AAPL</h3>
-                        <h4>Apple</h4>
-                        <p>${ data }</p>
-                        <span>+1.33%↑</span>
-                    </div>
+                    { assetCards }
                 </div>
             </div>
         </>

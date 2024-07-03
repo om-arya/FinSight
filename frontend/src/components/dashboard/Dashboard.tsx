@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { getAssetByTicker } from '../../api/AssetAPI.ts';
 import { PiStarFourFill } from "react-icons/pi";
 import '../../static/dashboard.css';
 
+import SessionState from '../../state/SessionState.ts';
 import { User } from '../../api/UserAPI.ts';
 
 import Navbar from '../Navbar.tsx';
 import Graph from './Graph';
 
 const Dashboard: React.FC = () => {
+    const state = SessionState();
+    const user = state.getUser() as User;
+    
     const [firstName, setFirstName] = useState("...");
 
     useEffect(() => {
-        const root = document.querySelector(':root') as HTMLElement;
-        const html = document.querySelector('html') as HTMLElement;
-        
-        root.style.setProperty("--bg-main-color", "#fafafa");
-        root.style.setProperty("--text-main-color", "black");
-        root.style.background = "var(--bg-third-color)";
-        html.style["overflow-y"] = "scroll";
-
-        const user: User = JSON.parse(sessionStorage.getItem("user"));
         setFirstName(user.firstName);
     }, [])
 

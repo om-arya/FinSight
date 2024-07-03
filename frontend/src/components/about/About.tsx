@@ -4,16 +4,6 @@ import '../../static/about.css';
 import Navbar from '../Navbar';
 
 const About: React.FC = () => {
-    useEffect(() => {
-        const root = document.querySelector(':root') as HTMLElement;
-        const html = document.querySelector('html') as HTMLElement;
-
-        root.style.setProperty("--bg-main-color", "#fafafa");
-        root.style.setProperty("--text-main-color", "black");
-        root.style.background = "var(--bg-main-color)";
-        html.style["overflow-y"] = "scroll";
-    }, [])
-
     return (
         <>
             <Navbar />

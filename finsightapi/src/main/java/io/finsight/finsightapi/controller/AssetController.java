@@ -49,7 +49,7 @@ public class AssetController {
 
     /**
      * Get the asset from the database with the specified ticker. If the
-     * asset does not exist, the service returns a NOT_FOUND status.
+     * asset does not exist, the service returns an empty body.
      * 
      * @param ticker of the asset to get from the database.
      * @return a ResponseEntity consisting of an asset DTO, which is

@@ -4,21 +4,21 @@ import { FaRegUser } from 'react-icons/fa6';
 import { MdLockOutline } from 'react-icons/md';
 import '../../static/home.css';
 
-import { ResponseEntity, getUserByUsername, getUserByEmailAddress } from '../../api/UserAPI';
+import UserAPI, { User } from '../../api/UserAPI';
 
 import Modal from '../Modal';
 import SignupPanel from './SignupPanel';
 
-const LoginPanel: React.FC = () => {
-    const navigate = useNavigate();
+const LoginPanel: React.FC<any> = ({ handleLogin }) => {
+    const userApi = UserAPI();
 
-    const [isOpen, setIsOpen] = useState(false);
     const [modalContent, setModalContent] = useState(<></>);
+    const [isOpen, setIsOpen] = useState(false);
 
     function openSignup() {
         setModalContent(
         <>
-            <SignupPanel cancelSignup={() => closeSignup()}/>
+            <SignupPanel handleLogin={(user: User) => handleLogin(user)} cancelSignup={() => closeSignup()}/>
         </>
         );
         setIsOpen(true);
@@ -28,6 +28,8 @@ const LoginPanel: React.FC = () => {
         setIsOpen(false);
         setModalContent(<></>);
     }
+
+    const navigate = useNavigate();
 
     const [usernameOrEmail, setUsernameOrEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -44,22 +46,25 @@ const LoginPanel: React.FC = () => {
             return;
         }
 
-        const responseByUsername: ResponseEntity = await getUserByUsername(usernameOrEmail);
-        const responseByEmail: ResponseEntity = await getUserByEmailAddress(usernameOrEmail);
-        if (responseByUsername.data) {
-            const user = responseByUsername.data;
+        const responseByUsername: User = await userApi.getUserByUsername(usernameOrEmail);
+        const responseByEmail: User = await userApi.getUserByEmailAddress(usernameOrEmail);
+        if (responseByUsername) {
+            const user = responseByUsername;
             if (password === user.password) {
                 setErrorMessage(<br />);
-                sessionStorage.setItem("user", JSON.stringify(user));
-                navigate("/dashboard")
+
+                handleLogin(user);
+                navigate("/dashboard");
             } else {
                 setErrorMessage(incorrectPasswordError);
             }
-        } else if (responseByEmail.data) {
-            const user = responseByEmail.data;
+        } else if (responseByEmail) {
+            const user = responseByEmail;
             if (password === user.password) {
                 setErrorMessage(<br />);
-                sessionStorage.setItem("user", JSON.stringify(user));
+
+                handleLogin(user);
+                navigate("/dashboard");
             } else {
                 setErrorMessage(incorrectPasswordError);
             }

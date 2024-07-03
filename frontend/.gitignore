@@ -10,9 +10,9 @@ node_modules
 dist
 dist-ssr
 *.local
-tickers.txt
-**/api/assets
+assets.json
 *.py
+*.csv
 
 .vscode/*
 !.vscode/extensions.json

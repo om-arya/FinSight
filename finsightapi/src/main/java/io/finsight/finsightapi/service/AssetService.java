@@ -1,5 +1,7 @@
 package io.finsight.finsightapi.service;
 
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -50,7 +52,7 @@ public class AssetService {
 
     /**
      * Get the asset from the database with the specified ticker. If the
-     * asset does not exist, return a NOT_FOUND status.
+     * asset does not exist, return an empty body.
      * 
      * @param ticker of the asset to get from the database.
      * @return a ResponseEntity consisting of an asset entity optional,
@@ -59,11 +61,9 @@ public class AssetService {
     public ResponseEntity<Optional<AssetEntity>> getAssetByTicker(String ticker) {
         try {
             Optional<AssetEntity> asset = assetRepository.findById(ticker);
-            if (asset.isEmpty()) {
-                return new ResponseEntity<>(asset, HttpStatus.NOT_FOUND);
-            }
-
             return new ResponseEntity<>(asset, HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException) {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
         } catch (Exception exception) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -91,14 +91,12 @@ public class AssetService {
         }
 
         AssetEntity asset = optionalAsset.get();
-        Double[] currentPrices = asset.getPrices();
+        List<Double> prices = asset.getPrices();
         
-        Double[] newPrices = new Double[currentPrices.length + 1];
-        System.arraycopy(currentPrices, 0, newPrices, 0, currentPrices.length);
-        newPrices[currentPrices.length] = newPrice;
+        prices.add(newPrice);
 
         try {
-            asset.setPrices(newPrices);
+            asset.setPrices(prices);
             assetRepository.save(asset);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception exception) {

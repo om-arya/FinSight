@@ -1,25 +1,34 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import '../../static/home.css';
 
-import { getUserByUsername } from '../../api/UserAPI.ts';
+import SessionState from '../../state/SessionState.ts';
+import UserAPI, { User, Holding } from '../../api/UserAPI.ts';
 
 import LoginPanel from './LoginPanel.tsx';
 
 const Home: React.FC = () => {
-    useEffect(() => {
-        const root = document.querySelector(':root') as HTMLElement;
-        const html = document.querySelector('html') as HTMLElement;
+    const state = SessionState();
+    const userApi = UserAPI();
+
+    function handleLogin(user: User) {
+        state.setUser(user);
         
-        root.style.setProperty("--bg-main-color", "white");
-        root.style.setProperty("--text-main-color", "black");
-        root.style.background = "var(--bg-main-color)";
-        html.style["overflow-y"] = "hidden";
-    }, [])
+        const holdings: Holding[] = []
+        if (user.heldTickers) {
+            for (let i = 0; i < user.heldTickers.length; i++) {
+                holdings.push({
+                    ticker: user.heldTickers[i],
+                    amount: user.heldAmounts[i],
+                    profit: user.heldProfits[i]
+                })
+            }
+        }
+        state.setHoldings(holdings);
+    }
 
     async function handleGuestLogin() {
-        const guest = await getUserByUsername("guest");
-        sessionStorage.setItem("user", JSON.stringify(guest.data));
+        const guest: User = await userApi.getUserByUsername("guest");
+        handleLogin(guest);
         window.open('/dashboard','_blank');
     }
 
@@ -29,7 +38,7 @@ const Home: React.FC = () => {
                 <img className="logo" src="/fs_olivebranches_padding.png" />
             </div>
             <div className="right-side">
-                <LoginPanel />
+                <LoginPanel handleLogin={(user: User) => handleLogin(user)}/>
                 <p className="guest-login">Just visiting?<span onClick={() => handleGuestLogin()}>Log in as a Guest.</span></p>
             </div>
         </div>

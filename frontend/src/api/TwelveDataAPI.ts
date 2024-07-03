@@ -1,13 +1,15 @@
 import axios from 'axios';
-import { createAsset, addAssetPrice } from "./AssetAPI.ts";
+import AssetAPI from "./AssetAPI.ts";
 import { TD_PROD_KEY, TD_TEST_KEY } from './TD_KEY.ts';
-import { TICKERS } from './tickers/TICKERS.ts';
+import { TICKERS } from './asset_data/TICKERS.ts';
 
 interface EODData {
     symbol: string;
     data: any;
     close: number;
 }
+
+const assetApi = AssetAPI();
 
 // Update asset prices daily at 2:00 AM EST via GitHub Actions.
 updateAssetPrices();
@@ -24,7 +26,7 @@ async function updateAssetPrices() {
             const data = response.data[key];
             const ticker: string = data.symbol;
             const newPrice: number = parseFloat(data.close);
-            await addAssetPrice(ticker, newPrice);
+            await assetApi.addAssetPrice(ticker, newPrice);
         }
     })
 }
@@ -76,7 +78,7 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
 import assetsObj from './assets/assets.json' with { type : "json" };
 async function createAllAssets() {
     for (const key in assetsObj) {
-        createAsset(assetsObj[key]);
+        assetApi.createAsset(assetsObj[key]);
     }
 }
 createAllAssets();
