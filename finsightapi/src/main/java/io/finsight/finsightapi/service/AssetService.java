@@ -73,7 +73,7 @@ public class AssetService {
 
     /**
      * Add the new price to the prices of the asset with the specified
-     * ticker. If the asset does not exist, return a NOT_FOUND status.
+     * ticker. If the asset does not exist, it is silently ignored.
      * 
      * @param ticker of the asset to update the prices of.
      * @param newPrice to add to the prices.
@@ -87,12 +87,13 @@ public class AssetService {
 
         Optional<AssetEntity> optionalAsset = assetResponseEntity.getBody();
         if (optionalAsset == null || optionalAsset.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+            return new ResponseEntity<>(HttpStatus.OK); 
         }
 
         AssetEntity asset = optionalAsset.get();
         List<Double> prices = asset.getPrices();
         
+        prices.remove(0);
         prices.add(newPrice);
 
         try {

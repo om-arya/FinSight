@@ -1,17 +1,17 @@
-import React, { useEffect, useState, createElement, DetailedReactHTMLElement } from 'react';
+import React, { useEffect, useState, useMemo, createElement, DetailedReactHTMLElement } from 'react';
 import '../../static/portfolio.css';
 
 import SessionState from '../../state/SessionState.ts';
 import UserAPI, { User, Holding } from '../../api/UserAPI.ts';
 import AssetAPI, { Asset } from '../../api/AssetAPI.ts';
-import { TICKERS } from '../../api/asset_data/TICKERS.ts';
+import { TICKERS } from '../../api/data/TICKERS.ts';
 
 import Navbar from '../Navbar';
 
 const Portfolio: React.FC = () => {
     const state = SessionState();
     const user = state.getUser() as User;
-    const holdings = state.getHoldings() as Holding[];
+    const [holdings, setHoldings] = useState(state.getHoldings() as Holding[]);
     
     const userApi = UserAPI();
     const assetApi = AssetAPI();
@@ -47,11 +47,32 @@ const Portfolio: React.FC = () => {
     }
 
     async function handleBuy(ticker: string, amount: number, price: number) {
-        await userApi.makeTransaction(user.username, ticker, amount, -1 * price);
+        const index = user.heldTickers.indexOf(ticker);
+        
+        if (index >= 0) {
+            user.heldAmounts[index] += amount;
+            user.heldProfits[index] -= price * amount;
+        } else {
+            user.heldTickers.push(ticker);
+            user.heldAmounts.push(amount);
+            user.heldAmounts.push(-1 * price);
+        }
+
+        await userApi.setHoldings(user.username, user.heldTickers, user.heldAmounts, user.heldProfits);
     }
 
     async function handleSell(ticker: string, amount: number, price: number) {
-        await userApi.makeTransaction(user.username, ticker, amount, price);
+        const index = user.heldTickers.indexOf(ticker);
+
+        user.heldAmounts[index] -= amount;
+        user.heldProfits[index] += price * amount;
+        if (user.heldAmounts[index] === 0) {
+            user.heldTickers.splice(index, 1);
+            user.heldAmounts.splice(index, 1);
+            user.heldProfits.splice(index, 1);
+        }
+
+        await userApi.setHoldings(user.username, user.heldTickers, user.heldAmounts, user.heldProfits);
     }
 
     return (

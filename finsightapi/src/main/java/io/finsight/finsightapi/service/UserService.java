@@ -217,17 +217,16 @@ public class UserService {
     }
 
     /**
-     * Make a 'transaction' (ticker, amount, and profit) by updating the
-     * corresponding fields (heldTickers, heldAmounts, and heldProfits)
+     * Update the fields of the 'holdings' (heldTickers, heldAmounts, and heldProfits)
      * of the user with the specified username.
      * 
      * @param username of the user to update the 'held___' fields of.
-     * @param ticker of asset in the transaction.
-     * @param amount of the the asset bought (+) or sold (-) in the transaction.
-     * @param profit made from the transaction.
+     * @param newHeldTickers in the holdings.
+     * @param newHeldAmounts in the holdings.
+     * @param newHeldProfits in the holdings.
      * @return a ResponseEntity consisting of an HTTP status.
      */
-    public ResponseEntity<Void> makeTransaction(String username, String ticker, Integer amount, Double profit) {
+    public ResponseEntity<Void> setHoldings(String username, List<String> newHeldTickers, List<Integer> newHeldAmounts, List<Double> newHeldProfits) {
         ResponseEntity<Optional<UserEntity>> userResponseEntity = getUserByUsername(username);
         if (userResponseEntity.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -239,33 +238,10 @@ public class UserService {
         }
 
         UserEntity user = optionalUser.get();
-        List<String> heldTickers = user.getHeldTickers();
-        List<Integer> heldAmounts = user.getHeldAmounts();
-        List<Double> heldProfits = user.getHeldProfits();
-
-        int index = heldTickers.indexOf(ticker);
-        if (index >= 0) {
-            Integer currAmount = heldAmounts.get(index);
-            Double currProfit = heldProfits.get(index);
-
-            heldAmounts.set(index, currAmount + amount);
-            if (currAmount + amount == 0) {
-                heldTickers.remove(index);
-                heldAmounts.remove(index);
-                heldProfits.remove(index);
-            } else {
-                heldProfits.set(index, currProfit + profit);
-            }
-        } else {
-            heldTickers.add(ticker);
-            heldAmounts.add(amount);
-            heldProfits.add(profit);
-        }
-
         try {
-            user.setHeldTickers(heldTickers);
-            user.setHeldAmounts(heldAmounts);
-            user.setHeldProfits(heldProfits);
+            user.setHeldTickers(newHeldTickers);
+            user.setHeldAmounts(newHeldAmounts);
+            user.setHeldProfits(newHeldProfits);
             userRepository.save(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception exception) {

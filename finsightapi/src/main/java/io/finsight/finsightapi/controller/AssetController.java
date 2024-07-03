@@ -71,8 +71,7 @@ public class AssetController {
 
     /**
      * Add the new price to the prices of the asset with the specified
-     * ticker. If the asset does not exist, the service returns a
-     * NOT_FOUND status.
+     * ticker. If the asset does not exist, it is silently ignored.
      * 
      * @param ticker of the asset to update the prices of.
      * @param newPrice to add to the prices.

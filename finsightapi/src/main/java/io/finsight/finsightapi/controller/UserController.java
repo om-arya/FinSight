@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -144,20 +145,19 @@ public class UserController {
     }
 
     /**
-     * Make a 'transaction' (ticker, amount, and profit) by updating the
-     * corresponding fields (heldTickers, heldAmounts, and heldProfits)
+     * Update the fields of the 'holdings' (heldTickers, heldAmounts, and heldProfits)
      * of the user with the specified username.
      * 
      * @param username of the user to update the 'held___' fields of.
-     * @param ticker of asset in the transaction.
-     * @param amount of the the asset bought (+) or sold (-) in the transaction.
-     * @param profit made from the transaction.
+     * @param newHeldTickers in the holdings.
+     * @param newHeldAmounts in the holdings.
+     * @param newHeldProfits in the holdings.
      * @return a ResponseEntity consisting of an HTTP status.
      */
     @PatchMapping(path = "/users/{username}")
-    public ResponseEntity<Void> makeTransaction(@PathVariable String username, @RequestParam String ticker,
-                                                @RequestParam Integer amount, @RequestParam Double profit) {
-        return userService.makeTransaction(username, ticker, amount, profit);
+    public ResponseEntity<Void> setHoldings(@PathVariable String username, @RequestParam List<String> newHeldTickers,
+                                            @RequestParam List<Integer> newHeldAmounts, @RequestParam List<Double> newHeldProfits) {
+        return userService.setHoldings(username, newHeldTickers, newHeldAmounts, newHeldProfits);
     }
 
     /* DELETE ENDPOINTS */

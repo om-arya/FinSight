@@ -149,9 +149,9 @@ const UserAPI = () => {
      * @param profit made from the transaction.
      * @returns the HTTP status returned by the request.
      */
-    async function makeTransaction(username: string, ticker: string, amount: number, profit: number) {
-        const response = await axios.patch(API_URL + '/' + username + "?ticker=" + ticker
-                                        + "&amount=" + amount + "&profit=" + profit) as ResponseEntity;
+    async function setHoldings(username: string, newHeldTickers: string[], newHeldAmounts: number[], newHeldProfits: number[]) {
+        const response = await axios.patch(API_URL + '/' + username + "?newHeldTickers=" + newHeldTickers
+                                        + "&newHeldAmounts=" + newHeldAmounts + "&newHeldProfits=" + newHeldProfits) as ResponseEntity;
         return response.status as HttpStatusCode;
     }
 
@@ -170,7 +170,7 @@ const UserAPI = () => {
     }
 
     return { createUser, getUserByUsername, getUserByEmailAddress, setUserFirstName, setUserLastName, setUserEmailAddress,
-             setUserPassword, makeTransaction, deleteUser };
+             setUserPassword, setHoldings, deleteUser };
 }
 
 export default UserAPI;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AssetAPI from "./AssetAPI.ts";
-import { TD_PROD_KEY, TD_TEST_KEY } from './TD_KEY.ts';
-import { TICKERS } from './asset_data/TICKERS.ts';
+import { TD_PROD_KEY, TD_TEST_KEY } from './data/TD_KEY.ts';
+import { TICKERS } from './data/TICKERS.ts';
 
 interface EODData {
     symbol: string;
@@ -46,7 +46,7 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
 
     let responses: EODData[] = [];
     const batchLimit = 8;
-    let count = 1;
+    let count = 500;
     // API limit is 8 requests per minute, so we send 8 requests
     // every 65 seconds.
     while (count < tickers.length) {
