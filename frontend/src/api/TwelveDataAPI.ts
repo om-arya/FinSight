@@ -48,10 +48,10 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
 
     let responses: EODData[] = [];
     const batchLimit = 8;
-    let count = 500;
+    let count = 0;
     // API limit is 8 requests per minute, so we send 8 requests
     // every 65 seconds.
-    while (count < tickers.length) {
+    while (count < 8) {
         const ticker_batch: string[] = tickers.slice(count, count + batchLimit);
 
         try {
