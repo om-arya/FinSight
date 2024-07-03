@@ -79,7 +79,6 @@ public class AssetController {
      */
     @PatchMapping(path = "/assets/{ticker}")
     public ResponseEntity<Void> addAssetPrice(@PathVariable String ticker, @RequestParam Double newPrice) {
-        System.out.println("SPRING TICKER: " + ticker + "\nSPRING NEW PRICE: " + newPrice);
         return assetService.addAssetPrice(ticker, newPrice);
     }
 

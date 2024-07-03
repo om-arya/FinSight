@@ -12,7 +12,6 @@ interface EODData {
 const assetApi = AssetAPI();
 
 // Update asset prices daily at 2:00 AM EST via GitHub Actions.
-console.log("RUNNING");
 updateAssetPrices();
 
 /**
@@ -27,7 +26,7 @@ async function updateAssetPrices() {
             const data = response.data[key];
             const ticker: string = data.symbol;
             const newPrice: number = parseFloat(data.close);
-            console.log("TICKER: " + ticker + "\nNEWPRICE: " + newPrice);
+            console.log("TICKER: " + ticker + "\nNEW PRICE: " + newPrice);
             await assetApi.addAssetPrice(ticker, newPrice);
         }
     })
@@ -62,7 +61,7 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
             console.error(error);
         }
 
-        if (count < tickers.length) {
+        if (count < 8) {
             await sleep(65000);
         }
     }
