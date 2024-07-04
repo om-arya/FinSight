@@ -18,7 +18,7 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
     function openSignup() {
         setModalContent(
         <>
-            <SignupPanel handleLogin={(user: User) => handleLogin(user)} cancelSignup={() => closeSignup()}/>
+            <SignupPanel handleLogin={(user: User) => handleLogin(user)} closeSignup={() => closeSignup()} />
         </>
         );
         setIsOpen(true);

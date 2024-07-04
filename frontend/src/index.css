@@ -25,6 +25,7 @@
   --custom-orange: #f5a226;
   --custom-lightorange: #ffc161ff;
   --custom-green: #048a04;
+  --custom-midgreen: #056d05;
   --custom-darkgreen: #062f00;
   --custom-blue: #0073ff;
   --custom-darkblue: #011430ff;
@@ -158,7 +159,6 @@ a:visited {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 5rem;
   width: auto;
   height: auto;
   background: var(--bg-main-color);

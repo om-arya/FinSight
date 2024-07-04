@@ -7,7 +7,7 @@ import '../../static/home.css';
 
 import UserAPI, { User } from '../../api/UserAPI';
 
-const SignupPanel: React.FC<any> = ({ handleLogin, cancelSignup }) => {
+const SignupPanel: React.FC<any> = ({ handleLogin, closeSignup }) => {
     const userApi = UserAPI();
 
     const [firstName, setFirstName] = useState("");
@@ -153,7 +153,7 @@ const SignupPanel: React.FC<any> = ({ handleLogin, cancelSignup }) => {
             </form>
 
             <div className="signup-button-container">
-                <div className="cancel-button" onClick={() => cancelSignup()}>
+                <div className="cancel-button" onClick={() => closeSignup()}>
                     <p>← Cancel</p>
                 </div>
                 <div className="signup-button" onClick={() => handleCreateAccountClick()}>

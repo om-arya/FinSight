@@ -1,49 +1,43 @@
-import React, { useEffect, useState, useMemo, createElement, DetailedReactHTMLElement } from 'react';
+import React, { useState } from 'react';
 import '../../static/portfolio.css';
 
 import SessionState from '../../state/SessionState.ts';
-import UserAPI, { User, Holding } from '../../api/UserAPI.ts';
-import AssetAPI, { Asset } from '../../api/AssetAPI.ts';
-import { TICKERS } from '../../api/data/TICKERS.ts';
+import UserAPI, { User } from '../../api/UserAPI.ts';
 
 import Navbar from '../Navbar';
+import Modal from '../Modal.tsx';
+import AddInvestmentsPanel from './AddInvestmentsPanel.tsx';
+import HoldingsDisplay from './HoldingsDisplay.tsx';
 
 const Portfolio: React.FC = () => {
     const state = SessionState();
     const user = state.getUser() as User;
-    const [holdings, setHoldings] = useState(state.getHoldings() as Holding[]);
-    
     const userApi = UserAPI();
-    const assetApi = AssetAPI();
 
-    const [assetCards, setAssetCards] = useState(null);
+    const [view, setView] = useState("card");
 
-    useEffect(() => {
-        createAssetCards();
-    }, [])
+    function toggleView() {
+        setView(view == "card" ? "list" : "card");
+    }
 
-    async function createAssetCards() {
-        const assetObjs = await Promise.all(holdings.map(async holding => {
-            const assetObj: Asset = await assetApi.getAssetByTicker(holding.ticker);
-            return assetObj;
-        }));
+    const [modalContent, setModalContent] = useState(<></>);
+    const [isOpen, setIsOpen] = useState(false);
 
-        const cards: DetailedReactHTMLElement<any, any>[] = assetObjs.map((assetObj) => {
-            const ticker = assetObj.ticker;
-            const name = assetObj.name;
-            const price = assetObj.prices[assetObj.prices.length - 1]
-            const diff = ((price / assetObj.prices[assetObj.prices.length - 2]) * 100 - 100).toFixed(2) + "%";
-
-            return createElement('div', { key: `asset-card-${assetObj.ticker}`, className: "asset-card"},
-                [
-                createElement('h3', { key: `ticker-${assetObj.ticker}`, onClick: () => handleBuy(ticker, 1, price) }, ticker),
-                createElement('h4', { key: `name-${assetObj.ticker}`}, name),
-                createElement('p', {key: `price-${assetObj.ticker}`}, price),
-                createElement('p', {key: `diff-${assetObj.ticker}`}, diff)
-                ]
+    function openAddInvestments() {
+        setModalContent(
+            <>
+                <AddInvestmentsPanel
+                    handleBuy={(ticker: string, amount: number, price: number) => handleBuy(ticker, amount, price)}
+                    closeAddInvestments={() => closeAddInvestments()}
+                />
+            </>
             );
-        })
-        setAssetCards(cards);
+        setIsOpen(true);
+    }
+
+    function closeAddInvestments() {
+        setIsOpen(false);
+        setModalContent(<></>);
     }
 
     async function handleBuy(ticker: string, amount: number, price: number) {
@@ -80,11 +74,25 @@ const Portfolio: React.FC = () => {
             <Navbar />
             <div className="portfolio">
                 <h1>Your Portfolio</h1>
-                <p>Today is a good day to invest in your future; we're here to help you get on track.</p>
+                <p>Your holdings, your way.</p>
 
-                <div className = "asset-card-container">
-                    { assetCards }
+                <div className="top-button-container">
+                    <div className="add-investments-button" onClick={() => openAddInvestments()}>
+                        <p>+ Add investments</p>
+                    </div>
+
+                    <div className="toggle-view-button" onClick={() => toggleView()}>
+                        <p>View: { view == "card" ? "Card" : "List" }</p>
+                    </div>
                 </div>
+
+                <HoldingsDisplay
+                    view={ view }
+                    handleBuy={(ticker: string, amount: number, price: number) => handleBuy(ticker, amount, price)}
+                    handleSell={(ticker: string, amount: number, price: number) => handleSell(ticker, amount, price)}
+                />
+
+                <Modal open={ isOpen }>{ modalContent }</Modal>
             </div>
         </>
     )

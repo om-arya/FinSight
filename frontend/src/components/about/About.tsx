@@ -4,7 +4,7 @@ import '../../static/about.css';
 import Navbar from '../Navbar';
 
 const About: React.FC = () => {
-    const githubUrl = "https://github.com/om-arya/FinSight";
+    const githubUrl = "https://github.com/om-arya";
     const emailUrl = "mailto:om.arya0577@gmail.com";
     const restfulUrl = "https://restfulapi.net/";
     const mvcUrl = "https://developer.mozilla.org/en-US/docs/Glossary/MVC";
@@ -22,6 +22,7 @@ const About: React.FC = () => {
     const twelvedataUrl = "https://twelvedata.com/";
     const cronUrl = "https://www.npmjs.com/package/node-cron";
     const snp500Url = "https://stockanalysis.com/list/sp-500-stocks/";
+    const finsightgithubUrl = "https://github.com/om-arya/finsight";
 
     return (
         <>
@@ -29,13 +30,13 @@ const About: React.FC = () => {
             <div className="about">
                 <h1>About</h1>
                 <p>
-                    Hi! I'm Om Arya, and I'm the creator of FinSight. Check out the GitHub repository <AboutLink to={ githubUrl }>here!</AboutLink>
+                    Hi! I'm Om Arya, and I'm the creator of FinSight. I'm currently a Computer Science student at the University of Maryland, College Park, 
+                    graduating in May 2026. If you want to see more of my projects, check out <AboutLink to={ githubUrl }>my GitHub profile!</AboutLink>
                 </p>
 
                 <h1>My Mission</h1>
                 <p>
-                    I want to provide the best possible experience for YOU, the user. If you have any feedback, please
-                    don't hesitate to <AboutLink to={ emailUrl }>reach out!</AboutLink>
+                    I want to provide the best possible experience for YOU, the user. If you have any feedback, please <AboutLink to={ emailUrl }>email me!</AboutLink>
                 </p>
 
                 <h1>How it Works</h1>
@@ -59,6 +60,8 @@ const About: React.FC = () => {
                     the database. I also set up a Node.js <AboutLink to={ cronUrl }>cron job</AboutLink> through <AboutLink to={ githubactionsUrl }>GitHub Actions</AboutLink> to 
                     automate a daily workflow that fetches and stores EOD prices from the <AboutLink to={ twelvedataUrl }>Twelve Data API</AboutLink>. 
                     All of this is used to empower FinSight to support <AboutLink to={ snp500Url }>every stock in the S&P500.</AboutLink><br /><br />
+
+                    For more details, see the <AboutLink to={ finsightgithubUrl }>GitHub repository</AboutLink>.
                 </p>
 
                 <h1>Closing</h1>

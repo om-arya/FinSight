@@ -5,27 +5,175 @@
 
 .portfolio h1 {
     margin-bottom: .5rem;
-    text-align: center;
-    font-size: 2rem;
+    text-align: left;
+    font-size: 2.3rem;
     font-weight: 500;
 }
 
 .portfolio p {
-    text-align: center;
+    text-align: left;
+    font-size: 1.1rem;
 }
 
-.asset-card-container {
+.change.positive {
+    color: var(--custom-green);
+}
+
+.change.negative {
+    color: var(--custom-red);
+}
+
+.portfolio .top-button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-top: 4rem;
+    align-items: center;
+    justify-content: left;
+}
+
+.toggle-view-button {
+    padding: .5rem 1rem;
+    border-radius: 20px;
+    box-shadow: 0 0 .1rem var(--custom-blue);
+    background: var(--custom-blue);
+    cursor: pointer;
+    user-select: none;
+    transition: box-shadow .2s ease;
+}
+
+.toggle-view-button:hover {
+    box-shadow: 0 0 .4rem var(--custom-blue);
+}
+
+.toggle-view-button p {
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--bg-second-color);
+}
+
+/* ADD INVESTMENTS */
+
+.add-investments-button {
+    padding: .5rem 1rem;
+    border-radius: 20px;
+    box-shadow: 0 0 .1rem var(--custom-green);
+    background: var(--custom-green);
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.add-investments-button:hover {
+    box-shadow: 0 0 .4rem var(--custom-midgreen);
+    background: var(--custom-midgreen);
+}
+
+.add-investments-button p {
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--bg-second-color);
+}
+
+.add-investments-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 2rem;
+    align-items: center;
+    justify-content: top;
+    width: 30rem;
+    height: 40rem;
+}
+
+.close-add-investments {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: .5rem 1rem;
+    border-radius: 20px;
+    box-shadow: 0 0 .1rem var(--custom-blue);
+    background: var(--custom-blue);
+    cursor: pointer;
+    user-select: none;
+    transition: box-shadow .2s ease;
+}
+
+.close-add-investments:hover {
+    box-shadow: 0 0 .3rem var(--custom-blue);
+}
+
+.close-add-investments {
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--bg-second-color);
+}
+
+.purchase-items-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+}
+
+.purchase-item {
     display: grid;
-    grid-template-columns: 20rem 20rem 20rem;
-    gap: 5rem;
-    padding: 5rem 0;
-    align-items: top;
+    grid-template-columns: .6fr 2.5fr .6fr .3fr;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 .5rem var(--translucent-black);
+}
+
+.purchase-item h3 {
+    margin: auto;
+    padding: .3rem 0;
+    width: 5rem;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    background: var(--custom-blue);
+    color: var(--bg-second-color);
+    user-select: none;
+}
+
+.purchase-item h4 {
+    padding: 0 1rem;
+    text-align: center;
+    font-weight: 400;
+}
+
+.purchase-item .purchase-button {
+    width: 2rem;
+    height: 2rem;
+    padding: .3rem;
+    text-align: center;
+    border-radius: 50px;
+    background: var(--custom-green);
+    color: var(--bg-second-color);
+    cursor: pointer;
+    user-select: none;
+}
+
+/* HOLDINGS DISPLAY */
+
+.holdings-display {
+    margin-top: 2rem;
+    align-items: center;
     justify-content: center;
     height: 100%;
     width: 100%;
 }
 
-.asset-card {
+/* CARD VIEW */
+
+.holdings-display.card {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+}
+
+.holdings-display.card .asset-item {
     display: flex;
     flex-direction: column;
     padding: 2rem 0;
@@ -39,7 +187,7 @@
     background: var(--bg-second-color);
 }
 
-.asset-card h3 {
+.holdings-display.card .asset-item h3 {
     padding: .3rem 0;
     width: 50%;
     border-radius: 10px;
@@ -50,7 +198,7 @@
     user-select: none;
 }
 
-.asset-card h4 {
+.holdings-display.card .asset-item h4 {
     padding: .3rem 0;
     width: 100%;
     font-size: 1.15rem;
@@ -58,7 +206,49 @@
     color: var(--text-main-color);
 }
 
-.asset-card p,
-.asset-card span {
+.holdings-display.card .asset-item p,
+.holdings-display.card .asset-item span {
+    font-size: 1rem;
+}
+
+/* LIST VIEW */
+
+.holdings-display.list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.holdings-display.list .asset-item {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    height: 5rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-left: solid 2px var(--custom-green);
+    border-radius: 10px;
+    box-shadow: 0 0 .5rem var(--bg-third-color);
+    background: var(--bg-second-color);
+}
+
+.holdings-display.list .asset-item h3 {
+    width: 50%;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    background: var(--custom-green);
+    color: var(--bg-second-color);
+}
+
+.holdings-display.list .asset-item h4 {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--text-main-color);
+}
+
+.holdings-display.list .asset-item p,
+.holdings-display.list .asset-item span {
     font-size: 1rem;
 }
