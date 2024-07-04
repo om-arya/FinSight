@@ -10,16 +10,6 @@ jobs:
   update-prices:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_USER: omarya
-          POSTGRES_PASSWORD: changeinprod
-          POSTGRES_DB: postgres
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
