@@ -49,7 +49,7 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
     let count = 0;
     // API limit is 8 requests per minute, so we send 8 requests
     // every 65 seconds.
-    while (count < 8) {
+    while (count < tickers.length) {
         const ticker_batch: string[] = tickers.slice(count, count + batchLimit);
 
         try {
@@ -60,7 +60,7 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
             console.error(error);
         }
 
-        if (count < 8) {
+        if (count < tickers.length) {
             await sleep(65000);
         }
     }

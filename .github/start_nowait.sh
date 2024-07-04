@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "Starting Docker container..."
+cd ../finsightapi
+docker-compose up &
+CONTAINER_PID=$!
+
 echo "Starting Spring Boot application..."
 cd ../finsightapi
 ./mvnw spring-boot:run &
