@@ -6,46 +6,54 @@ import SessionState from '../../state/SessionState';
 import UserAPI, { User, Holding } from '../../api/UserAPI.ts';
 import AssetAPI, { Asset } from '../../api/AssetAPI.ts';
 
-const HoldingsDisplay: React.FC<any> = ({ view, handleBuy, handleSell }) => {
+const HoldingsDisplay: React.FC<any> = ({ view, holdings, handleBuy, handleSell }) => {
     const state = SessionState();
-    const assetApi = AssetAPI();
 
     const [popupIsOpen, setPopupIsOpen] = useState(false);
     const [assetItems, setAssetItems] = useState(null);
 
     useEffect(() => {
         createAssetItems();
-    }, [[], state.getHoldings()])
+    }, [holdings])
 
     async function createAssetItems() {
-        const holdings = state.getHoldings() as Holding[];
-        const amounts = holdings.map(holding => { return holding.amount; });
+        const amounts = holdings.map((holding: Holding) => { return holding.amount; });
         const holdingAssets = state.getHoldingAssets() as Asset[];
 
-        const items: DetailedReactHTMLElement<any, any>[] = holdingAssets.map((holdingAsset, i) => {
+        const items: DetailedReactHTMLElement<any, any>[] = holdingAssets.map((holdingAsset: Asset, i) => {
             const ticker = holdingAsset.ticker;
             const name = holdingAsset.name;
             const sector = holdingAsset.sector.toLowerCase().replaceAll(" ", "-");
             const price = holdingAsset.prices[holdingAsset.prices.length - 1];
+            const value = price * amounts[i];
             const change = ((price / holdingAsset.prices[holdingAsset.prices.length - 2]) * 100 - 100);
+
+            const formattedPrice = `$${price.toFixed(2)}`;
+            const formattedValue = `$${(value).toFixed(2)}`;
+            const formattedChange = `${(change > 0 ? "↑" : "↓")}${Math.abs(change).toFixed(2)}%`;
 
             return createElement('div', { key: `asset-item-${ticker}`, className: `asset-item ${sector}`},
                 [
-                createElement('h3', { key: `ticker-${ticker}` }, ticker),
-                createElement('h4', { key: `name-${ticker}` }, name),
-                createElement('p', { key: `price-${ticker}`, className: "price" }, `$${price.toFixed(2)}`),
-                createElement('div', { key: `amount-${ticker}`, className: "amount" }, amounts[i]),
-                createElement('div', { key: `value-${ticker}`, className: "value" }, `$${(price * amounts[i]).toFixed(2)}`),
+                createElement('h3', { key: `ticker-${ticker}` },
+                    ticker),
+                createElement('h4', { key: `name-${ticker}` },
+                    name),
+                createElement('p', { key: `price-${ticker}`, className: "price" },
+                    formattedPrice),
+                createElement('div', { key: `amount-${ticker}`, className: "amount" },
+                    amounts[i]),
+                createElement('div', { key: `value-${ticker}`, className: "value" },
+                    formattedValue),
                 createElement('p', { key: `change-${ticker}`, className: `change ${change > 0 ? "positive" : "negative"}` },
-                             `${(change > 0 ? "↑" : "↓")}${Math.abs(change).toFixed(2)}%`),
+                    formattedChange),
                 createElement('div', { key: `edit-${ticker}`, className: "edit-holding-button", onClick: () => setPopupIsOpen(!popupIsOpen) },
-                             <BsThreeDotsVertical />),
+                    <BsThreeDotsVertical />),
                 createElement('div', { key: `popup-${ticker}`, className: "edit-holding-popup-container" },
-                             <div className={`edit-holding-popup ${popupIsOpen ? "active" : ""}`}>
-                                <p className="record-buy">+ Record a Buy</p>
-                                <p className="record-sell">- Record a Sell</p>
-                                <p className="sell-all">- Sell all</p>
-                            </div>),
+                    <div className={`edit-holding-popup ${popupIsOpen ? "active" : ""}`}>
+                        <p className="record-buy">+ Record a Buy</p>
+                        <p className="record-sell">- Record a Sell</p>
+                        <p className="sell-all">- Sell all</p>
+                    </div>),
                 ]
             );
         })

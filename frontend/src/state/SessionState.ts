@@ -8,27 +8,30 @@ const SessionState = () => {
     }
 
     function setHoldings(holdings: Holding[]) {
+        holdings.sort((a, b) => a.ticker.localeCompare(b.ticker));
         sessionStorage.setItem("holdings", JSON.stringify(holdings));
     }
 
     function setHoldingAssets(holdingAssets: Asset[]) {
+        holdingAssets.sort((a, b) => a.ticker.localeCompare(b.ticker));
         sessionStorage.setItem("holdingAssets", JSON.stringify(holdingAssets));
     }
 
     function setAllAssets(allAssets: Asset[]) {
+        allAssets.sort((a, b) => a.ticker.localeCompare(b.ticker));
         sessionStorage.setItem("allAssets", JSON.stringify(allAssets));
     }
 
-    function setTop10AssetsByPriceChange(top10AssetsByPriceChange: Asset[]) {
-        sessionStorage.setItem("top10AssetsByPriceChange", JSON.stringify(top10AssetsByPriceChange));
+    function setTopAssetsByPriceChange(topAssetsByPriceChange: Asset[]) {
+        sessionStorage.setItem("topAssetsByPriceChange", JSON.stringify(topAssetsByPriceChange));
     }
 
-    function setTop10AssetsByPriceGain(top10AssetsByPriceGain: Asset[]) {
-        sessionStorage.setItem("top10AssetsByPriceGain", JSON.stringify(top10AssetsByPriceGain));
+    function setTopAssetsByPriceGain(topAssetsByPriceGain: Asset[]) {
+        sessionStorage.setItem("topAssetsByPriceGain", JSON.stringify(topAssetsByPriceGain));
     }
 
-    function setTop10AssetsByPriceLoss(top10AssetsByPriceLoss: Asset[]) {
-        sessionStorage.setItem("top10AssetsByPriceLoss", JSON.stringify(top10AssetsByPriceLoss));
+    function setTopAssetsByPriceLoss(topAssetsByPriceLoss: Asset[]) {
+        sessionStorage.setItem("topAssetsByPriceLoss", JSON.stringify(topAssetsByPriceLoss));
     }
 
     function getUser() {
@@ -51,28 +54,28 @@ const SessionState = () => {
         return allAssets ? JSON.parse(allAssets) as Asset[] : null;
     }
 
-    function getTop10AssetsByPriceChange() {
-        const top10AssetsByPriceChange = sessionStorage.getItem("top10AssetsByPriceChange");
-        return top10AssetsByPriceChange ? JSON.parse(top10AssetsByPriceChange) as Asset[] : null;
+    function getTopAssetsByPriceChange() {
+        const topAssetsByPriceChange = sessionStorage.getItem("topAssetsByPriceChange");
+        return topAssetsByPriceChange ? JSON.parse(topAssetsByPriceChange) as Asset[] : null;
     }
 
-    function getTop10AssetsByPriceGain() {
-        const top10AssetsByPriceGain = sessionStorage.getItem("top10AssetsByPriceGain");
-        return top10AssetsByPriceGain ? JSON.parse(top10AssetsByPriceGain) as Asset[] : null;
+    function getTopAssetsByPriceGain() {
+        const topAssetsByPriceGain = sessionStorage.getItem("topAssetsByPriceGain");
+        return topAssetsByPriceGain ? JSON.parse(topAssetsByPriceGain) as Asset[] : null;
     }
 
-    function getTop10AssetsByPriceLoss() {
-        const top10AssetsByPriceLoss = sessionStorage.getItem("top10AssetsByPriceLoss");
-        return top10AssetsByPriceLoss ? JSON.parse(top10AssetsByPriceLoss) as Asset[] : null;
+    function getTopAssetsByPriceLoss() {
+        const topAssetsByPriceLoss = sessionStorage.getItem("topAssetsByPriceLoss");
+        return topAssetsByPriceLoss ? JSON.parse(topAssetsByPriceLoss) as Asset[] : null;
     }
 
     function clearSessionState() {
         sessionStorage.clear();
     }
 
-    return { setUser, setHoldings, setHoldingAssets, setAllAssets, setTop10AssetsByPriceChange, setTop10AssetsByPriceGain,
-             setTop10AssetsByPriceLoss, getUser, getHoldings, getHoldingAssets, getAllAssets, getTop10AssetsByPriceChange,
-             getTop10AssetsByPriceLoss, clearSessionState };
+    return { setUser, setHoldings, setHoldingAssets, setAllAssets, setTopAssetsByPriceChange, setTopAssetsByPriceGain,
+             setTopAssetsByPriceLoss, getUser, getHoldings, getHoldingAssets, getAllAssets, getTopAssetsByPriceChange,
+             getTopAssetsByPriceGain, getTopAssetsByPriceLoss, clearSessionState };
 }
 
 export default SessionState;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, PointElement, LineController, CategoryScale, LinearScale, Title, Tooltip, Legend, Filler } from 'chart.js';
+import '../../static/dashboard.css';
 
 import SessionState from '../../state/SessionState';
 import AssetAPI, { Asset } from '../../api/AssetAPI';
@@ -15,16 +16,15 @@ const Graph: React.FC = () => {
   const date = mm + '/' + dd + '/' + yyyy;
 
   const state = SessionState();
-  const holdings = state.getHoldings();
-  const assetApi = AssetAPI();
 
   const [dailyTotals, setDailyTotals] = useState([]);
 
   useEffect(() => {
     let newDailyTotals = [];
-    holdings.forEach(async (holding) => {
-      const asset: Asset = await assetApi.getAssetByTicker(holding.ticker);
-      asset.prices.forEach((price, i) => {
+
+    const holdingAssets = state.getHoldingAssets();
+    holdingAssets.forEach(async (holdingAsset) => {
+      holdingAsset.prices.forEach((price, i) => {
         if (price > 0) {
           if (i >= newDailyTotals.length) {
             newDailyTotals.push(price);
@@ -34,6 +34,7 @@ const Graph: React.FC = () => {
         }
       })
     })
+
     setDailyTotals(newDailyTotals);
   }, [])
 
@@ -83,9 +84,9 @@ const Graph: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="dashboard-container graph-container">
       <Line data={data} options={options} />
-    </>
+    </div>
   )
 };
 

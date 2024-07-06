@@ -16,36 +16,35 @@ const Home: React.FC = () => {
         state.setUser(user);
         
         const holdings: Holding[] = user.holdings;
-        holdings.sort((a, b) => a.ticker.localeCompare(b.ticker));
-        state.setHoldings(holdings);
+        if (holdings) {
+            state.setHoldings(holdings);
 
-        const holdingAssets: Asset[] = await Promise.all(holdings.map(async holding => {
-            const holdingAsset: Asset = await assetApi.getAssetByTicker(holding.ticker);
-            return holdingAsset;
-        }));
-        holdingAssets.sort((a, b) => a.ticker.localeCompare(b.ticker));
-        state.setHoldingAssets(holdingAssets);
-
+            const holdingAssets: Asset[] = await Promise.all(holdings.map(async holding => {
+                const holdingAsset: Asset = await assetApi.getAssetByTicker(holding.ticker);
+                return holdingAsset;
+            }));
+            state.setHoldingAssets(holdingAssets);
+        } else {
+            state.setHoldings([]);
+            state.setHoldingAssets([])
+        }
+        
         const allAssets: Asset[] = await assetApi.getAllAssets();
-        allAssets.sort((a, b) => a.ticker.localeCompare(b.ticker));
         state.setAllAssets(allAssets);
 
-        const top10AssetsByPriceChange: Asset[] = await assetApi.getTop10AssetsByPriceChange();
-        top10AssetsByPriceChange.sort((a, b) => a.ticker.localeCompare(b.ticker));
-        state.setTop10AssetsByPriceChange(top10AssetsByPriceChange);
+        const top10AssetsByPriceChange: Asset[] = await assetApi.getTopAssetsByPriceChange();
+        state.setTopAssetsByPriceChange(top10AssetsByPriceChange);
 
-        const top10AssetsByPriceGain: Asset[] = await assetApi.getTop10AssetsByPriceGain();
-        top10AssetsByPriceGain.sort((a, b) => a.ticker.localeCompare(b.ticker));
-        state.setTop10AssetsByPriceGain(top10AssetsByPriceGain);
+        const top10AssetsByPriceGain: Asset[] = await assetApi.getTopAssetsByPriceGain();
+        state.setTopAssetsByPriceGain(top10AssetsByPriceGain);
 
-        const top10AssetsByPriceLoss: Asset[] = await assetApi.getTop10AssetsByPriceLoss();
-        top10AssetsByPriceLoss.sort((a, b) => a.ticker.localeCompare(b.ticker));
-        state.setTop10AssetsByPriceLoss(top10AssetsByPriceLoss);
+        const top10AssetsByPriceLoss: Asset[] = await assetApi.getTopAssetsByPriceLoss();
+        state.setTopAssetsByPriceLoss(top10AssetsByPriceLoss);
     }
 
     async function handleGuestLogin() {
         const guest: User = await userApi.getUserByUsername("guest");
-        handleLogin(guest);
+        await handleLogin(guest);
 
         window.open('/dashboard','_blank');
     }
@@ -56,7 +55,7 @@ const Home: React.FC = () => {
                 <img className="logo" src="/fs_olivebranches_padding.png" />
             </div>
             <div className="right-side">
-                <LoginPanel handleLogin={(user: User) => handleLogin(user)}/>
+                <LoginPanel handleLogin={async (user: User) => await handleLogin(user)}/>
                 <p className="guest-login">Just visiting?<span onClick={() => handleGuestLogin()}>Log in as a Guest.</span></p>
             </div>
         </div>

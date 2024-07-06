@@ -18,7 +18,7 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
     function openSignup() {
         setModalContent(
         <>
-            <SignupPanel handleLogin={(user: User) => handleLogin(user)} closeSignup={() => closeSignup()} />
+            <SignupPanel handleLogin={async (user: User) => await handleLogin(user)} closeSignup={() => closeSignup()} />
         </>
         );
         setIsOpen(true);
@@ -28,8 +28,6 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
         setIsOpen(false);
         setModalContent(<></>);
     }
-
-    const navigate = useNavigate();
 
     const [usernameOrEmail, setUsernameOrEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -53,8 +51,8 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
             if (password === user.password) {
                 setErrorMessage(<br />);
 
-                handleLogin(user);
-                navigate("/dashboard");
+                await handleLogin(user);
+                window.open("/dashboard", "_self");
             } else {
                 setErrorMessage(incorrectPasswordError);
             }
@@ -63,8 +61,8 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
             if (password === user.password) {
                 setErrorMessage(<br />);
 
-                handleLogin(user);
-                navigate("/dashboard");
+                await handleLogin(user);
+                window.open("/dashboard", "_self");
             } else {
                 setErrorMessage(incorrectPasswordError);
             }
@@ -99,7 +97,7 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
                 <p>Create an account</p>
             </div>
 
-            <div className="login-button" onClick={() => handleLoginClick()}>
+            <div className="login-button" onClick={async () => await handleLoginClick()}>
                 <p>Log In</p>
             </div>
 

@@ -89,18 +89,18 @@ public class AssetService {
     }
 
     /**
-     * Get the top 10 assets by the highest % change between their last
+     * Get the top 8 assets by the highest % change between their last
      * 2 prices.
      * 
-     * @return a list of the top 10 assets by price change.
+     * @return a list of the top 8 assets by price change.
      */
-    public ResponseEntity<List<AssetEntity>> getTop10AssetsByPriceChange() {
+    public ResponseEntity<List<AssetEntity>> getTopAssetsByPriceChange() {
         try {
             List<AssetEntity> assetList = StreamSupport.stream(assetRepository.findAll().spliterator(), false)
                 .sorted((a1, a2) -> Double.compare(
                     Math.abs(calculatePriceChange(a2)), Math.abs(calculatePriceChange(a1))
                 ))
-                .limit(10)
+                .limit(8)
                 .collect(Collectors.toList());
             return new ResponseEntity<>(assetList, HttpStatus.OK);
         } catch (Exception exception) {
@@ -109,18 +109,18 @@ public class AssetService {
     }
 
     /**
-     * Get the top 10 assets by the most positive % change between their
+     * Get the top 8 assets by the most positive % change between their
      * last 2 prices.
      * 
-     * @return a list of the top 10 assets by price gain.
+     * @return a list of the top 8 assets by price gain.
      */
-    public ResponseEntity<List<AssetEntity>> getTop10AssetsByPriceGain() {
+    public ResponseEntity<List<AssetEntity>> getTopAssetsByPriceGain() {
         try {
             List<AssetEntity> assetList = StreamSupport.stream(assetRepository.findAll().spliterator(), false)
                 .sorted((a1, a2) -> Double.compare(
                     calculatePriceChange(a2), calculatePriceChange(a1)
                 ))
-                .limit(10)
+                .limit(8)
                 .collect(Collectors.toList());
             return new ResponseEntity<>(assetList, HttpStatus.OK);
         } catch (Exception exception) {
@@ -129,18 +129,18 @@ public class AssetService {
     }
 
     /**
-     * Get the top 10 assets by the most negative % change between their
+     * Get the top 8 assets by the most negative % change between their
      * last 2 prices.
      * 
-     * @return a list of the top 10 assets by price loss.
+     * @return a list of the top 8 assets by price loss.
      */
-    public ResponseEntity<List<AssetEntity>> getTop10AssetsByPriceLoss() {
+    public ResponseEntity<List<AssetEntity>> getTopAssetsByPriceLoss() {
         try {
             List<AssetEntity> assetList = StreamSupport.stream(assetRepository.findAll().spliterator(), false)
                 .sorted((a1, a2) -> Double.compare(
                     calculatePriceChange(a1), calculatePriceChange(a2)
                 ))
-                .limit(10)
+                .limit(8)
                 .collect(Collectors.toList());
             return new ResponseEntity<>(assetList, HttpStatus.OK);
         } catch (Exception exception) {

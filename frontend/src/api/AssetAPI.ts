@@ -60,35 +60,35 @@ const AssetAPI = () => {
     }
 
     /**
-     * Get the top 10 assets by the highest % change between their last
+     * Get the top 8 assets by the highest % change between their last
      * 2 prices.
      * 
-     * @returns an array of the top 10 assets by price change.
+     * @returns an array of the top 8 assets by price change.
      */
-    async function getTop10AssetsByPriceChange(): Promise<Asset[]> {
-        const response = await axios.get(API_URL + '/top10pricechange') as ResponseEntity;
+    async function getTopAssetsByPriceChange(): Promise<Asset[]> {
+        const response = await axios.get(API_URL + '/toppricechange') as ResponseEntity;
         return response.data as Asset[];
     }
 
     /**
-     * Get the top 10 assets by the most positive % change between their
+     * Get the top 8 assets by the most positive % change between their
      * last 2 prices.
      * 
-     * @returns an array of the top 10 assets by price gain.
+     * @returns an array of the top 8 assets by price gain.
      */
-    async function getTop10AssetsByPriceGain(): Promise<Asset[]> {
-        const response = await axios.get(API_URL + '/top10pricegain') as ResponseEntity;
+    async function getTopAssetsByPriceGain(): Promise<Asset[]> {
+        const response = await axios.get(API_URL + '/toppricegain') as ResponseEntity;
         return response.data as Asset[];
     }
 
     /**
-     * Get the top 10 assets by the most negative % change between their
+     * Get the top 8 assets by the most negative % change between their
      * last 2 prices.
      * 
-     * @returns an array of the top 10 assets by price loss.
+     * @returns an array of the top 8 assets by price loss.
      */
-    async function getTop10AssetsByPriceLoss(): Promise<Asset[]> {
-        const response = await axios.get(API_URL + '/top10priceloss') as ResponseEntity;
+    async function getTopAssetsByPriceLoss(): Promise<Asset[]> {
+        const response = await axios.get(API_URL + '/toppriceloss') as ResponseEntity;
         return response.data as Asset[];
     }
 
@@ -128,8 +128,8 @@ const AssetAPI = () => {
         return response.status as HttpStatusCode;
     }
 
-    return { createAsset, getAssetByTicker, getAllAssets, getTop10AssetsByPriceChange, getTop10AssetsByPriceGain,
-             getTop10AssetsByPriceLoss, addAssetPrice, deleteAsset };
+    return { createAsset, getAssetByTicker, getAllAssets, getTopAssetsByPriceChange, getTopAssetsByPriceGain,
+             getTopAssetsByPriceLoss, addAssetPrice, deleteAsset };
 }
 
 export default AssetAPI;

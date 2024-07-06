@@ -84,42 +84,42 @@ public class AssetController {
     }
 
     /**
-     * Get the top 10 assets by the highest % change between their last
+     * Get the top 8 assets by the highest % change between their last
      * 2 prices.
      * 
-     * @return a list of the top 10 assets by price change.
+     * @return a list of the top 8 assets by price change.
      */
-    @GetMapping(path = "/assets/top10pricechange")
-    public ResponseEntity<List<AssetDto>> getTop10AssetsByPriceChange() {
-        ResponseEntity<List<AssetEntity>> responseEntity = assetService.getTop10AssetsByPriceChange();
+    @GetMapping(path = "/assets/toppricechange")
+    public ResponseEntity<List<AssetDto>> getTopAssetsByPriceChange() {
+        ResponseEntity<List<AssetEntity>> responseEntity = assetService.getTopAssetsByPriceChange();
         HttpStatusCode status = responseEntity.getStatusCode();
 
         return new ResponseEntity<>(getAssetDtoListFromResponseEntity(responseEntity), status);
     }
 
     /**
-     * Get the top 10 assets by the most positive % change between their
+     * Get the top 8 assets by the most positive % change between their
      * last 2 prices.
      * 
-     * @return a list of the top 10 assets by price gain.
+     * @return a list of the top 8 assets by price gain.
      */
-    @GetMapping(path = "/assets/top10pricegain")
-    public ResponseEntity<List<AssetDto>> getTop10AssetsByPriceGain() {
-        ResponseEntity<List<AssetEntity>> responseEntity = assetService.getTop10AssetsByPriceGain();
+    @GetMapping(path = "/assets/toppricegain")
+    public ResponseEntity<List<AssetDto>> getTopAssetsByPriceGain() {
+        ResponseEntity<List<AssetEntity>> responseEntity = assetService.getTopAssetsByPriceGain();
         HttpStatusCode status = responseEntity.getStatusCode();
 
         return new ResponseEntity<>(getAssetDtoListFromResponseEntity(responseEntity), status);
     }
 
     /**
-     * Get the top 10 assets by the most negative % change between their
+     * Get the top 8 assets by the most negative % change between their
      * last 2 prices.
      * 
-     * @return a list of the top 10 assets by price loss.
+     * @return a list of the top 8 assets by price loss.
      */
-    @GetMapping(path = "/assets/top10priceloss")
-    public ResponseEntity<List<AssetDto>> getTop10AssetsByPriceLoss() {
-        ResponseEntity<List<AssetEntity>> responseEntity = assetService.getTop10AssetsByPriceLoss();
+    @GetMapping(path = "/assets/toppriceloss")
+    public ResponseEntity<List<AssetDto>> getTopAssetsByPriceLoss() {
+        ResponseEntity<List<AssetEntity>> responseEntity = assetService.getTopAssetsByPriceLoss();
         HttpStatusCode status = responseEntity.getStatusCode();
 
         return new ResponseEntity<>(getAssetDtoListFromResponseEntity(responseEntity), status);

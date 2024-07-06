@@ -3,6 +3,7 @@ import '../../static/portfolio.css';
 
 import SessionState from '../../state/SessionState.ts';
 import UserAPI, { User, Holding } from '../../api/UserAPI.ts';
+import AssetAPI, { Asset } from '../../api/AssetAPI.ts';
 
 import Navbar from '../Navbar';
 import Modal from '../Modal.tsx';
@@ -12,13 +13,12 @@ import HoldingsDisplay from './HoldingsDisplay.tsx';
 const Portfolio: React.FC = () => {
     const state = SessionState();
     const user = state.getUser() as User;
+
     const userApi = UserAPI();
+    const assetApi = AssetAPI();
 
-    const [view, setView] = useState("card");
-
-    function toggleView() {
-        setView(view == "card" ? "list" : "card");
-    }
+    const [holdingsView, setHoldingsView] = useState("card");
+    const [holdings, setHoldings] = useState(state.getHoldings());
 
     const [modalContent, setModalContent] = useState(<></>);
     const [isOpen, setIsOpen] = useState(false);
@@ -73,13 +73,12 @@ const Portfolio: React.FC = () => {
                 });
             }
 
-            holdings.sort((a, b) => a.ticker.localeCompare(b.ticker));
-
             newHoldings = holdings;
         }
 
         await userApi.setUserHoldings(user.username, newHoldings);
         state.setHoldings(newHoldings);
+        setHoldings(state.getHoldings());
     }
 
     async function handleSell(ticker: string, amount: number, price: number) {
@@ -89,6 +88,7 @@ const Portfolio: React.FC = () => {
         }
 
         let newHoldings: Holding[] = [];
+        let assetWasRemoved = false;
 
         let heldTickers: string[] = [];
         let heldAmounts: number[] = [];
@@ -107,6 +107,7 @@ const Portfolio: React.FC = () => {
             heldTickers.splice(index, 1);
             heldAmounts.splice(index, 1);
             heldProfits.splice(index, 1);
+            assetWasRemoved = true;
         }
 
         for (let i = 0; i < heldTickers.length; i++) {
@@ -119,6 +120,16 @@ const Portfolio: React.FC = () => {
         }
 
         await userApi.setUserHoldings(user.username, newHoldings);
+        state.setHoldings(newHoldings);
+        setHoldings(state.getHoldings());
+        if (assetWasRemoved) {
+            // Update holdingAssets
+            const holdingAssets: Asset[] = await Promise.all(newHoldings.map(async holding => {
+                const holdingAsset: Asset = await assetApi.getAssetByTicker(holding.ticker);
+                return holdingAsset;
+            }));
+            state.setHoldingAssets(holdingAssets);
+        }
     }
 
     return (
@@ -136,13 +147,14 @@ const Portfolio: React.FC = () => {
                         <p>+ Add investments</p>
                     </div>
 
-                    <div className="toggle-view-button" onClick={() => toggleView()}>
-                        <p>View: { view == "card" ? "Card" : "List" }</p>
+                    <div className="toggle-view-button" onClick={() => setHoldingsView(holdingsView === "card" ? "list" : "card")}>
+                        <p>View: { holdingsView == "card" ? "Card" : "List" }</p>
                     </div>
                 </div>
 
                 <HoldingsDisplay
-                    view={ view }
+                    view={ holdingsView }
+                    holdings={ holdings }
                     handleBuy={(ticker: string, amount: number, price: number) => handleBuy(ticker, amount, price)}
                     handleSell={(ticker: string, amount: number, price: number) => handleSell(ticker, amount, price)}
                 />

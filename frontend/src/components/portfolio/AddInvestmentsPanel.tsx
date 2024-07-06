@@ -5,7 +5,6 @@ import AssetAPI, { Asset } from '../../api/AssetAPI';
 
 const AddInvestmentsPanel: React.FC<any> = ({ handleBuy, closeAddInvestments }) => {
     const state = SessionState();
-    const assetApi = AssetAPI();
 
     const [purchaseItems, setPurchaseItems] = useState(null);
 

@@ -41,9 +41,9 @@ function NavLink({ to, children, ...props }) {
 // Handle prop switches for page reloads.
 window.onload = () => {
     const path = window.location.pathname;
-    if (path == "/") {
+    if (path === "/") {
         handleExitPropSwitch();
-    } else if (path == "dashboard") {
+    } else if (path === "/dashboard") {
         handleEntryDualColorPropSwitch();
     } else {
        handleEntrySingleColorPropSwitch();

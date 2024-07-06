@@ -144,6 +144,7 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 1rem;
+    animation: fade-in .5s;
 }
 
 .holdings-display.card .column-labels {
@@ -289,6 +290,7 @@
     height: 3rem;
     align-items: center;
     border-top: solid 1px var(--custom-midgray);
+    animation: fade-in .5s;
 }
 
 .holdings-display.list .asset-item h3 {
@@ -328,7 +330,7 @@
     width: 5rem;
     border-radius: 10px;
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 500;
     user-select: none;
 }
 
