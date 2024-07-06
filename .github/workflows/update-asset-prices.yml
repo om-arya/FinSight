@@ -42,7 +42,7 @@ jobs:
       run: cd frontend && npm install
     
     - name: Launch apps
-      run: cd .github && ./start_nowait.sh
+      run: cd .github && ./start_workflow.sh
 
     - name: Run update script
       run: cd frontend/src/api && node --loader ts-node/esm TwelveDataAPI.ts

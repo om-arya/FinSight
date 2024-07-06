@@ -13,16 +13,7 @@ const Home: React.FC = () => {
     function handleLogin(user: User) {
         state.setUser(user);
         
-        const holdings: Holding[] = []
-        if (user.heldTickers) {
-            for (let i = 0; i < user.heldTickers.length; i++) {
-                holdings.push({
-                    ticker: user.heldTickers[i],
-                    amount: user.heldAmounts[i],
-                    profit: user.heldProfits[i]
-                })
-            }
-        }
+        const holdings: Holding[] = user.holdings;
         state.setHoldings(holdings);
     }
 

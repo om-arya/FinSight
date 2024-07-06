@@ -21,14 +21,15 @@ const AddInvestmentsPanel: React.FC<any> = ({ handleBuy, closeAddInvestments }) 
         const items: DetailedReactHTMLElement<any, any>[] = assetObjs.map((assetObj) => {
             const ticker = assetObj.ticker;
             const name = assetObj.name;
+            const sector = assetObj.sector.toLowerCase().replaceAll(" ", "-");
             const price = assetObj.prices[assetObj.prices.length - 1]
 
-            return createElement('div', { key: `purchase-item-${assetObj.ticker}`, className: "purchase-item"},
+            return createElement('div', { key: `purchase-item-${ticker}`, className: `purchase-item ${sector}`},
                 [
-                createElement('h3', { key: `ticker-${assetObj.ticker}` }, ticker),
-                createElement('h4', { key: `name-${assetObj.ticker}` }, name),
-                createElement('p', { key: `price-${assetObj.ticker}` }, "$" + price),
-                createElement('div', { key: `purchase-${assetObj.ticker}`, className: "purchase-button",
+                createElement('h3', { key: `ticker-${ticker}` }, ticker),
+                createElement('h4', { key: `name-${ticker}` }, name),
+                createElement('p', { key: `price-${ticker}` }, `$${price.toFixed(2)}`),
+                createElement('div', { key: `purchase-${ticker}`, className: "purchase-button",
                                       onClick: () => handleBuy(ticker, 1, price) }, "+")
                 ]
             );

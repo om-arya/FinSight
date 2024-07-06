@@ -1,7 +1,5 @@
 package io.finsight.finsightapi.model.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,12 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class HoldingDto {
+    private String ticker;
+    private Integer amount;
+    private Double profit;
     private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String emailAddress;
-
-    private List<HoldingDto> holdings;
 }

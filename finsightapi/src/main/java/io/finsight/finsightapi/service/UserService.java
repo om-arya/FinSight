@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import io.finsight.finsightapi.model.entity.HoldingEntity;
 import io.finsight.finsightapi.model.entity.UserEntity;
 import io.finsight.finsightapi.repository.UserRepository;
 
@@ -217,16 +218,14 @@ public class UserService {
     }
 
     /**
-     * Update the fields of the 'holdings' (heldTickers, heldAmounts, and heldProfits)
-     * of the user with the specified username.
+     * Update the holdings of the user who has the specified username. If
+     * the user does not exist, return a NOT_FOUND status.
      * 
-     * @param username of the user to update the 'held___' fields of.
-     * @param newHeldTickers in the holdings.
-     * @param newHeldAmounts in the holdings.
-     * @param newHeldProfits in the holdings.
+     * @param username of the user to update the holdings of.
+     * @param newHoldings to update to.
      * @return a ResponseEntity consisting of an HTTP status.
      */
-    public ResponseEntity<Void> setHoldings(String username, List<String> newHeldTickers, List<Integer> newHeldAmounts, List<Double> newHeldProfits) {
+    public ResponseEntity<Void> setUserHoldings(String username, List<HoldingEntity> newHoldings) {
         ResponseEntity<Optional<UserEntity>> userResponseEntity = getUserByUsername(username);
         if (userResponseEntity.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -238,10 +237,13 @@ public class UserService {
         }
 
         UserEntity user = optionalUser.get();
+        
+        for (HoldingEntity holding : newHoldings) {
+            holding.setUser(user);
+        }
+
         try {
-            user.setHeldTickers(newHeldTickers);
-            user.setHeldAmounts(newHeldAmounts);
-            user.setHeldProfits(newHeldProfits);
+            user.setHoldings(newHoldings);
             userRepository.save(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception exception) {

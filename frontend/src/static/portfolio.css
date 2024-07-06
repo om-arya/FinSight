@@ -3,11 +3,26 @@
     margin: 0 10rem;
 }
 
+.portfolio-header {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    align-items: center;
+}
+
 .portfolio h1 {
     margin-bottom: .5rem;
     text-align: left;
     font-size: 2.3rem;
     font-weight: 500;
+}
+
+.portfolio h2 {
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.portfolio h2 span {
+    font-weight: 600;
 }
 
 .portfolio p {
@@ -16,10 +31,12 @@
 }
 
 .change.positive {
+    background: var(--translucent-green);
     color: var(--custom-green);
 }
 
 .change.negative {
+    background: var(--translucent-red);
     color: var(--custom-red);
 }
 
@@ -50,6 +67,284 @@
     font-size: 1.2rem;
     text-align: center;
     color: var(--bg-second-color);
+}
+
+/* HOLDINGS DISPLAY */
+
+.holdings-display {
+    margin-top: 2rem;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.communication-services h3 {
+    background: var(--custom-sunsetpink);
+    color: var(--bg-second-color);
+}
+
+.consumer-discretionary h3 {
+    background: var(--custom-blue);
+    color: var(--bg-second-color);
+}
+
+.consumer-staples h3 {
+    background: var(--custom-darkred);
+    color: var(--bg-second-color);
+}
+
+.energy h3 {
+    background: var(--custom-red);
+    color: var(--bg-second-color);
+}
+
+.financials h3 {
+    background: var(--custom-green);
+    color: var(--bg-second-color);
+}
+
+.health-care h3 {
+    background: var(--custom-purple);
+    color: var(--bg-second-color);
+}
+
+.industrials h3 {
+    background: var(--custom-darkblue);
+    color: var(--bg-second-color);
+}
+
+.information-technology h3 {
+    background: var(--custom-red);
+    color: var(--bg-second-color);
+}
+
+.materials h3 {
+    background: var(--custom-darkgreen);
+    color: var(--bg-second-color);
+}
+
+.real-estate h3 {
+    background: var(--custom-midred);
+    color: var(--bg-second-color);
+}
+
+.utilities h3 {
+    background: var(--custom-lightorange);
+    color: var(--text-main-color);
+}
+
+.holdings-display .edit-holding-popup {
+    display: none;
+}
+
+/* CARD VIEW */
+
+.holdings-display.card {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+}
+
+.holdings-display.card .column-labels {
+    display: none;
+}
+
+.holdings-display.card .asset-item {
+    position: relative;
+    padding: .8rem;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 10px;
+    border: solid 1px var(--custom-midgray);
+    background: var(--bg-second-color);
+    user-select: none;
+    transition: .1s ease;
+}
+
+.holdings-display.card .asset-item:hover {
+    box-shadow: 0 0 .3rem var(--custom-midgray);
+}
+
+.holdings-display.card .asset-item h3 {
+    display: flex;
+    flex-direction: row;
+    width: 3.5rem;
+    height: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 5px;
+    font-size: .8rem;
+    font-weight: 500;
+}
+
+.holdings-display.card .asset-item h4 {
+    margin-top: .3rem;
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+.holdings-display.card .asset-item .price {
+    position: absolute;
+    bottom: 2.7rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.holdings-display.card .asset-item .amount {
+    position: absolute;
+    top: .85rem;
+    right: 2.2rem;
+    display: flex;
+    flex-direction: row;
+    width: 1.5rem;
+    height: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    font-size: .8rem;
+    background: var(--custom-green);
+    color: var(--bg-second-color);
+}
+
+.holdings-display.card .asset-item .value {
+    display: none;
+}
+
+.holdings-display.card .asset-item .change {
+    position: absolute;
+    bottom: .7rem;
+    padding: .3rem .4rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.holdings-display.card .edit-holding-button {
+    position: absolute;
+    top: .3rem;
+    right: .3rem;
+    display: flex;
+    width: 2.5rem;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: .1s ease;
+}
+
+.holdings-display.card .edit-holding-button:hover {
+    background: var(--translucent-gray);
+}
+
+.holdings-display.card .edit-holding-popup.active {
+    position: absolute;
+    top: 2rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: .3rem;
+    width: 10rem;
+    background: var(--bg-second-color);
+}
+
+.holdings-display.card .edit-holding-popup p {
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: .1s ease;
+}
+
+.holdings-display.card .edit-holding-popup p:hover {
+    background: var(--bg-third-color);
+}
+
+/* LIST VIEW */
+
+.holdings-display.list {
+    display: flex;
+    flex-direction: column;
+    max-width: 60rem;
+    margin: 2rem auto 0;
+}
+
+.holdings-display.list .column-labels {
+    display: grid;
+    grid-template-columns: 13% 30% 13% 13% 13% 13% 5%;
+    margin-bottom: .5rem;
+    width: 100%;
+}
+
+.holdings-display.list .column-labels p {
+    font-size: .8rem;
+    text-align: left;
+    color: var(--custom-gray);
+}
+
+.holdings-display.list .asset-item {
+    display: grid;
+    grid-template-columns: 13% 30% 13% 13% 13% 13% 5%;
+    width: 100%;
+    height: 3rem;
+    align-items: center;
+    border-top: solid 1px var(--custom-midgray);
+}
+
+.holdings-display.list .asset-item h3 {
+    display: flex;
+    flex-direction: row;
+    width: 3.5rem;
+    height: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 5px;
+    font-size: .8rem;
+    font-weight: 500;
+    user-select: none;
+}
+
+.holdings-display.list .asset-item h4 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.holdings-display.list .asset-item .price {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.holdings-display.list .asset-item .amount {
+    font-weight: 400;
+}
+
+.holdings-display.list .asset-item .value {
+    font-weight: 400;
+}
+
+.holdings-display.list .asset-item .change {
+    padding: .3rem .4rem;
+    width: 5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 400;
+    user-select: none;
+}
+
+.holdings-display.list .edit-holding-button {
+    display: flex;
+    width: 2.5rem;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: .1s ease;
+}
+
+.holdings-display.list .edit-holding-button:hover {
+    background: var(--translucent-gray);
 }
 
 /* ADD INVESTMENTS */
@@ -84,15 +379,23 @@
     justify-content: top;
     width: 30rem;
     height: 40rem;
+    overflow: hidden;
+}
+
+.add-investments-panel h2 {
+    font-weight: 500;
 }
 
 .close-add-investments {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
+    top: 1.5rem;
+    left: 1.5rem;
     padding: .5rem 1rem;
+    text-align: center;
     border-radius: 20px;
     box-shadow: 0 0 .1rem var(--custom-blue);
+    font-size: 1rem;
+    color: var(--bg-second-color);
     background: var(--custom-blue);
     cursor: pointer;
     user-select: none;
@@ -103,152 +406,65 @@
     box-shadow: 0 0 .3rem var(--custom-blue);
 }
 
-.close-add-investments {
-    font-size: 1.2rem;
-    text-align: center;
-    color: var(--bg-second-color);
-}
-
 .purchase-items-container {
     display: flex;
     flex-direction: column;
-    margin-top: 5rem;
+    margin-top: 1rem;
+    overflow-y: scroll;
 }
 
 .purchase-item {
     display: grid;
-    grid-template-columns: .6fr 2.5fr .6fr .3fr;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 0 .5rem var(--translucent-black);
+    grid-template-columns: 20% 50% 20% 10%;
+    width: 100%;
+    padding: .3rem 0;
+    align-items: center;
+    border-top: solid 1px var(--custom-midgray);
 }
 
 .purchase-item h3 {
-    margin: auto;
-    padding: .3rem 0;
-    width: 5rem;
+    display: flex;
+    flex-direction: row;
+    width: 3.5rem;
+    height: 1.5rem;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    border-radius: 10px;
-    font-size: 1rem;
+    border-radius: 5px;
+    font-size: .8rem;
     font-weight: 500;
-    background: var(--custom-blue);
-    color: var(--bg-second-color);
     user-select: none;
 }
 
 .purchase-item h4 {
-    padding: 0 1rem;
-    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.purchase-item p {
+    font-size: 1rem;
     font-weight: 400;
 }
 
 .purchase-item .purchase-button {
-    width: 2rem;
-    height: 2rem;
-    padding: .3rem;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    width: 0;
+    height: 0;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     border-radius: 50px;
+    font-size: 1.4rem;
     background: var(--custom-green);
     color: var(--bg-second-color);
     cursor: pointer;
     user-select: none;
+    transition: .2s ease;
 }
 
-/* HOLDINGS DISPLAY */
-
-.holdings-display {
-    margin-top: 2rem;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-}
-
-/* CARD VIEW */
-
-.holdings-display.card {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5rem;
-}
-
-.holdings-display.card .asset-item {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 0;
-    width: 20rem;
-    height: 14rem;
-    align-items: center;
-    text-align: center;
-    border-top: solid 2px var(--custom-blue);
-    border-radius: 10px;
-    box-shadow: 0 0 .5rem var(--bg-third-color);
-    background: var(--bg-second-color);
-}
-
-.holdings-display.card .asset-item h3 {
-    padding: .3rem 0;
-    width: 50%;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: 500;
-    background: var(--custom-blue);
-    color: var(--bg-second-color);
-    user-select: none;
-}
-
-.holdings-display.card .asset-item h4 {
-    padding: .3rem 0;
-    width: 100%;
-    font-size: 1.15rem;
-    font-weight: 500;
-    color: var(--text-main-color);
-}
-
-.holdings-display.card .asset-item p,
-.holdings-display.card .asset-item span {
-    font-size: 1rem;
-}
-
-/* LIST VIEW */
-
-.holdings-display.list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.holdings-display.list .asset-item {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    width: 100%;
-    height: 5rem;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border-left: solid 2px var(--custom-green);
-    border-radius: 10px;
-    box-shadow: 0 0 .5rem var(--bg-third-color);
-    background: var(--bg-second-color);
-}
-
-.holdings-display.list .asset-item h3 {
-    width: 50%;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: 500;
-    background: var(--custom-green);
-    color: var(--bg-second-color);
-}
-
-.holdings-display.list .asset-item h4 {
-    font-size: 1.15rem;
-    font-weight: 500;
-    color: var(--text-main-color);
-}
-
-.holdings-display.list .asset-item p,
-.holdings-display.list .asset-item span {
-    font-size: 1rem;
+.purchase-item .purchase-button:hover {
+    box-shadow: 0 0 .2rem var(--custom-green);
+    background: var(--custom-midgreen);
 }

@@ -31,10 +31,14 @@
   --custom-darkblue: #011430ff;
   --custom-purple: #b14fff;
   --custom-gray: #3f3f3f;
+  --custom-midgray: #d9d9d9;
   --custom-lightgray: #f3f3f3;
 
+  --translucent-red: rgba(195, 29, 29, 0.1);
   --translucent-blue: rgba(29, 112, 195, .05);
+  --translucent-green: rgba(29, 195, 48, .1);
   --translucent-black: rgba(0, 0, 0, .2);
+  --translucent-gray: rgba(0, 0, 0, .05);
 
   background: var(--bg-main-color);
   height: 45vh;

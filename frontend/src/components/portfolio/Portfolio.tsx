@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../../static/portfolio.css';
 
 import SessionState from '../../state/SessionState.ts';
-import UserAPI, { User } from '../../api/UserAPI.ts';
+import UserAPI, { User, Holding } from '../../api/UserAPI.ts';
 
 import Navbar from '../Navbar';
 import Modal from '../Modal.tsx';
@@ -41,40 +41,95 @@ const Portfolio: React.FC = () => {
     }
 
     async function handleBuy(ticker: string, amount: number, price: number) {
-        const index = user.heldTickers.indexOf(ticker);
-        
-        if (index >= 0) {
-            user.heldAmounts[index] += amount;
-            user.heldProfits[index] -= price * amount;
-        } else {
-            user.heldTickers.push(ticker);
-            user.heldAmounts.push(amount);
-            user.heldAmounts.push(-1 * price);
+        if (user.username == "guest") {
+            alert("You must be logged in to use this feature.");
+            return;
         }
 
-        await userApi.setHoldings(user.username, user.heldTickers, user.heldAmounts, user.heldProfits);
+        let newHoldings: Holding[] = [];
+
+        let holdings = state.getHoldings();
+        if (holdings.length === 0) { // Add the first holding.
+            newHoldings.push({ticker: ticker,
+                              amount: amount,
+                              profit: -1 * price,
+                              username: user.username});
+        } else { // Change the existing holdings.
+            let found = false;
+            holdings.forEach((holding) => {
+                if (holding.ticker === ticker) {
+                    holding.amount += amount;
+                    holding.profit -= price * amount;
+                    found = true;
+                }
+            });
+
+            if (!found) {
+                holdings.push({
+                    ticker: ticker,
+                    amount: amount,
+                    profit: -1 * price,
+                    username: user.username
+                });
+            }
+
+            holdings.sort((a, b) => a.ticker.localeCompare(b.ticker));
+
+            newHoldings = holdings;
+        }
+
+        await userApi.setUserHoldings(user.username, newHoldings);
+        state.setHoldings(newHoldings);
     }
 
     async function handleSell(ticker: string, amount: number, price: number) {
-        const index = user.heldTickers.indexOf(ticker);
-
-        user.heldAmounts[index] -= amount;
-        user.heldProfits[index] += price * amount;
-        if (user.heldAmounts[index] === 0) {
-            user.heldTickers.splice(index, 1);
-            user.heldAmounts.splice(index, 1);
-            user.heldProfits.splice(index, 1);
+        if (user.username == "guest") {
+            alert("You must be logged in to use this feature.");
+            return;
         }
 
-        await userApi.setHoldings(user.username, user.heldTickers, user.heldAmounts, user.heldProfits);
+        let newHoldings: Holding[] = [];
+
+        let heldTickers: string[] = [];
+        let heldAmounts: number[] = [];
+        let heldProfits: number[] = [];
+        user.holdings.forEach((holding) => {
+            heldTickers.push(holding.ticker);
+            heldAmounts.push(holding.amount);
+            heldProfits.push(holding.profit);
+        })
+
+        const index = heldTickers.indexOf(ticker);
+
+        heldAmounts[index] -= amount;
+        heldProfits[index] += price * amount;
+        if (heldAmounts[index] === 0) {
+            heldTickers.splice(index, 1);
+            heldAmounts.splice(index, 1);
+            heldProfits.splice(index, 1);
+        }
+
+        for (let i = 0; i < heldTickers.length; i++) {
+            newHoldings.push({
+                ticker: heldTickers[i],
+                amount: heldAmounts[i],
+                profit: heldProfits[i],
+                username: user.username
+            });
+        }
+
+        await userApi.setUserHoldings(user.username, newHoldings);
     }
 
     return (
         <>
             <Navbar />
             <div className="portfolio">
-                <h1>Your Portfolio</h1>
-                <p>Your holdings, your way.</p>
+                <div className="portfolio-header">
+                    <h1>Your Portfolio</h1>
+                    <h2>Today's Return: <span>$12.32</span></h2>
+                    <p>Your holdings, your way.</p>
+                </div>
 
                 <div className="top-button-container">
                     <div className="add-investments-button" onClick={() => openAddInvestments()}>

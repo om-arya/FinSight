@@ -17,6 +17,6 @@ cd ../frontend
 npm run dev &
 FRONTEND_PID=$!
 
-WAIT $CONTAINER_PID
+wait $CONTAINER_PID
 wait $BACKEND_PID
 wait $FRONTEND_PID

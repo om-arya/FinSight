@@ -8,15 +8,14 @@ export interface User {
     firstName: string;
     lastName: string
     emailAddress: string;
-    heldTickers: string[];
-    heldAmounts: number[];
-    heldProfits: number[];
+    holdings: Holding[];
 }
 
 export interface Holding {
     ticker: string;
     amount: number;
     profit: number;
+    username: string;
 }
 
 interface ResponseEntity {
@@ -47,9 +46,7 @@ const UserAPI = () => {
             firstName: firstName,
             lastName: lastName,
             emailAddress: emailAddress,
-            heldTickers: [],
-            heldAmounts: [],
-            heldProfits: []
+            holdings: []
         }
 
         const response = await axios.post(API_URL, newUser) as ResponseEntity;
@@ -139,19 +136,15 @@ const UserAPI = () => {
     }
 
     /**
-     * Make a 'transaction' (ticker, amount, and profit) by updating the
-     * corresponding fields (heldTickers, heldAmounts, and heldProfits)
-     * of the user with the specified username.
+     * Update the holdings of the user who has the specified username. If
+     * the user does not exist, the controller returns a NOT_FOUND status.
      * 
-     * @param username of the user to update the 'held___' fields of.
-     * @param ticker of asset in the transaction.
-     * @param amount of the the asset bought (+) or sold (-) in the transaction.
-     * @param profit made from the transaction.
-     * @returns the HTTP status returned by the request.
+     * @param username of the user to update the holdings of.
+     * @param newHoldings to update to.
+     * @return a ResponseEntity consisting of an HTTP status.
      */
-    async function setHoldings(username: string, newHeldTickers: string[], newHeldAmounts: number[], newHeldProfits: number[]) {
-        const response = await axios.patch(API_URL + '/' + username + "?newHeldTickers=" + newHeldTickers
-                                        + "&newHeldAmounts=" + newHeldAmounts + "&newHeldProfits=" + newHeldProfits) as ResponseEntity;
+    async function setUserHoldings(username: string, newHoldings: Holding[]) {
+        const response = await axios.patch(API_URL + '/' + username, newHoldings) as ResponseEntity;
         return response.status as HttpStatusCode;
     }
 
@@ -170,7 +163,7 @@ const UserAPI = () => {
     }
 
     return { createUser, getUserByUsername, getUserByEmailAddress, setUserFirstName, setUserLastName, setUserEmailAddress,
-             setUserPassword, setHoldings, deleteUser };
+             setUserPassword, setUserHoldings, deleteUser };
 }
 
 export default UserAPI;

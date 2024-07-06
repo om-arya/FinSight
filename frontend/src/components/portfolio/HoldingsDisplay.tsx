@@ -1,4 +1,5 @@
 import React, { createElement, useState, useEffect, DetailedReactHTMLElement } from 'react';
+import { BsThreeDotsVertical } from "react-icons/bs";
 import '../../static/portfolio.css';
 
 import SessionState from '../../state/SessionState';
@@ -9,32 +10,45 @@ const HoldingsDisplay: React.FC<any> = ({ view, handleBuy, handleSell }) => {
     const state = SessionState();
     const assetApi = AssetAPI();
 
-    const [holdings, setHoldings] = useState(state.getHoldings() as Holding[]);
+    const [popupIsOpen, setPopupIsOpen] = useState(false);
     const [assetItems, setAssetItems] = useState(null);
 
     useEffect(() => {
         createAssetItems();
-    }, [])
+    }, [[], state.getHoldings()])
 
     async function createAssetItems() {
+        const holdings = state.getHoldings() as Holding[];
+        const amounts = holdings.map(holding => { return holding.amount; });
         const assetObjs = await Promise.all(holdings.map(async holding => {
             const assetObj: Asset = await assetApi.getAssetByTicker(holding.ticker);
             return assetObj;
         }));
 
-        const items: DetailedReactHTMLElement<any, any>[] = assetObjs.map((assetObj) => {
+        const items: DetailedReactHTMLElement<any, any>[] = assetObjs.map((assetObj, i) => {
             const ticker = assetObj.ticker;
             const name = assetObj.name;
-            const price = assetObj.prices[assetObj.prices.length - 1]
-            const change = ((price / assetObj.prices[assetObj.prices.length - 2]) * 100 - 100).toFixed(2);
+            const sector = assetObj.sector.toLowerCase().replaceAll(" ", "-");
+            const price = assetObj.prices[assetObj.prices.length - 1];
+            const change = ((price / assetObj.prices[assetObj.prices.length - 2]) * 100 - 100);
 
-            return createElement('div', { key: `asset-item-${assetObj.ticker}`, className: "asset-item"},
+            return createElement('div', { key: `asset-item-${ticker}`, className: `asset-item ${sector}`},
                 [
-                createElement('h3', { key: `ticker-${assetObj.ticker}` }, ticker),
-                createElement('h4', { key: `name-${assetObj.ticker}` }, name),
-                createElement('p', { key: `price-${assetObj.ticker}` }, "$" + price),
-                createElement('p', { key: `change-${assetObj.ticker}`, className: `change ${price > 0 ? "positive" : "negative"}` },
-                                    (price > 0 ? "↑" : "↓") +  change + "%")
+                createElement('h3', { key: `ticker-${ticker}` }, ticker),
+                createElement('h4', { key: `name-${ticker}` }, name),
+                createElement('p', { key: `price-${ticker}`, className: "price" }, `$${price.toFixed(2)}`),
+                createElement('div', { key: `amount-${ticker}`, className: "amount" }, amounts[i]),
+                createElement('div', { key: `value-${ticker}`, className: "value" }, `$${(price * amounts[i]).toFixed(2)}`),
+                createElement('p', { key: `change-${ticker}`, className: `change ${change > 0 ? "positive" : "negative"}` },
+                             `${(change > 0 ? "↑" : "↓")}${Math.abs(change).toFixed(2)}%`),
+                createElement('div', { key: `edit-${ticker}`, className: "edit-holding-button", onClick: () => setPopupIsOpen(!popupIsOpen) },
+                             <BsThreeDotsVertical />),
+                createElement('div', { key: `popup-${ticker}`, className: "edit-holding-popup-container" },
+                             <div className={`edit-holding-popup ${popupIsOpen ? "active" : ""}`}>
+                                <p className="record-buy">+ Record a Buy</p>
+                                <p className="record-sell">- Record a Sell</p>
+                                <p className="sell-all">- Sell all</p>
+                            </div>),
                 ]
             );
         })
@@ -43,6 +57,14 @@ const HoldingsDisplay: React.FC<any> = ({ view, handleBuy, handleSell }) => {
 
     return (
         <div className={`holdings-display ${view}`}>
+            <div className="column-labels">
+                <p>TICKER</p>
+                <p>NAME</p>
+                <p>PRICE</p>
+                <p>QUANTITY</p>
+                <p>VALUE</p>
+                <p>% CHANGE</p>
+            </div>
             { assetItems }
         </div>
     )

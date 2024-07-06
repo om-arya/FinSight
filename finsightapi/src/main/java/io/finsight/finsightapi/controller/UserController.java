@@ -2,7 +2,9 @@ package io.finsight.finsightapi.controller;
 
 import io.finsight.finsightapi.service.UserOperationStatus;
 import io.finsight.finsightapi.service.UserService;
+import io.finsight.finsightapi.model.dto.HoldingDto;
 import io.finsight.finsightapi.model.dto.UserDto;
+import io.finsight.finsightapi.model.entity.HoldingEntity;
 import io.finsight.finsightapi.model.entity.UserEntity;
 import io.finsight.finsightapi.model.mapper.Mapper;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,10 +29,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UserController {
     private UserService userService;
     private Mapper<UserEntity, UserDto> userMapper;
+    private Mapper<HoldingEntity, HoldingDto> holdingMapper;
 
-    public UserController(UserService userService, Mapper<UserEntity, UserDto> userMapper) {
+    public UserController(UserService userService, Mapper<UserEntity, UserDto> userMapper, Mapper<HoldingEntity, HoldingDto> holdingMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
+        this.holdingMapper = holdingMapper;
     }
     
     /* CREATE ENDPOINTS */
@@ -145,19 +150,21 @@ public class UserController {
     }
 
     /**
-     * Update the fields of the 'holdings' (heldTickers, heldAmounts, and heldProfits)
-     * of the user with the specified username.
+     * Update the holdings of the user who has the specified username. If
+     * the user does not exist, the service returns a NOT_FOUND status.
      * 
-     * @param username of the user to update the 'held___' fields of.
-     * @param newHeldTickers in the holdings.
-     * @param newHeldAmounts in the holdings.
-     * @param newHeldProfits in the holdings.
+     * @param username of the user to update the holdings of.
+     * @param newHoldings to update to.
      * @return a ResponseEntity consisting of an HTTP status.
      */
     @PatchMapping(path = "/users/{username}")
-    public ResponseEntity<Void> setHoldings(@PathVariable String username, @RequestParam List<String> newHeldTickers,
-                                            @RequestParam List<Integer> newHeldAmounts, @RequestParam List<Double> newHeldProfits) {
-        return userService.setHoldings(username, newHeldTickers, newHeldAmounts, newHeldProfits);
+    public ResponseEntity<Void> setUserHoldings(@PathVariable String username, @RequestBody List<HoldingDto> newHoldingDtos) {
+        List<HoldingEntity> newHoldingEntities = new ArrayList<HoldingEntity>();
+        for (HoldingDto holdingDto : newHoldingDtos) {
+            newHoldingEntities.add(holdingMapper.mapFrom(holdingDto));
+        }
+        
+        return userService.setUserHoldings(username, newHoldingEntities);
     }
 
     /* DELETE ENDPOINTS */

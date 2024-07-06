@@ -17,7 +17,6 @@ const About: React.FC = () => {
     const nodejsUrl = "https://nodejs.org/en";
     const httpUrl = "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods";
     const crudUrl = "https://www.codecademy.com/article/what-is-crud";
-    const yfinanceUrl = "https://pypi.org/project/yfinance/";
     const githubactionsUrl = "https://docs.github.com/en/actions";
     const twelvedataUrl = "https://twelvedata.com/";
     const cronUrl = "https://www.npmjs.com/package/node-cron";
@@ -56,10 +55,9 @@ const About: React.FC = () => {
                     supporting Create, Read, Update, Delete (<AboutLink to={ crudUrl }>CRUD</AboutLink>) functions such as signing up/logging in a user, tracking buys 
                     and sells, and fetching historical prices for a particular stock.<br /><br />
 
-                    To obtain asset data, I used the <AboutLink to={ yfinanceUrl}>yfinance</AboutLink> Python library to load 10 years of historical prices into 
-                    the database. I also set up a Node.js <AboutLink to={ cronUrl }>cron job</AboutLink> through <AboutLink to={ githubactionsUrl }>GitHub Actions</AboutLink> to 
+                    To obtain asset data, I set up a Node.js <AboutLink to={ cronUrl }>cron job</AboutLink> through <AboutLink to={ githubactionsUrl }>GitHub Actions</AboutLink> to 
                     automate a daily workflow that fetches and stores EOD prices from the <AboutLink to={ twelvedataUrl }>Twelve Data API</AboutLink>. 
-                    All of this is used to empower FinSight to support <AboutLink to={ snp500Url }>every stock in the S&P500.</AboutLink><br /><br />
+                    This is used to empower FinSight to support <AboutLink to={ snp500Url }>every stock in the S&P500.</AboutLink><br /><br />
 
                     For more details, see the <AboutLink to={ finsightgithubUrl }>GitHub repository</AboutLink>.
                 </p>
