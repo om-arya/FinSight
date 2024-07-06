@@ -1,9 +1,10 @@
 import React, { createElement, useState, useEffect, DetailedReactHTMLElement } from 'react';
-import { TICKERS } from '../../api/data/TICKERS';
 
+import SessionState from '../../state/SessionState';
 import AssetAPI, { Asset } from '../../api/AssetAPI';
 
 const AddInvestmentsPanel: React.FC<any> = ({ handleBuy, closeAddInvestments }) => {
+    const state = SessionState();
     const assetApi = AssetAPI();
 
     const [purchaseItems, setPurchaseItems] = useState(null);
@@ -13,16 +14,13 @@ const AddInvestmentsPanel: React.FC<any> = ({ handleBuy, closeAddInvestments }) 
     }, [])
 
     async function createPurchaseItems() {
-        const assetObjs = await Promise.all(TICKERS.map(async ticker => {
-            const assetObj: Asset = await assetApi.getAssetByTicker(ticker);
-            return assetObj;
-        }));
+        const allAssets = state.getAllAssets() as Asset[];
 
-        const items: DetailedReactHTMLElement<any, any>[] = assetObjs.map((assetObj) => {
-            const ticker = assetObj.ticker;
-            const name = assetObj.name;
-            const sector = assetObj.sector.toLowerCase().replaceAll(" ", "-");
-            const price = assetObj.prices[assetObj.prices.length - 1]
+        const items: DetailedReactHTMLElement<any, any>[] = allAssets.map((asset: Asset) => {
+            const ticker = asset.ticker;
+            const name = asset.name;
+            const sector = asset.sector.toLowerCase().replaceAll(" ", "-");
+            const price = asset.prices[asset.prices.length - 1]
 
             return createElement('div', { key: `purchase-item-${ticker}`, className: `purchase-item ${sector}`},
                 [

@@ -20,17 +20,14 @@ const HoldingsDisplay: React.FC<any> = ({ view, handleBuy, handleSell }) => {
     async function createAssetItems() {
         const holdings = state.getHoldings() as Holding[];
         const amounts = holdings.map(holding => { return holding.amount; });
-        const assetObjs = await Promise.all(holdings.map(async holding => {
-            const assetObj: Asset = await assetApi.getAssetByTicker(holding.ticker);
-            return assetObj;
-        }));
+        const holdingAssets = state.getHoldingAssets() as Asset[];
 
-        const items: DetailedReactHTMLElement<any, any>[] = assetObjs.map((assetObj, i) => {
-            const ticker = assetObj.ticker;
-            const name = assetObj.name;
-            const sector = assetObj.sector.toLowerCase().replaceAll(" ", "-");
-            const price = assetObj.prices[assetObj.prices.length - 1];
-            const change = ((price / assetObj.prices[assetObj.prices.length - 2]) * 100 - 100);
+        const items: DetailedReactHTMLElement<any, any>[] = holdingAssets.map((holdingAsset, i) => {
+            const ticker = holdingAsset.ticker;
+            const name = holdingAsset.name;
+            const sector = holdingAsset.sector.toLowerCase().replaceAll(" ", "-");
+            const price = holdingAsset.prices[holdingAsset.prices.length - 1];
+            const change = ((price / holdingAsset.prices[holdingAsset.prices.length - 2]) * 100 - 100);
 
             return createElement('div', { key: `asset-item-${ticker}`, className: `asset-item ${sector}`},
                 [
