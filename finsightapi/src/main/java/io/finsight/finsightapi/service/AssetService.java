@@ -1,8 +1,11 @@
 package io.finsight.finsightapi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +45,7 @@ public class AssetService {
 
         try {
             assetRepository.save(asset);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -67,6 +70,96 @@ public class AssetService {
         } catch (Exception exception) {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * Get all assets from the database.
+     * 
+     * @return a list of all assets from the database.
+     */
+    public ResponseEntity<List<AssetEntity>> getAllAssets() {
+        try {
+            List<AssetEntity> assetList = StreamSupport
+                .stream(assetRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList()); 
+            return new ResponseEntity<>(assetList, HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(new ArrayList<AssetEntity>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Get the top 10 assets by the highest % change between their last
+     * 2 prices.
+     * 
+     * @return a list of the top 10 assets by price change.
+     */
+    public ResponseEntity<List<AssetEntity>> getTop10AssetsByPriceChange() {
+        try {
+            List<AssetEntity> assetList = StreamSupport.stream(assetRepository.findAll().spliterator(), false)
+                .sorted((a1, a2) -> Double.compare(
+                    Math.abs(calculatePriceChange(a2)), Math.abs(calculatePriceChange(a1))
+                ))
+                .limit(10)
+                .collect(Collectors.toList());
+            return new ResponseEntity<>(assetList, HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(new ArrayList<AssetEntity>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Get the top 10 assets by the most positive % change between their
+     * last 2 prices.
+     * 
+     * @return a list of the top 10 assets by price gain.
+     */
+    public ResponseEntity<List<AssetEntity>> getTop10AssetsByPriceGain() {
+        try {
+            List<AssetEntity> assetList = StreamSupport.stream(assetRepository.findAll().spliterator(), false)
+                .sorted((a1, a2) -> Double.compare(
+                    calculatePriceChange(a2), calculatePriceChange(a1)
+                ))
+                .limit(10)
+                .collect(Collectors.toList());
+            return new ResponseEntity<>(assetList, HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(new ArrayList<AssetEntity>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Get the top 10 assets by the most negative % change between their
+     * last 2 prices.
+     * 
+     * @return a list of the top 10 assets by price loss.
+     */
+    public ResponseEntity<List<AssetEntity>> getTop10AssetsByPriceLoss() {
+        try {
+            List<AssetEntity> assetList = StreamSupport.stream(assetRepository.findAll().spliterator(), false)
+                .sorted((a1, a2) -> Double.compare(
+                    calculatePriceChange(a1), calculatePriceChange(a2)
+                ))
+                .limit(10)
+                .collect(Collectors.toList());
+            return new ResponseEntity<>(assetList, HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(new ArrayList<AssetEntity>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Helper method for computing the % change between the last 2 prices
+     * of the given asset. Can be positive or negative.
+     * 
+     * @param asset to compute the price change of.
+     * @return the % change between the last 2 prices.
+     */
+    private double calculatePriceChange(AssetEntity asset) {
+        List<Double> prices = asset.getPrices();
+        Double lastPrice = prices.get(prices.size() - 1);
+        Double secondLastPrice = prices.get(prices.size() - 2);
+        return (lastPrice / secondLastPrice * 100 - 100);
     }
 
     /* UPDATE OPERATIONS */
@@ -99,7 +192,7 @@ public class AssetService {
         try {
             asset.setPrices(prices);
             assetRepository.save(asset);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -14,6 +14,7 @@ const Home: React.FC = () => {
         state.setUser(user);
         
         const holdings: Holding[] = user.holdings;
+        holdings.sort((a, b) => a.ticker.localeCompare(b.ticker));
         state.setHoldings(holdings);
     }
 

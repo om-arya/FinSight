@@ -49,6 +49,49 @@ const AssetAPI = () => {
         return response.data as Asset;
     }
 
+    /**
+     * Get all assets from the database.
+     * 
+     * @returns an array of all assets from the database.
+     */
+    async function getAllAssets(): Promise<Asset[]> {
+        const response = await axios.get(API_URL + '/all') as ResponseEntity;
+        return response.data as Asset[];
+    }
+
+    /**
+     * Get the top 10 assets by the highest % change between their last
+     * 2 prices.
+     * 
+     * @returns an array of the top 10 assets by price change.
+     */
+    async function getTop10AssetsByPriceChange(): Promise<Asset[]> {
+        const response = await axios.get(API_URL + '/top10pricechange') as ResponseEntity;
+        return response.data as Asset[];
+    }
+
+    /**
+     * Get the top 10 assets by the most positive % change between their
+     * last 2 prices.
+     * 
+     * @returns an array of the top 10 assets by price gain.
+     */
+    async function getTop10AssetsByPriceGain(): Promise<Asset[]> {
+        const response = await axios.get(API_URL + '/top10pricegain') as ResponseEntity;
+        return response.data as Asset[];
+    }
+
+    /**
+     * Get the top 10 assets by the most negative % change between their
+     * last 2 prices.
+     * 
+     * @returns an array of the top 10 assets by price loss.
+     */
+    async function getTop10AssetsByPriceLoss(): Promise<Asset[]> {
+        const response = await axios.get(API_URL + '/top10priceloss') as ResponseEntity;
+        return response.data as Asset[];
+    }
+
     /* UPDATE ENDPOINTS */
 
     // For internal use only. The user does NOT have the ability to
@@ -85,7 +128,8 @@ const AssetAPI = () => {
         return response.status as HttpStatusCode;
     }
 
-    return { createAsset, getAssetByTicker, addAssetPrice, deleteAsset };
+    return { createAsset, getAssetByTicker, getAllAssets, getTop10AssetsByPriceChange, getTop10AssetsByPriceGain,
+             getTop10AssetsByPriceLoss, addAssetPrice, deleteAsset };
 }
 
 export default AssetAPI;
