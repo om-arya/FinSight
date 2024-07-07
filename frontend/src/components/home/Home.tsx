@@ -19,11 +19,23 @@ const Home: React.FC = () => {
         if (holdings) {
             state.setHoldings(holdings);
 
-            const holdingAssets: Asset[] = await Promise.all(holdings.map(async holding => {
+            const holdingAssets = [];
+            let todayReturn = 0;
+            let totalCompoundQuarterlyReturn = 0;
+            let totalCompoundAnnualReturn = 0;
+            holdings.forEach(async (holding) => {
                 const holdingAsset: Asset = await assetApi.getAssetByTicker(holding.ticker);
-                return holdingAsset;
-            }));
-            state.setHoldingAssets(holdingAssets);
+                holdingAssets.push(holdingAsset);
+
+                const prices = holdingAsset.prices;
+                todayReturn += holding.amount * (prices[prices.length - 1] - prices[prices.length - 2]);
+                totalCompoundQuarterlyReturn += (prices[prices.length - 1] / prices[0])^(1 / (prices.length / 91.3125)) - 1;
+                totalCompoundAnnualReturn += (prices[prices.length - 1] / prices[0])^(1 / (prices.length / 365.0)) - 1;
+                state.setHoldingAssets(holdingAssets);
+                state.setTodayReturn(todayReturn);
+                state.setQuarterlyReturn(totalCompoundQuarterlyReturn);
+                state.setAnnualReturn(totalCompoundAnnualReturn / holdings.length);
+            })
         } else {
             state.setHoldings([]);
             state.setHoldingAssets([])

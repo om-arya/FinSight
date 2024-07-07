@@ -4,70 +4,44 @@ import { Chart as ChartJS, LineElement, PointElement, LineController, CategorySc
 import '../../static/dashboard.css';
 
 import SessionState from '../../state/SessionState';
-import AssetAPI, { Asset } from '../../api/AssetAPI';
+import { Asset } from '../../api/AssetAPI';
 
 const Graph: React.FC = () => {
   ChartJS.register(LineElement, PointElement, LineController, CategoryScale, LinearScale, Title, Tooltip, Legend, Filler);
 
-  const today = new Date();
-  const dd = String(today.getDate()).padStart(2, '0');
-  const mm = String(today.getMonth() + 1).padStart(2, '0');
-  const yyyy = today.getFullYear();
-  const date = mm + '/' + dd + '/' + yyyy;
-
   const state = SessionState();
 
-  const [dailyTotals, setDailyTotals] = useState([]);
+  const [data, setData] = useState({labels: [], datasets: [{label: "", borderColor: "", borderWidth: 0, pointRadius: 0, data: []}]});
 
+  let topAssets = [];
   useEffect(() => {
-    let newDailyTotals = [];
+    const datasets = [];
+    const holdingAssets = state.getHoldingAssets() as Asset[];
+    topAssets = holdingAssets.sort((a1: Asset, a2: Asset) => {
+      return a2.prices[a2.prices.length - 1] - a1.prices[a1.prices.length - 1];
+    }).slice(0,5);
 
-    const holdingAssets = state.getHoldingAssets();
-    holdingAssets.forEach(async (holdingAsset) => {
-      holdingAsset.prices.forEach((price, i) => {
-        if (price > 0) {
-          if (i >= newDailyTotals.length) {
-            newDailyTotals.push(price);
-          } else {
-            newDailyTotals[i] += price;
-          }
-        }
-      })
+    topAssets.forEach((asset) => {
+        datasets.push({
+          label: asset.ticker,
+          borderColor: asset.sector === "Consumer Discretionary" ? "blue" : "red",
+          borderWidth: 2.5,
+          pointRadius: 2,
+          data: asset.prices,
+          fill: true,
+          backgroundColor: 'rgba(255, 0, 0, .1)',
+          backgroundOpacity: .1,
+        })
     })
 
-    setDailyTotals(newDailyTotals);
+    setData({
+      labels: new Array(topAssets[0].prices.length).fill(""),
+      datasets: datasets,
+    });
   }, [])
 
-  const days = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"]
-  const data = {
-    labels: days.slice(0, dailyTotals.length),
-    datasets: [
-      {
-        label: `Your holdings`,
-        backgroundColor: (context: any) => {
-            const chart = context.chart;
-            const { ctx, chartArea } = chart;
-
-            if (!chartArea) {
-              return null;
-            }
-
-            const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-            gradient.addColorStop(0, 'rgba(245, 162, 38, .5)');
-            gradient.addColorStop(.5, 'rgba(255, 255, 255, .5)');
-
-            return gradient;
-        },
-        borderColor: 'rgba(245, 162, 38, 1)',
-        borderWidth: 2.5,
-        pointRadius: 2,
-        data: dailyTotals,
-        fill: true,
-      },
-    ],
-  };
-    
   const options = {
+    aspectRatio: 11/4,
     scales: {
     x: {
         grid: {
@@ -78,7 +52,6 @@ const Graph: React.FC = () => {
         grid: {
             drawOnChartArea: true,
         },
-        min: Math.min(...dailyTotals) - 50,
       },
     },
   };

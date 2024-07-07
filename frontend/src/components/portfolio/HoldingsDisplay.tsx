@@ -6,7 +6,7 @@ import SessionState from '../../state/SessionState';
 import UserAPI, { User, Holding } from '../../api/UserAPI.ts';
 import AssetAPI, { Asset } from '../../api/AssetAPI.ts';
 
-const HoldingsDisplay: React.FC<any> = ({ view, holdings, handleBuy, handleSell }) => {
+const HoldingsDisplay: React.FC<any> = ({ view, holdings }) => {
     const state = SessionState();
 
     const [popupIsOpen, setPopupIsOpen] = useState(false);
@@ -70,7 +70,13 @@ const HoldingsDisplay: React.FC<any> = ({ view, holdings, handleBuy, handleSell 
                 <p>VALUE</p>
                 <p>% CHANGE</p>
             </div>
-            { assetItems }
+            { 
+            assetItems !== null && assetItems.length > 0 ? assetItems :
+                <div className="no-investments">
+                    <img src="/gears.webp"></img>
+                    <p>You don't have any investments yet!</p>
+                </div>
+            }
         </div>
     )
 }

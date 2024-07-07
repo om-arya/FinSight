@@ -17,6 +17,8 @@ const Portfolio: React.FC = () => {
     const userApi = UserAPI();
     const assetApi = AssetAPI();
 
+    const todayReturn = state.getTodayReturn() as number;
+
     const [holdingsView, setHoldingsView] = useState("card");
     const [holdings, setHoldings] = useState(state.getHoldings());
 
@@ -41,21 +43,16 @@ const Portfolio: React.FC = () => {
     }
 
     async function handleBuy(ticker: string, amount: number, price: number) {
-        if (user.username == "guest") {
-            alert("You must be logged in to use this feature.");
-            return;
-        }
-
         let newHoldings: Holding[] = [];
 
         let holdings = state.getHoldings();
+        let found = false;
         if (holdings.length === 0) { // Add the first holding.
             newHoldings.push({ticker: ticker,
                               amount: amount,
                               profit: -1 * price,
                               username: user.username});
         } else { // Change the existing holdings.
-            let found = false;
             holdings.forEach((holding) => {
                 if (holding.ticker === ticker) {
                     holding.amount += amount;
@@ -63,7 +60,7 @@ const Portfolio: React.FC = () => {
                     found = true;
                 }
             });
-
+            
             if (!found) {
                 holdings.push({
                     ticker: ticker,
@@ -72,11 +69,18 @@ const Portfolio: React.FC = () => {
                     username: user.username
                 });
             }
-
             newHoldings = holdings;
         }
 
         await userApi.setUserHoldings(user.username, newHoldings);
+        if (!found) {
+            // An asset was added, so update holdingAssets.
+            const holdingAssets: Asset[] = await Promise.all(newHoldings.map(async holding => {
+                const holdingAsset: Asset = await assetApi.getAssetByTicker(holding.ticker);
+                return holdingAsset;
+            }));
+            state.setHoldingAssets(holdingAssets);
+        }
         state.setHoldings(newHoldings);
         setHoldings(state.getHoldings());
     }
@@ -120,16 +124,16 @@ const Portfolio: React.FC = () => {
         }
 
         await userApi.setUserHoldings(user.username, newHoldings);
-        state.setHoldings(newHoldings);
-        setHoldings(state.getHoldings());
         if (assetWasRemoved) {
-            // Update holdingAssets
+            // Update holdingAssets.
             const holdingAssets: Asset[] = await Promise.all(newHoldings.map(async holding => {
                 const holdingAsset: Asset = await assetApi.getAssetByTicker(holding.ticker);
                 return holdingAsset;
             }));
             state.setHoldingAssets(holdingAssets);
         }
+        state.setHoldings(newHoldings);
+        setHoldings(state.getHoldings());
     }
 
     return (
@@ -138,7 +142,7 @@ const Portfolio: React.FC = () => {
             <div className="portfolio">
                 <div className="portfolio-header">
                     <h1>Your Portfolio</h1>
-                    <h2>Today's Return: <span>$12.32</span></h2>
+                    <h2>Today's Return: <span>{`${todayReturn < 0 ? "-$" : "$"}${Math.abs(todayReturn).toFixed(2)}`}</span></h2>
                     <p>Your holdings, your way.</p>
                 </div>
 
@@ -155,8 +159,6 @@ const Portfolio: React.FC = () => {
                 <HoldingsDisplay
                     view={ holdingsView }
                     holdings={ holdings }
-                    handleBuy={(ticker: string, amount: number, price: number) => handleBuy(ticker, amount, price)}
-                    handleSell={(ticker: string, amount: number, price: number) => handleSell(ticker, amount, price)}
                 />
 
                 <Modal open={ isOpen }>{ modalContent }</Modal>

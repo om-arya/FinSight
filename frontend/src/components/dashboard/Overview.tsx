@@ -31,7 +31,7 @@ const Overview: React.FC = () => {
             const price = holdingAsset.prices[holdingAsset.prices.length - 1];
             const change = ((price / holdingAsset.prices[holdingAsset.prices.length - 2]) * 100 - 100);
 
-            if (change < changeRange[0] || change > changeRange[1]) {
+            if (change <= changeRange[0] || change >= changeRange[1]) {
                 return;
             }
 
@@ -66,27 +66,27 @@ const Overview: React.FC = () => {
             <div className="overview-top-container">
                 <h4>OVERVIEW</h4>
                 <div className="overview-button-container">
-                    <div className={`overview-button all-button ${ allIsActive ? "active" : ""}`} onClick={() => {
-                        setChangeRange(fullRange);
+                    <div className={`overview-button ${ allIsActive ? "active" : ""}`} onClick={() => {
                         setAllIsActive(true);
                         setGainersIsActive(false);
                         setLosersIsActive(false);
+                        setChangeRange(fullRange);
                     }}>
                         <p>All</p>
                     </div>
-                    <div className={`overview-button all-button ${ gainersIsActive ? "active" : ""}`} onClick={() => {
-                        setChangeRange(positiveRange);
+                    <div className={`overview-button ${ gainersIsActive ? "active" : ""}`} onClick={() => {
                         setAllIsActive(false);
                         setGainersIsActive(true);
                         setLosersIsActive(false);
+                        setChangeRange(positiveRange);
                     }}>
                         <p>Gainers</p>
                     </div>
-                    <div className={`overview-button all-button ${ losersIsActive ? "active" : ""}`} onClick={() => {
-                        setChangeRange(negativeRange);
+                    <div className={`overview-button ${ losersIsActive ? "active" : ""}`} onClick={() => {
                         setAllIsActive(false);
                         setGainersIsActive(false);
                         setLosersIsActive(true);
+                        setChangeRange(negativeRange);
                     }}>
                         <p>Losers</p>
                     </div>

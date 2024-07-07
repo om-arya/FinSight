@@ -69,12 +69,29 @@
     color: var(--bg-second-color);
 }
 
+.no-investments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100em;
+    position: absolute;
+    left: 0;
+    justify-content: center;
+}
+
+.no-investments p {
+    font-size: 1.3rem;
+    color: var(--custom-gray);
+}
+
+.no-investments img {
+    width: 15rem;
+}
+
 /* HOLDINGS DISPLAY */
 
 .holdings-display {
     margin-top: 2rem;
-    align-items: center;
-    justify-content: center;
     height: 100%;
     width: 100%;
 }

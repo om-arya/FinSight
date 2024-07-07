@@ -43,6 +43,11 @@ const LeaderboardTab: React.FC<any> = ({ assets }) => {
 
 const Leaderboard: React.FC<any> = () => {
     const state = SessionState();
+
+    const [topMoversIsActive, setTopMoversIsActive] = useState(true);
+    const [topGainersIsActive, setTopGainersIsActive] = useState(false);
+    const [topLosersIsActive, setTopLosersIsActive] = useState(false);
+
     const [leaderboardContent, setLeaderboardContent] = useState(
         <LeaderboardTab assets={ state.getTopAssetsByPriceChange() as Asset[] }/>
     );
@@ -50,17 +55,26 @@ const Leaderboard: React.FC<any> = () => {
     return (
         <div className="dashboard-container leaderboard-container">
             <div className="leaderboard-button-container">
-                <div className="leaderboard-button top-movers-button" onClick={() => {
+                <div className={`leaderboard-button ${ topMoversIsActive ? "active" : ""}`} onClick={() => {
+                    setTopMoversIsActive(true);
+                    setTopGainersIsActive(false);
+                    setTopLosersIsActive(false);
                     setLeaderboardContent(<LeaderboardTab assets={ state.getTopAssetsByPriceChange() as Asset[] }/>);
                 }}>
                     <p>Top Movers</p>
                 </div>
-                <div className="leaderboard-button top-movers-button" onClick={() => {
+                <div className={`leaderboard-button ${ topGainersIsActive ? "active" : ""}`} onClick={() => {
+                    setTopMoversIsActive(false);
+                    setTopGainersIsActive(true);
+                    setTopLosersIsActive(false);
                     setLeaderboardContent(<LeaderboardTab assets={ state.getTopAssetsByPriceGain() as Asset[] }/>);
                 }}>
                     <p>Top Gainers</p>
                 </div>
-                <div className="leaderboard-button top-movers-button" onClick={() => {
+                <div className={`leaderboard-button ${ topLosersIsActive ? "active" : ""}`} onClick={() => {
+                    setTopMoversIsActive(false);
+                    setTopGainersIsActive(false);
+                    setTopLosersIsActive(true);
                     setLeaderboardContent(<LeaderboardTab assets={ state.getTopAssetsByPriceLoss() as Asset[] }/>);
                 }}>
                     <p>Top Losers</p>

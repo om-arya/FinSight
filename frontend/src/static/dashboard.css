@@ -12,19 +12,24 @@
     margin: 0 1rem;
     padding-top: 1rem;
     gap: 1.5rem;
-    width: 60%;
+    width: 85%;
     height: 100%;
 }
 
 .dashboard h1 {
-    font-size: 2.7rem;
+    margin-bottom: .3rem;
+    font-size: 2.8rem;
     font-weight: 300;
+}
+
+.dashboard p {
+    font-size: 1.15rem;
 }
 
 .returns-container {
     display: flex;
     flex-direction: row;
-    margin-top: 1rem;
+    margin-top: .8rem;
     align-items: center;
     justify-content: space-between;
     width: 100%;
@@ -38,8 +43,8 @@
     gap: .5rem;
     padding: 0 .8rem;
     justify-content: center;
-    width: 17rem;
-    height: 6.5rem;
+    width: 19.2rem;
+    height: 7rem;
     border-radius: 10px;
     transition: box-shadow .3s ease;
     user-select: none;
@@ -55,21 +60,21 @@
     box-shadow: 0 0 .5rem var(--custom-orange);
 }
 
-.compound-annual-return {
+.quarterly-return {
     box-shadow: 0 0 .2rem var(--custom-red);
     background: var(--custom-red);
 }
 
-.compound-annual-return:hover {
+.quarterly-return:hover {
     box-shadow: 0 0 .5rem var(--custom-red);
 }
 
-.total-return {
+.compound-annual-return {
     box-shadow: 0 0 .2rem var(--custom-darkblue);
     background: var(--custom-darkblue);
 }
 
-.total-return:hover {
+.compound-annual-return:hover {
     box-shadow: 0 0 .5rem var(--custom-darkblue);
 }
 
@@ -84,11 +89,11 @@
     fill: var(--custom-lightorange);
 }
 
-.compound-annual-return .icon {
+.quarterly-return .icon {
     fill: var(--custom-sunsetpink);
 }
 
-.total-return .icon {
+.compound-annual-return .icon {
     fill: var(--bg-second-color);
 }
 
@@ -181,7 +186,7 @@
 .overview-container .column-labels p {
     font-size: .8rem;
     text-align: left;
-    color: var(--custom-gray);
+    color: var(--custom-darkgray);
 }
 
 .overview-item {
@@ -246,17 +251,18 @@
 .leaderboard-container {
     display: flex;
     flex-direction: column;
-    padding: 1.6rem;
+    padding: 1.5rem 1.5rem .7rem;
 }
 
 .leaderboard-button-container {
     display: flex;
-    width: 40%;
-    justify-content: space-evenly;
+    margin-bottom: 1rem;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .leaderboard-button {
-    padding: .5rem 1.5rem;
+    padding: .5rem 1rem;
     border-radius: 50px;
     cursor: pointer;
     transition: .2s ease;
@@ -284,10 +290,12 @@
 }
 
 .leaderboard-item {
+    position: relative;
     display: grid;
-    grid-template-columns: 15% 45% 16% 13% 11%;
+    grid-template-columns: 17% 47% 18% 18%;
+    grid-template-rows: 100%;
     width: 100%;
-    height: 3rem;
+    height: 4.2rem;
     align-items: center;
     border-top: solid 1px var(--custom-midgray);
     animation: fade-in 1s;
@@ -296,13 +304,13 @@
 .leaderboard-item h3 {
     display: flex;
     flex-direction: row;
-    width: 5.5rem;
+    width: 3.5rem;
     height: 1.5rem;
     align-items: center;
     justify-content: center;
     text-align: center;
     border-radius: 5px;
-    font-size: .8rem;
+    font-size: .9rem;
     font-weight: 500;
     user-select: none;
 }
