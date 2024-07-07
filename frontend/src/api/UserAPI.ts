@@ -92,7 +92,7 @@ const UserAPI = () => {
      * @returns the HTTP status returned by the request.
      */
     async function setUserFirstName(username: string, newFirstName: string): Promise<HttpStatusCode> {
-        const response = await axios.patch(API_URL + '/' + username + "?newFirstName=" + newFirstName) as ResponseEntity;
+        const response = await axios.patch(API_URL + '/firstname/' + username + "?newFirstName=" + newFirstName) as ResponseEntity;
         return response.status as HttpStatusCode;
     }
 
@@ -105,7 +105,7 @@ const UserAPI = () => {
      * @returns the HTTP status returned by the request.
      */
     async function setUserLastName(username: string, newLastName: string): Promise<HttpStatusCode> {
-        const response = await axios.patch(API_URL + '/' + username + "?newLastName=" + newLastName) as ResponseEntity;
+        const response = await axios.patch(API_URL + '/lastname/' + username + "?newLastName=" + newLastName) as ResponseEntity;
         return response.status as HttpStatusCode;
     }
 
@@ -118,7 +118,7 @@ const UserAPI = () => {
      * @returns the HTTP status returned by the request.
      */
     async function setUserEmailAddress(username: string, newEmailAddress: string): Promise<HttpStatusCode> {
-        const response = await axios.patch(API_URL + '/' + username + "?newEmailAddress=" + newEmailAddress) as ResponseEntity;
+        const response = await axios.patch(API_URL + '/emailaddress/' + username + "?newEmailAddress=" + newEmailAddress) as ResponseEntity;
         return response.status as HttpStatusCode;
     }
 
@@ -131,7 +131,7 @@ const UserAPI = () => {
      * @returns the HTTP status returned by the request.
      */
     async function setUserPassword(username: string, newPassword: string): Promise<HttpStatusCode> {
-        const response = await axios.patch(API_URL + '/' + username + "?newPassword=" + newPassword) as ResponseEntity;
+        const response = await axios.patch(API_URL + '/password/' + username + "?newPassword=" + newPassword) as ResponseEntity;
         return response.status as HttpStatusCode;
     }
 
@@ -144,7 +144,7 @@ const UserAPI = () => {
      * @return a ResponseEntity consisting of an HTTP status.
      */
     async function setUserHoldings(username: string, newHoldings: Holding[]) {
-        const response = await axios.patch(API_URL + '/' + username, newHoldings) as ResponseEntity;
+        const response = await axios.patch(API_URL + '/holdings/' + username, newHoldings) as ResponseEntity;
         return response.status as HttpStatusCode;
     }
 

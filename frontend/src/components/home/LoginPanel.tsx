@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { FaRegUser } from 'react-icons/fa6';
 import { MdLockOutline } from 'react-icons/md';
 import '../../static/home.css';
@@ -52,7 +51,12 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
                 setErrorMessage(<br />);
 
                 await handleLogin(user);
-                window.open("/dashboard", "_self");
+
+                if (user.holdings.length > 0) {
+                    window.open("/dashboard", "_self");
+                } else {
+                    window.open("/portfolio", "_self");
+                }
             } else {
                 setErrorMessage(incorrectPasswordError);
             }
@@ -62,7 +66,11 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
                 setErrorMessage(<br />);
 
                 await handleLogin(user);
-                window.open("/dashboard", "_self");
+                if (user.holdings.length > 0) {
+                    window.open("/dashboard", "_self");
+                } else {
+                    window.open("/portfolio", "_self");
+                }
             } else {
                 setErrorMessage(incorrectPasswordError);
             }

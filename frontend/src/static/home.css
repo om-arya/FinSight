@@ -229,7 +229,7 @@
     width: 100%;
 }
 
-.cancel-button {
+.signup-panel .cancel-button {
     display: flex;
     margin-top: .4rem;
     justify-self: left;
@@ -243,11 +243,11 @@
     transition: .2s ease;
 }
 
-.cancel-button:hover {
+.signup-panel .cancel-button:hover {
     background: var(--translucent-blue);
 }
 
-.cancel-button p {
+.signup-panel .cancel-button p {
     text-align: center;
     font-size: 1.1rem;
     color: var(--custom-blue);

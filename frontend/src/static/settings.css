@@ -1,0 +1,337 @@
+.settings-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 5rem;
+    align-items: left;
+    justify-content: center;
+}
+  
+.settings-panel h1 {
+    margin-bottom: .3rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.settings-panel .error-message {
+    align-self: center;
+    width: 18rem;
+    text-align: center;
+    color: var(--custom-lightred);
+}
+
+.settings-panel .input-container {
+    position: relative;
+}
+
+.settings-panel .input-container p {
+    margin-top: .5rem;
+}
+
+.settings-panel .input-container input {
+    margin: .3rem 0 .7rem;
+    padding: 1rem;
+    width: 100%;
+    height: 3rem;
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.settings-panel .input-container input,
+.settings-panel .input-container input ::placeholder {
+    color: var(--custom-gray);
+    user-select: none;
+}
+
+.settings-panel .input-container .icon {
+    position: absolute;
+    top: 2.9rem;
+    right: -2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.settings-panel .input-container.active input {
+    color: var(--text-main-color);
+    pointer-events: all;
+}
+
+.settings-panel .input-container.active input::placeholder {
+    color: var(--bg-second-color);
+}
+
+.settings-panel .input-container.active .icon {
+    fill: var(--custom-blue);
+}
+
+.settings-panel .upper-button-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: .5rem;
+    align-self: left;
+    align-items: left;
+    width: 60%;
+}
+
+.settings-panel .change-password-button {
+    display: flex;
+    padding: .3rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.settings-panel .change-password-button:hover {
+    background: var(--translucent-blue);
+}
+
+.settings-panel .change-password-button p {
+    color: var(--custom-blue);
+}
+
+.settings-panel .delete-account-button {
+    display: flex;
+    padding: .3rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.settings-panel .delete-account-button:hover {
+    background: var(--translucent-red);
+}
+
+.settings-panel .delete-account-button p {
+    color: var(--custom-red);
+}
+
+.settings-panel .lower-button-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5rem;
+    align-self: center;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.settings-panel .cancel-button {
+    display: flex;
+    justify-self: left;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 2.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.settings-panel .cancel-button:hover {
+    background: var(--translucent-blue);
+}
+
+.settings-panel .cancel-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--custom-blue);
+}
+
+.settings-panel .save-button {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 2.5rem;
+    border-radius: 20px;
+    background: var(--custom-blue);
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.settings-panel .save-button:hover {
+    box-shadow: 0 0 .3rem var(--custom-midblue);
+    background: var(--custom-midblue);
+}
+
+.settings-panel .save-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--bg-main-color);
+}
+
+/* CHANGE PASSWORD */
+
+.change-password-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 5rem;
+    align-items: left;
+    justify-content: center;
+}
+
+.change-password-panel h1 {
+    margin-bottom: .3rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.change-password-panel .error-message {
+    align-self: center;
+    width: 18rem;
+    text-align: center;
+    color: var(--custom-lightred);
+}
+
+.change-password-panel .input-container {
+    position: relative;
+}
+
+.change-password-panel .input-container p {
+    margin-top: .5rem;
+}
+
+.change-password-panel .input-container input {
+    margin: .3rem 0 .7rem;
+    padding: 1rem;
+    width: 100%;
+    height: 3rem;
+    font-size: 1.1rem;
+}
+
+.change-password-panel .change-password-button-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5rem;
+    align-self: center;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.change-password-panel .cancel-button {
+    display: flex;
+    justify-self: left;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 2.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.change-password-panel .cancel-button:hover {
+    background: var(--translucent-blue);
+}
+
+.change-password-panel .cancel-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--custom-blue);
+}
+
+.change-password-panel .save-button {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 2.5rem;
+    border-radius: 20px;
+    background: var(--custom-blue);
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.change-password-panel .save-button:hover {
+    box-shadow: 0 0 .3rem var(--custom-midblue);
+    background: var(--custom-midblue);
+}
+
+.change-password-panel .save-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--bg-main-color);
+}
+
+/* DELETE ACCOUNT */
+
+.delete-account-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 3rem;
+    align-items: left;
+    justify-content: center;
+}
+
+.delete-account-panel h1 {
+    margin-bottom: .5rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.delete-account-panel .delete-account-button-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3rem;
+    align-self: center;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.delete-account-panel .cancel-button {
+    display: flex;
+    justify-self: left;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    height: 2.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.delete-account-panel .cancel-button:hover {
+    background: var(--translucent-blue);
+}
+
+.delete-account-panel .cancel-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--custom-blue);
+}
+
+.delete-account-panel .delete-account-button {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    height: 2.5rem;
+    border-radius: 20px;
+    background: var(--custom-red);
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.delete-account-panel .delete-account-button:hover {
+    box-shadow: 0 0 .3rem var(--custom-midred);
+    background: var(--custom-midred);
+}
+
+.delete-account-panel .delete-account-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--bg-main-color);
+}

@@ -43,7 +43,7 @@ const SignupPanel: React.FC<any> = ({ handleLogin, closeSignup }) => {
             setErrorMessage(shortPasswordError);
         } else if (password !== confirmPassword) {
             setErrorMessage(passwordMismatchError);
-        } else {
+        } else if (typeof(errorMessage) !== 'string' && !(errorMessage instanceof String)) {
             await handleSignup();
         }
     }
@@ -51,7 +51,8 @@ const SignupPanel: React.FC<any> = ({ handleLogin, closeSignup }) => {
     useEffect(() => {
         if (firstName.length >= 250) {
             setErrorMessage(longFirstNameError);
-        } else if (errorMessage === longFirstNameError) {
+        } else if (errorMessage === longFirstNameError || errorMessage === emptyFieldError || errorMessage === usernameConflictError
+                  || errorMessage === emailConflictError) {
             setErrorMessage(<br />)
         }
     }, [firstName])
@@ -59,7 +60,8 @@ const SignupPanel: React.FC<any> = ({ handleLogin, closeSignup }) => {
     useEffect(() => {
         if (lastName.length >= 250) {
             setErrorMessage(longLastNameError);
-        } else if (errorMessage === longLastNameError) {
+        } else if (errorMessage === longLastNameError || errorMessage === emptyFieldError || errorMessage === usernameConflictError
+                  || errorMessage === emailConflictError) {
             setErrorMessage(<br />)
         }
     }, [lastName])
@@ -72,7 +74,8 @@ const SignupPanel: React.FC<any> = ({ handleLogin, closeSignup }) => {
         } else if (username.length > 0 && !(username.match(/^[a-zA-Z0-9-]+$/))) { 
             setErrorMessage(invalidUsernameCharacterError)
          } else if (errorMessage === longUsernameError || errorMessage === invalidUsernameDashError
-                    || errorMessage === invalidUsernameCharacterError) {
+                    || errorMessage === invalidUsernameCharacterError || errorMessage === emptyFieldError
+                    || errorMessage === usernameConflictError || errorMessage === emailConflictError) {
             setErrorMessage(<br />);
         }
     }, [username]);
@@ -80,7 +83,8 @@ const SignupPanel: React.FC<any> = ({ handleLogin, closeSignup }) => {
     useEffect(() => {
         if (email.length >= 250) {
             setErrorMessage(longEmailError);
-        } else if (errorMessage === longEmailError) {
+        } else if (errorMessage === longEmailError || errorMessage === invalidEmailError || errorMessage === emptyFieldError
+                  || errorMessage === usernameConflictError || errorMessage === emailConflictError) {
             setErrorMessage(<br />);
         }
     }, [email]);
@@ -88,10 +92,11 @@ const SignupPanel: React.FC<any> = ({ handleLogin, closeSignup }) => {
     useEffect(() => {
         if (password.length >= 250) {
             setErrorMessage(longPasswordError);
-        } else if (errorMessage === longPasswordError) {
+        } else if (errorMessage === shortPasswordError || errorMessage === longPasswordError || errorMessage === passwordMismatchError
+                  || errorMessage === emptyFieldError || errorMessage === usernameConflictError || errorMessage === emailConflictError) {
             setErrorMessage(<br />);
         }
-    }, [password]);
+    }, [password, confirmPassword]);
 
     async function handleSignup() {
         const response: string = await userApi.createUser(username, password, firstName, lastName, email);

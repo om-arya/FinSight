@@ -72,7 +72,12 @@ const Portfolio: React.FC = () => {
                         <p>+ Add investments</p>
                     </div>
 
-                    <div className="toggle-view-button" onClick={() => setHoldingsView(holdingsView === "card" ? "list" : "card")}>
+                    <div className="toggle-view-button" onClick={() => {
+                        if (holdings.length === 0) {
+                            return;
+                        }
+                        setHoldingsView(holdingsView === "card" ? "list" : "card")
+                    }}>
                         <p>View: { holdingsView == "card" ? "Card" : "List" }</p>
                     </div>
                 </div>

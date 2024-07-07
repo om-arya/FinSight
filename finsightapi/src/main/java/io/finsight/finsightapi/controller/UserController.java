@@ -157,7 +157,7 @@ public class UserController {
      * @param newHoldings to update to.
      * @return a ResponseEntity consisting of an HTTP status.
      */
-    @PatchMapping(path = "/users/{username}")
+    @PatchMapping(path = "/users/holdings/{username}")
     public ResponseEntity<Void> setUserHoldings(@PathVariable String username, @RequestBody List<HoldingDto> newHoldingDtos) {
         List<HoldingEntity> newHoldingEntities = new ArrayList<HoldingEntity>();
         for (HoldingDto holdingDto : newHoldingDtos) {

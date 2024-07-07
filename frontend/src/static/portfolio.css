@@ -402,10 +402,6 @@
     overflow: hidden;
 }
 
-.add-investments-panel h2 {
-    font-weight: 500;
-}
-
 .close-add-investments {
     position: absolute;
     top: 1.5rem;
@@ -426,6 +422,34 @@
     box-shadow: 0 0 .3rem var(--custom-blue);
 }
 
+.add-investments-panel h2 {
+    margin-top: .8rem;
+    font-weight: 500;
+}
+
+.search-input-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.2rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-input-container .icon {
+    position: absolute;
+    left: .5rem;
+    font-size: 1.5rem;
+}
+
+.search-input-container input {
+    padding: 1rem 1rem 1rem 2.3rem;
+    width: 25rem;
+    height: 2rem;
+    font-size: 1.1rem;
+}
+
 .purchase-items-container {
     display: flex;
     flex-direction: column;
@@ -436,7 +460,7 @@
 .purchase-item {
     display: grid;
     grid-template-columns: 20% 50% 20% 10%;
-    width: 100%;
+    width: 26rem;
     padding: .3rem 0;
     align-items: center;
     border-top: solid 1px var(--custom-midgray);

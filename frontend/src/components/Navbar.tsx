@@ -1,32 +1,81 @@
-import React from 'react';
-import { Link, useNavigate, useMatch, useResolvedPath } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useMatch, useResolvedPath } from 'react-router-dom';
+import { RiSettings2Fill } from "react-icons/ri";
 import '../index.css';
 
 import SessionState from '../state/SessionState';
 
+import Modal from './Modal';
+import SettingsPanel from './settings/SettingsPanel';
+import ChangePasswordPanel from './settings/ChangePasswordPanel';
+import DeleteAccountPanel from './settings/DeleteAccountPanel';
+
 const Navbar: React.FC = () => {
     const state = SessionState();
 
-    const navigate = useNavigate();
+    const [modalContent, setModalContent] = useState(<></>);
+    const [isOpen, setIsOpen] = useState(false);
+
+    function openSettings() {
+        setModalContent(
+            <SettingsPanel closeSettings={() => closeModal()}
+                           openChangePassword={() => openChangePassword()} 
+                           openDeleteAccount={() => openDeleteAccount()} />
+        );
+        setIsOpen(true);
+    }
+
+    function openChangePassword() {
+        setModalContent(
+            <ChangePasswordPanel closeChangePassword={() => closeModal()} />
+        );
+        setIsOpen(true);
+    }
+
+    function openDeleteAccount() {
+        setModalContent(
+            <DeleteAccountPanel closeDeleteAccount={() => closeModal()} />
+        );
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+        setModalContent(<></>);
+    }
     
     function handleSignout() {
         state.clearSessionState();
 
-        handleExitPropSwitch();
-
-        navigate("/");
+        window.open("/", "_self");
     }
     
     return (
-        <nav className="navbar">
-            <a href="/dashboard" className="site-logo"><img src="/fs_olivebranches.png" /></a>
-            <div className="nav-button-container">
-                <NavLink id="dashboard-link" to="/dashboard" onClick={() => handleEntryDualColorPropSwitch()}>Dashboard</NavLink>
-                <NavLink id="portfolio-link" to="/portfolio" onClick={() => handleEntrySingleColorPropSwitch()}>Portfolio</NavLink>
-                <NavLink id="about-link" to="/about" onClick={() => handleEntrySingleColorPropSwitch()}>About</NavLink>
-            </div>
-            <div className="sign-out-button" onClick={() => handleSignout()}><p>Sign out →</p></div>
-        </nav>
+        <>
+            <nav className="navbar">
+                <div className="navbar-left-side">
+                    <a href="/dashboard" className="site-logo"><img src="/fs_olivebranches.png" /></a>
+
+                    <div className="nav-button-container">
+                        <NavLink id="dashboard-link" to="/dashboard" onClick={() => handleEntryDualColorPropSwitch()}>Dashboard</NavLink>
+                        <NavLink id="portfolio-link" to="/portfolio" onClick={() => handleEntrySingleColorPropSwitch()}>Portfolio</NavLink>
+                        <NavLink id="about-link" to="/about" onClick={() => handleEntrySingleColorPropSwitch()}>About</NavLink>
+                    </div>
+                </div>
+
+                <div className="navbar-right-side">
+                    <div className="settings-button">
+                        <RiSettings2Fill className="icon" onClick={() => openSettings()}/>
+                    </div>
+                
+                    <div className="sign-out-button" onClick={() => handleSignout()}>
+                        <p>Sign out →</p>
+                    </div>
+                </div>
+            </nav>
+
+            <Modal open={ isOpen }>{ modalContent }</Modal>
+        </>
     )
 }
 

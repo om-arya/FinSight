@@ -3,44 +3,6 @@ import React, { useState, useEffect, createElement, DetailedReactHTMLElement } f
 import SessionState from '../../state/SessionState';
 import { Asset } from '../../api/AssetAPI';
 
-const LeaderboardTab: React.FC<any> = ({ assets }) => {
-    const [leaderboardItems, setLeaderboardItems] = useState(null);
-
-    useEffect(() => {
-        const items: DetailedReactHTMLElement<any, any>[] = assets.map((asset: Asset) => {
-            const ticker = asset.ticker;
-            const name = asset.name;
-            const sector = asset.sector.toLowerCase().replaceAll(" ", "-");
-            const price = asset.prices[asset.prices.length - 1];
-            const change = ((price / asset.prices[asset.prices.length - 2]) * 100 - 100);
-    
-            const formattedPrice = `$${price.toFixed(2)}`;
-            const formattedChange = `${(change > 0 ? "↑" : "↓")}${Math.abs(change).toFixed(2)}%`;
-    
-            return createElement('div', { key: `leaderboard-item-${ticker}`, className: `leaderboard-item ${sector}`},
-                [
-                createElement('h3', { key: `ticker-${ticker}` },
-                    ticker),
-                createElement('h4', { key: `name-${ticker}` },
-                    name),
-                createElement('p', { key: `price-${ticker}`, className: "price" },
-                    formattedPrice),
-                createElement('p', { key: `change-${ticker}`, className: `change ${change > 0 ? "positive" : "negative"}` },
-                    formattedChange)
-                ]
-            );
-        })
-        setLeaderboardItems(items);
-    }, [assets])
-    
-
-    return (
-        <div className="top-movers">
-            <div>{ leaderboardItems }</div>
-        </div>
-    )
-}
-
 const Leaderboard: React.FC<any> = () => {
     const state = SessionState();
 
@@ -81,6 +43,44 @@ const Leaderboard: React.FC<any> = () => {
                 </div>
             </div>
             { leaderboardContent }
+        </div>
+    )
+}
+
+const LeaderboardTab: React.FC<any> = ({ assets }) => {
+    const [leaderboardItems, setLeaderboardItems] = useState(null);
+
+    useEffect(() => {
+        const items: DetailedReactHTMLElement<any, any>[] = assets.map((asset: Asset) => {
+            const ticker = asset.ticker;
+            const name = asset.name;
+            const sector = asset.sector.toLowerCase().replaceAll(" ", "-");
+            const price = asset.prices[asset.prices.length - 1];
+            const change = ((price / asset.prices[asset.prices.length - 2]) * 100 - 100);
+    
+            const formattedPrice = `$${price.toFixed(2)}`;
+            const formattedChange = `${(change > 0 ? "↑" : "↓")}${Math.abs(change).toFixed(2)}%`;
+    
+            return createElement('div', { key: `leaderboard-item-${ticker}`, className: `leaderboard-item ${sector}`},
+                [
+                createElement('h3', { key: `ticker-${ticker}` },
+                    ticker),
+                createElement('h4', { key: `name-${ticker}` },
+                    name),
+                createElement('p', { key: `price-${ticker}`, className: "price" },
+                    formattedPrice),
+                createElement('p', { key: `change-${ticker}`, className: `change ${change > 0 ? "positive" : "negative"}` },
+                    formattedChange)
+                ]
+            );
+        })
+        setLeaderboardItems(items);
+    }, [assets])
+    
+
+    return (
+        <div className="top-movers">
+            <div>{ leaderboardItems }</div>
         </div>
     )
 }

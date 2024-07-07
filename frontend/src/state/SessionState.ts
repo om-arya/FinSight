@@ -9,12 +9,12 @@ const SessionState = () => {
 
     function setHoldings(holdings: Holding[]) {
         holdings.sort((a, b) => a.ticker.localeCompare(b.ticker));
-        sessionStorage.setItem("holdings", JSON.stringify(holdings));
+        sessionStorage.setItem("holdings", holdings ? JSON.stringify(holdings) : JSON.stringify([]));
     }
 
     function setHoldingAssets(holdingAssets: Asset[]) {
         holdingAssets.sort((a, b) => a.ticker.localeCompare(b.ticker));
-        sessionStorage.setItem("holdingAssets", JSON.stringify(holdingAssets));
+        sessionStorage.setItem("holdingAssets", holdingAssets ? JSON.stringify(holdingAssets) : JSON.stringify([]));
     }
 
     function setAllAssets(allAssets: Asset[]) {

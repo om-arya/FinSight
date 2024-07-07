@@ -28,6 +28,7 @@
   --custom-midgreen: #056d05;
   --custom-darkgreen: #062f00;
   --custom-blue: #0073ff;
+  --custom-midblue: #0560cf;
   --custom-darkblue: #011430ff;
   --custom-purple: #b14fff;
   --custom-gray: #6d6c6c;
@@ -61,6 +62,8 @@ strong {
   font-weight: 600;
 }
 
+/* NAVBAR */
+
 .navbar {
   position: fixed;
   z-index: 100;
@@ -69,13 +72,24 @@ strong {
   display: flex;
   flex-direction: row;
   gap: 3rem;
-  padding: .5rem 3rem .1rem;
   width: 100%;
   height: 3.5rem;
+  justify-content: space-between;
   background: var(--bg-second-color);
   box-shadow: 0 0 .2rem rgba(0, 0, 0, .5);
   color: var(--text-main-color);
   user-select: none;
+}
+
+.navbar .navbar-left-side {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  padding: .5rem 3rem .1rem;
+  width: 50%;
+  height: 3.5rem;
+  align-items: center;
+  justify-content: left;
 }
 
 .navbar .site-logo {
@@ -93,6 +107,7 @@ strong {
   gap: 2.5rem;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 .nav-button-container a {
@@ -125,6 +140,31 @@ a:visited {
   box-shadow: 0 .2rem 0 var(--custom-red);
 }
 
+.navbar .navbar-right-side {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  padding: .5rem 3rem .1rem;
+  width: 50%;
+  align-items: center;
+  justify-content: right;
+}
+
+.settings-button {
+  position: absolute;
+  right: 15rem;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.settings-button .icon {
+  font-size: 1.8rem;
+}
+
 .sign-out-button {
   position: absolute;
   right: 7rem;
@@ -142,6 +182,8 @@ a:visited {
 .sign-out-button:hover {
   background: var(--translucent-blue);
 }
+
+/* MODAL */
 
 .overlay {
   position: fixed;
@@ -171,6 +213,8 @@ a:visited {
   animation: fade-in .3s;
 }
 
+/* FOOTER */
+
 .footer {
   display: flex;
   flex-direction: row;
@@ -184,6 +228,8 @@ a:visited {
 .footer p {
   color: var(--bg-second-color);
 }
+
+/* ANIMATIONS */
 
 @keyframes fade-in {
   from {
