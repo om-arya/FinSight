@@ -6,6 +6,7 @@ import SessionState from '../../state/SessionState.ts';
 import { User } from '../../api/UserAPI.ts';
 
 import Navbar from '../Navbar.tsx';
+import Footer from '../Footer.tsx';
 import Graph from './Graph';
 import Overview from './Overview.tsx';
 import Leaderboard from './Leaderboard.tsx';
@@ -27,6 +28,7 @@ const Dashboard: React.FC = () => {
     return (
         <>
             <Navbar />
+
             <div className="dashboard">
                 <div className="left-side">
                     <div className="dashboard-header">
@@ -61,6 +63,8 @@ const Dashboard: React.FC = () => {
                     <Leaderboard />
                 </div>
             </div>
+            
+            <Footer />
         </>
     )
 }

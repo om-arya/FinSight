@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import '../../static/about.css';
 
 import Navbar from '../Navbar';
+import Footer from '../Footer.tsx';
 
 const About: React.FC = () => {
     const githubUrl = "https://github.com/om-arya";
@@ -26,6 +27,7 @@ const About: React.FC = () => {
     return (
         <>
             <Navbar />
+            
             <div className="about">
                 <h1>About</h1>
                 <p>
@@ -69,6 +71,8 @@ const About: React.FC = () => {
                 </p>
                 <p>Warmest regards,<br />Om</p>
             </div>
+
+            <Footer />
         </>
     )
 }

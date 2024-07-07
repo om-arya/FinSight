@@ -171,6 +171,20 @@ a:visited {
   animation: fade-in .3s;
 }
 
+.footer {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem 0;
+  align-items: center;
+  justify-content: center;
+  font-size: .9rem;
+  background: black;
+}
+
+.footer p {
+  color: var(--bg-second-color);
+}
+
 @keyframes fade-in {
   from {
     opacity: .1;

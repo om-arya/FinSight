@@ -1,9 +1,9 @@
 import React, { createElement, useState, useEffect, DetailedReactHTMLElement } from 'react';
 
 import SessionState from '../../state/SessionState';
-import AssetAPI, { Asset } from '../../api/AssetAPI';
+import { Asset } from '../../api/AssetAPI';
 
-const AddInvestmentsPanel: React.FC<any> = ({ handleBuy, closeAddInvestments }) => {
+const AddInvestmentsPanel: React.FC<any> = ({ handlePurchaseClick, closeAddInvestments }) => {
     const state = SessionState();
 
     const [purchaseItems, setPurchaseItems] = useState(null);
@@ -27,7 +27,7 @@ const AddInvestmentsPanel: React.FC<any> = ({ handleBuy, closeAddInvestments }) 
                 createElement('h4', { key: `name-${ticker}` }, name),
                 createElement('p', { key: `price-${ticker}` }, `$${price.toFixed(2)}`),
                 createElement('div', { key: `purchase-${ticker}`, className: "purchase-button",
-                                      onClick: () => handleBuy(ticker, 1, price) }, "+")
+                                      onClick: () => handlePurchaseClick() }, "+")
                 ]
             );
         })

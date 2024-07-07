@@ -3,14 +3,14 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import '../../static/portfolio.css';
 
 import SessionState from '../../state/SessionState';
-import UserAPI, { User, Holding } from '../../api/UserAPI.ts';
-import AssetAPI, { Asset } from '../../api/AssetAPI.ts';
+import { Holding } from '../../api/UserAPI.ts';
+import { Asset } from '../../api/AssetAPI.ts';
 
 const HoldingsDisplay: React.FC<any> = ({ view, holdings }) => {
     const state = SessionState();
 
-    const [popupIsOpen, setPopupIsOpen] = useState(false);
     const [assetItems, setAssetItems] = useState(null);
+    const [popupIsOpen, setPopupIsOpen] = useState(false);
 
     useEffect(() => {
         createAssetItems();
