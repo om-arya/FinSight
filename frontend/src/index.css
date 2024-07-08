@@ -47,13 +47,13 @@
 }
 
 html {
-  overflow-x: hidden;
+  overflow-x: scroll;
   overflow-y: hidden;
 }
 
 body {
   position: relative;
-  width: 100vw;
+  width: 94.5rem;
   height: 55vh;
   background: var(--bg-main-color);
 }
@@ -65,20 +65,19 @@ strong {
 /* NAVBAR */
 
 .navbar {
-  position: fixed;
+  position: absolute;
   z-index: 100;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: row;
   gap: 3rem;
-  width: 100%;
-  height: 3.5rem;
+  width: 94.5rem;
+  height: 4rem;
   justify-content: space-between;
   background: var(--bg-second-color);
-  box-shadow: 0 0 .2rem rgba(0, 0, 0, .5);
+  box-shadow: 0 0 .2rem var(--translucent-black);
   color: var(--text-main-color);
-  user-select: none;
 }
 
 .navbar .navbar-left-side {
@@ -87,7 +86,7 @@ strong {
   gap: 3rem;
   padding: .5rem 3rem .1rem;
   width: 50%;
-  height: 3.5rem;
+  height: 4rem;
   align-items: center;
   justify-content: left;
 }
@@ -104,7 +103,7 @@ strong {
 .nav-button-container {
   display: flex;
   flex-direction: row;
-  gap: 2.5rem;
+  gap: 3rem;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -143,16 +142,14 @@ a:visited {
 .navbar .navbar-right-side {
   display: flex;
   flex-direction: row;
-  gap: 3rem;
-  padding: .5rem 3rem .1rem;
+  gap: 1.5rem;
+  padding: .5rem 10rem .1rem;
   width: 50%;
   align-items: center;
   justify-content: right;
 }
 
 .settings-button {
-  position: absolute;
-  right: 15rem;
   display: flex;
   flex-direction: row;
   align-self: center;
@@ -166,8 +163,6 @@ a:visited {
 }
 
 .sign-out-button {
-  position: absolute;
-  right: 7rem;
   display: flex;
   padding: 1rem;
   align-self: center;

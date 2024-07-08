@@ -1,6 +1,7 @@
 .home {
     display: flex;
     flex-direction: row;
+    width: 94.5rem;
     align-items: center;
     justify-content: center;
 }
@@ -23,8 +24,8 @@
 
 .home .left-side .logo {
     display: flex;
-    width: 35vw;
-    height: 35vw;
+    width: 35rem;
+    height: 35rem;
     border-radius: 100%;
     user-select: none;
     transition: box-shadow .2s ease;

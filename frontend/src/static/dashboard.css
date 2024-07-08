@@ -1,8 +1,8 @@
 .dashboard {
     display: flex;
     flex-direction: row;
-    margin-bottom: 1rem;
-    padding: 5rem 1rem 0;
+    padding: 5.5rem 1rem 2rem;
+    width: 94.5rem;
 }
 
 /* LEFT SIDE */
@@ -33,7 +33,7 @@
     margin-top: .8rem;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
+    width: 62rem;
     height: 100%;
 }
 
@@ -122,6 +122,10 @@
     box-shadow: 0 0 1rem var(--translucent-black);
 }
 
+.graph-container {
+    width: 62rem;
+}
+
 .graph-container h2 {
     padding: .8rem 0 .4rem;
     text-align: center;
@@ -136,6 +140,7 @@
     display: flex;
     flex-direction: column;
     padding: 1.6rem;
+    width: 62rem;
 }
 
 .overview-top-container {
@@ -171,6 +176,7 @@
 .overview-button p {
     font-size: .9rem;
     color: var(--text-main-color);
+    user-select: none;
 }
 
 .overview-button.active {
@@ -196,6 +202,7 @@
     font-size: .8rem;
     text-align: left;
     color: var(--custom-darkgray);
+    user-select: none;
 }
 
 .overview-item {
@@ -300,6 +307,7 @@
 .leaderboard-button p {
     font-size: .9rem;
     color: var(--text-main-color);
+    user-select: none;
 }
 
 .leaderboard-button.active {
