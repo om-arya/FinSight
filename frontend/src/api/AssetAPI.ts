@@ -1,6 +1,8 @@
 import axios, { HttpStatusCode } from "axios";
 
-const API_URL = "http://localhost:8080/assets";
+import { FLY_URL } from "./data/FLY_URL";
+
+const API_URL = FLY_URL + "assets";
 
 export interface Asset {
     ticker: string;

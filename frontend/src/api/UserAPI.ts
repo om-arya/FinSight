@@ -2,7 +2,9 @@ import axios, { HttpStatusCode } from "axios";
 
 import SessionState from "../state/SessionState";
 
-const API_URL = "http://localhost:8080/users";
+import { FLY_URL } from "./data/FLY_URL";
+
+const API_URL = FLY_URL + "users";
 
 export interface User {
     username: string;

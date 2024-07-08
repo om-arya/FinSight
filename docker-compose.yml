@@ -1,13 +1,69 @@
-version: '3'
+version: '3.8'
+
 services:
-  spring-boot:
-    image: spring-boot-app
+  backend:
+    build: ./finsightapi
     ports:
       - "8080:8080"
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=omarya
+      - POSTGRES_PASSWORD=changeinprod
+      - POSTGRES_DB=postgres
     depends_on:
-      - react-app
-  
-  react-app:
-    image: react-app
+      - postgres
+
+  frontend:
+    build: ./frontend
     ports:
-      - "5173:5173"
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: omarya
+      POSTGRES_PASSWORD: changeinprod
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+
+# Location:
+#us-east4
+
+# Access from FinSight directory:
+# ../.././google-cloud-sdk/bin/gcloud init
+
+# Access from home directory:
+# ./google-cloud-sdk/bin/gcloud init
+
+# Local dev environment in Dockerfile directory:
+# ../../.././google-cloud-sdk/bin/gcloud beta code dev
+
+# Set project:
+# ./google-cloud-sdk/bin/gcloud config set project peppy-answer-428817-b9
+# ./google-cloud-sdk/bin/gcloud config set project finsightfrontend
+
+# Tag images (already done):
+# docker tag finsight-backend gcr.io/peppy-answer-428817-b9/backend:latest
+# docker tag finsight-frontend gcr.io/finsightfrontend/frontend:latest
+
+# Rebuild image:
+# docker buildx build -t gcr.io/peppy-answer-428817-b9/backend:latest ./finsightapi --platform linux/amd64
+# docker buildx build -t gcr.io/finsightfrontend/frontend:latest ./frontend --platform linux/amd64
+
+# Authentication:
+# ./google-cloud-sdk/bin/gcloud auth configure-docker
+
+# Push images:
+# docker push gcr.io/peppy-answer-428817-b9/backend:latest
+# docker push gcr.io/finsightfrontend/frontend:latest
+
+# Deploy:
+# ./google-cloud-sdk/bin/gcloud run deploy finsightapi --image gcr.io/peppy-answer-428817-b9/backend:latest --platform managed --region us-east4 --allow-unauthenticated --update-env-vars POSTGRES_HOST=postgres,POSTGRES_USER=omarya,POSTGRES_PASSWORD=changeinprod,POSTGRES_DB=postgres
+# ./google-cloud-sdk/bin/gcloud run deploy frontend --image gcr.io/finsightfrontend/frontend:latest --platform managed --region us-east4 --allow-unauthenticated
+
+# https://cloud.google.com/artifact-registry/docs/docker/authentication
+# https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper
+# ./google-cloud-sdk/bin/gcloud auth activate-service-account omarya@peppy-answer-428817-b9.iam.gserviceaccount.com --key-file=(REPLACE WITH KEY-FILE)

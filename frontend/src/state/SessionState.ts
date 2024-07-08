@@ -34,18 +34,6 @@ const SessionState = () => {
         sessionStorage.setItem("topAssetsByPriceLoss", JSON.stringify(topAssetsByPriceLoss));
     }
 
-    function setTodayReturn(todayReturn: number) {
-        sessionStorage.setItem("todayReturn", JSON.stringify(todayReturn));
-    }
-
-    function setQuarterlyReturn(quarterlyReturn: number) {
-        sessionStorage.setItem("quarterlyReturn", JSON.stringify(quarterlyReturn));
-    }
-
-    function setAnnualReturn(annualReturn: number) {
-        sessionStorage.setItem("annualReturn", JSON.stringify(annualReturn));
-    }
-
     function getUser() {
         const user = sessionStorage.getItem("user");
         return user ? JSON.parse(user) as User : null;
@@ -76,29 +64,13 @@ const SessionState = () => {
         return topAssetsByPriceLoss ? JSON.parse(topAssetsByPriceLoss) as Asset[] : null;
     }
 
-    function getTodayReturn() {
-        const todayReturn = sessionStorage.getItem("todayReturn");
-        return todayReturn ? JSON.parse(todayReturn) as number : null;
-    }
-
-    function getQuarterlyReturn() {
-        const quarterlyReturn = sessionStorage.getItem("quarterlyReturn");
-        return quarterlyReturn ? JSON.parse(quarterlyReturn) as number : null;
-    }
-
-    function getAnnualReturn() {
-        const annualReturn = sessionStorage.getItem("annualReturn");
-        return annualReturn ? JSON.parse(annualReturn) as number : null;
-    }
-
     function clearSessionState() {
         sessionStorage.clear();
     }
 
-    return { setUser, setHoldingAssets, setAllAssets, setTopAssetsByPriceChange, setTopAssetsByPriceGain,
-             setTopAssetsByPriceLoss, setTodayReturn, setQuarterlyReturn, setAnnualReturn, getUser, getHoldingAssets,
-             getAllAssets, getTopAssetsByPriceChange, getTopAssetsByPriceGain, getTopAssetsByPriceLoss, getTodayReturn,
-             getQuarterlyReturn, getAnnualReturn, clearSessionState };
+    return { setUser, setHoldingAssets, setAllAssets, setTopAssetsByPriceChange, setTopAssetsByPriceGain, setTopAssetsByPriceLoss,
+             getUser, getHoldingAssets,getAllAssets, getTopAssetsByPriceChange, getTopAssetsByPriceGain, getTopAssetsByPriceLoss,
+             clearSessionState };
 }
 
 export default SessionState;

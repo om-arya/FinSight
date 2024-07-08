@@ -3,7 +3,8 @@ import { PiStarFourFill } from "react-icons/pi";
 import '../../static/dashboard.css';
 
 import SessionState from '../../state/SessionState.ts';
-import { User } from '../../api/UserAPI.ts';
+import { User, Holding } from '../../api/UserAPI.ts';
+import { Asset } from '../../api/AssetAPI.ts';
 
 import Navbar from '../Navbar.tsx';
 import Footer from '../Footer.tsx';
@@ -17,13 +18,37 @@ const Dashboard: React.FC = () => {
     
     const [firstName, setFirstName] = useState("...");
 
+    const [todayReturn, setTodayReturn] = useState(0);
+    const [quarterlyReturn, setQuarterlyReturn] = useState(0);
+    const [annualReturn, setAnnualReturn] = useState(0);
+
     useEffect(() => {
         setFirstName(user.firstName);
     }, [user.firstName]);
 
-    const todayReturn = state.getTodayReturn() as number;
-    const quarterlyReturn = state.getQuarterlyReturn() as number;
-    const annualReturn = state.getAnnualReturn() as number;
+    useEffect(() => {
+        console.log(sessionStorage);
+        const holdings: Holding[] = user.holdings;
+        holdings.sort((a: Holding, b: Holding) => a.ticker.localeCompare(b.ticker));
+
+        const holdingAssets: Asset[] = state.getHoldingAssets();
+        holdingAssets.sort((a, b) => a.ticker.localeCompare(b.ticker));
+
+        let todayReturn = 0;
+        let totalCompoundQuarterlyReturn = 0;
+        let totalCompoundAnnualReturn = 0;
+
+        holdingAssets.forEach(async (asset, i) => {
+            const prices = asset.prices;
+            todayReturn += holdings[i].amount * (prices[prices.length - 1] - prices[prices.length - 2]);
+            totalCompoundQuarterlyReturn += (prices[prices.length - 1] / prices[0])^(1 / (prices.length / 91.3125)) - 1;
+            totalCompoundAnnualReturn += (prices[prices.length - 1] / prices[0])^(1 / (prices.length / 365.0)) - 1;
+        });
+
+        setTodayReturn(todayReturn);
+        setQuarterlyReturn(totalCompoundQuarterlyReturn);
+        setAnnualReturn(holdings.length === 0 ? 0 : totalCompoundAnnualReturn / holdings.length);
+    }, [])
 
     return (
         <>

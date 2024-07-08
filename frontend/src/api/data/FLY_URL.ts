@@ -1,0 +1,1 @@
+export const FLY_URL = "https://finsightapi-restless-tree-8677.fly.dev/";

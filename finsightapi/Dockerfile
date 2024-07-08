@@ -1,7 +1,11 @@
-FROM openjdk:11-jre-slim
+FROM paketobuildpacks/builder:base AS build
 
 WORKDIR /app
 
-COPY target/finsightapi.jar /app/finsightapi.jar
+COPY . /app
 
-CMD ["java", "-jar", "finsightapi.jar"]
+RUN ./mvnw clean package -DskipTests
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "target/finsightapi-0.0.1-SNAPSHOT.jar"]

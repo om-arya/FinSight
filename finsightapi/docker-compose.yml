@@ -5,8 +5,8 @@ services:
       - "5432:5432"
     restart: always
     environment:
-      POSTGRES_USER: omarya
-      POSTGRES_PASSWORD: changeinprod
-      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      POSTGRES_DB: finsightapi-db
 
 # Connect to DB w/ "docker exec -it finsightapi-db-1 psql -U omarya postgres"
