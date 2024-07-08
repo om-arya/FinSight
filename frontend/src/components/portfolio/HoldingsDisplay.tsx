@@ -62,7 +62,7 @@ const HoldingsDisplay: React.FC<any> = ({ view, holdings, openRecordBuy, openRec
                     <>
                         <div className="edit-holding-popup-button" onClick={() => {
                             setOpenPopup("");
-                            openRecordBuy(ticker);
+                            openRecordBuy(ticker, price);
                         }}>
                             <BiMoneyWithdraw className="icon" />
                             <p className="record-buy">Record a Buy</p>
@@ -70,7 +70,7 @@ const HoldingsDisplay: React.FC<any> = ({ view, holdings, openRecordBuy, openRec
 
                         <div className="edit-holding-popup-button" onClick={() => {
                             setOpenPopup("");
-                            openRecordSell(ticker);
+                            openRecordSell(ticker, price, amounts[i]);
                         }}>
                             <BiSolidPurchaseTagAlt className="icon" />
                             <p className="record-sell">Record a Sell</p>
@@ -78,7 +78,7 @@ const HoldingsDisplay: React.FC<any> = ({ view, holdings, openRecordBuy, openRec
 
                         <div className="edit-holding-popup-button" onClick={() => {
                             setOpenPopup("");
-                            openSellAll(ticker);
+                            openSellAll(ticker, price, amounts[i]);
                         }}>
                             <GiPayMoney className="icon" />
                             <p className="sell-all">Sell all { ticker }</p>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../static/portfolio.css';
 
 import SessionState from '../../state/SessionState.ts';
@@ -16,14 +16,15 @@ import SellAllPanel from './SellAllPanel.tsx';
 const Portfolio: React.FC = () => {
     const state = SessionState();
 
-    const holdings = state.getHoldings() as Holding[];
-
-    let totalHoldingProfit = 0;
-    holdings.forEach((holding) => {
-        totalHoldingProfit += holding.profit;
-    })
-
+    const [holdings, setHoldings] = useState(state.getHoldings() as Holding[]);
     const [holdingsView, setHoldingsView] = useState("card");
+    const [totalHoldingProfit, setTotalHoldingProfit] = useState(0);
+
+    useEffect(() => {
+        holdings.forEach((holding) => {
+            setTotalHoldingProfit(totalHoldingProfit + holding.profit);
+        })
+    }, [holdings])
 
     const [modalContent, setModalContent] = useState(<></>);
     const [isOpen, setIsOpen] = useState(false);
@@ -31,30 +32,41 @@ const Portfolio: React.FC = () => {
     function openAddInvestments() {
         setModalContent(
             <AddInvestmentsPanel
-                handlePurchaseClick={(ticker: string) => openRecordBuy(ticker)}
+                handlePurchaseClick={(ticker: string, defaultPrice: number) => openRecordBuy(ticker, defaultPrice)}
                 closeAddInvestments={() => closeModal()}
             />
         );
         setIsOpen(true);
     }
 
-    function openRecordBuy(ticker: string) {
+    function openRecordBuy(ticker: string, defaultPrice: number) {
         setModalContent(
-            <RecordBuyPanel ticker={ ticker } closeRecordBuy={() => closeModal()}/>
+            <RecordBuyPanel ticker={ ticker }
+                            defaultPrice={ defaultPrice }
+                            setHoldings={(newHoldings: Holding[]) => setHoldings(newHoldings)}
+                            closeRecordBuy={() => closeModal()}/>
         )
         setIsOpen(true);
     }
 
-    function openRecordSell(ticker: string) {
+    function openRecordSell(ticker: string, defaultPrice: number, maxQuantity: number) {
         setModalContent(
-            <RecordSellPanel ticker={ ticker } closeRecordSell={() => closeModal()}/>
+            <RecordSellPanel ticker={ ticker }
+                             defaultPrice={ defaultPrice }
+                             maxQuantity={ maxQuantity }
+                             setHoldings={(newHoldings: Holding[]) => setHoldings(newHoldings)}
+                             closeRecordSell={() => closeModal()}/>
         )
         setIsOpen(true);
     }
 
-    function openSellAll(ticker: string) {
+    function openSellAll(ticker: string, defaultPrice: number, maxQuantity: number) {
         setModalContent(
-            <SellAllPanel ticker={ ticker } closeSellAll={() => closeModal()}/>
+            <SellAllPanel ticker={ ticker }
+                          defaultPrice={ defaultPrice }
+                          maxQuantity={ maxQuantity }
+                          setHoldings={(newHoldings: Holding[]) => setHoldings(newHoldings)}
+                          closeSellAll={() => closeModal()}/>
         )
         setIsOpen(true);
     }
@@ -93,9 +105,9 @@ const Portfolio: React.FC = () => {
                 <HoldingsDisplay
                     view={ holdingsView }
                     holdings={ holdings }
-                    openRecordBuy = {(ticker: string) => openRecordBuy(ticker)}
-                    openRecordSell = {(ticker: string) => openRecordSell(ticker)}
-                    openSellAll = {(ticker: string) => openSellAll(ticker)}
+                    openRecordBuy={(ticker: string, defaultPrice: number) => openRecordBuy(ticker, defaultPrice)}
+                    openRecordSell={(ticker: string, defaultPrice: number, maxQuantity: number) => openRecordSell(ticker, defaultPrice, maxQuantity)}
+                    openSellAll={(ticker: string, defaultPrice: number, maxQuantity: number) => openSellAll(ticker, defaultPrice, maxQuantity)}
                 />
 
                 <Modal open={ isOpen }>{ modalContent }</Modal>

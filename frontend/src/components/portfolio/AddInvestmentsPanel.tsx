@@ -39,7 +39,7 @@ const AddInvestmentsPanel: React.FC<any> = ({ handlePurchaseClick, closeAddInves
                 createElement('h4', { key: `name-${ticker}` }, name),
                 createElement('p', { key: `price-${ticker}` }, `$${price.toFixed(2)}`),
                 createElement('div', { key: `purchase-${ticker}`, className: "purchase-button",
-                                      onClick: () => handlePurchaseClick(ticker) }, "+")
+                                      onClick: () => handlePurchaseClick(ticker, price) }, "+")
                 ]
             );
         })

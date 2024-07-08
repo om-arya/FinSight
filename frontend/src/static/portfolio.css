@@ -545,14 +545,6 @@
     font-weight: 500;
 }
 
-.record-buy-panel .error-message,
-.record-sell-panel .error-message {
-    align-self: center;
-    width: 18rem;
-    text-align: center;
-    color: var(--custom-lightred);
-}
-
 .record-buy-input-container,
 .record-sell-input-container {
     display: flex;
@@ -654,6 +646,13 @@
     text-align: center;
     font-size: 1.1rem;
     color: var(--bg-main-color);
+}
+
+.record-sell-panel .error-message {
+    align-self: center;
+    width: 18rem;
+    text-align: center;
+    color: var(--custom-lightred);
 }
 
 .record-sell-panel .sell-button {
