@@ -16,6 +16,7 @@ const Leaderboard: React.FC<any> = () => {
 
     return (
         <div className="dashboard-container leaderboard-container">
+            <h1>Market Watch</h1>
             <div className="leaderboard-button-container">
                 <div className={`leaderboard-button ${ topMoversIsActive ? "active" : ""}`} onClick={() => {
                     setTopMoversIsActive(true);
@@ -80,7 +81,6 @@ const LeaderboardTab: React.FC<any> = ({ assets }) => {
 
     return (
         <div className="top-movers">
-            <h1>Market</h1>
             <div>{ leaderboardItems }</div>
         </div>
     )

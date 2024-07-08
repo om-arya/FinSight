@@ -21,33 +21,37 @@ const RecordBuyPanel: React.FC<any> = ({ ticker, defaultPrice, setHoldings, clos
             return;
         }
 
-        const centsInput = parseInt(priceCents);
-        const price = parseInt(priceDollars) + (centsInput < 10 ? centsInput / 10 : centsInput / 100);
+        const priceDollarsNumber = parseInt(priceDollars);
+        const priceCentsNumber = parseInt(priceCents);
+        const price = priceDollarsNumber + (priceCents.length === 1 ? priceCentsNumber / 10 : priceCentsNumber / 100);
+
         await handleBuy(ticker, parseInt(quantity), price);
 
         window.location.reload();
     }
 
     async function handleBuy(ticker: string, amount: number, price: number) {
+        const holdings = state.getUser().holdings as Holding[];
         let newHoldings: Holding[] = [];
-
-        let holdings = state.getHoldings();
         let found = false;
-        if (holdings.length === 0) { // Add the first holding.
+
+        if (holdings.length === 0) {
+            // Add the first holding.
             newHoldings.push({ticker: ticker,
                               amount: amount,
                               profit: price * amount,
                               username: user.username});
-        } else { // Change the existing holdings.
+        } else {
+            // Change the current holdings.
             holdings.forEach((holding) => {
-                if (holding.ticker === ticker) {
+                if (holding.ticker === ticker) { // The asset exists in the current holdings.
                     holding.amount += amount;
                     holding.profit += price * amount;
                     found = true;
                 }
             });
             
-            if (!found) {
+            if (!found) { // The asset must be added to the current holdings.
                 holdings.push({
                     ticker: ticker,
                     amount: amount,
@@ -55,10 +59,12 @@ const RecordBuyPanel: React.FC<any> = ({ ticker, defaultPrice, setHoldings, clos
                     username: user.username
                 });
             }
-            newHoldings = holdings;
+
+            newHoldings = holdings.sort((a, b) => a.ticker.localeCompare(b.ticker));
         }
 
         await userApi.setUserHoldings(user.username, newHoldings);
+
         if (!found) {
             // An asset was added, so update holdingAssets.
             const holdingAssets: Asset[] = await Promise.all(newHoldings.map(async holding => {
@@ -67,8 +73,8 @@ const RecordBuyPanel: React.FC<any> = ({ ticker, defaultPrice, setHoldings, clos
             }));
             state.setHoldingAssets(holdingAssets);
         }
-        state.setHoldings(newHoldings);
-        setHoldings(newHoldings);
+
+        setHoldings(newHoldings); // Used by the Portfolio component to update total holding profit.
     }
 
     return (

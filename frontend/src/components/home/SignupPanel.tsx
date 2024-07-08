@@ -33,21 +33,6 @@ const SignupPanel: React.FC<any> = ({ handleLogin, closeSignup }) => {
     const usernameConflictError = "Error: This username is already taken. Please choose another one.";
     const emailConflictError = "Error: This email address is already in use. Please use another one.";
 
-    async function handleCreateAccountClick() {
-        if (firstName.length < 1 || lastName.length < 1 || username.length < 1 || email.length < 1) {
-            setErrorMessage(emptyFieldError)
-        } else if (!(email.includes('@')) || email.indexOf('@') < 1 || email.lastIndexOf('.') < email.indexOf('@') + 1
-                   || email.lastIndexOf('.') === email.length - 1) {
-            setErrorMessage(invalidEmailError);
-        } else if (password.length < 6) {
-            setErrorMessage(shortPasswordError);
-        } else if (password !== confirmPassword) {
-            setErrorMessage(passwordMismatchError);
-        } else if (typeof(errorMessage) !== 'string' && !(errorMessage instanceof String)) {
-            await handleSignup();
-        }
-    }
-
     useEffect(() => {
         if (firstName.length >= 250) {
             setErrorMessage(longFirstNameError);
@@ -97,6 +82,21 @@ const SignupPanel: React.FC<any> = ({ handleLogin, closeSignup }) => {
             setErrorMessage(<br />);
         }
     }, [password, confirmPassword]);
+
+    async function handleCreateAccountClick() {
+        if (firstName.length < 1 || lastName.length < 1 || username.length < 1 || email.length < 1) {
+            setErrorMessage(emptyFieldError)
+        } else if (!(email.includes('@')) || email.indexOf('@') < 1 || email.lastIndexOf('.') < email.indexOf('@') + 1
+                   || email.lastIndexOf('.') === email.length - 1) {
+            setErrorMessage(invalidEmailError);
+        } else if (password.length < 6) {
+            setErrorMessage(shortPasswordError);
+        } else if (password !== confirmPassword) {
+            setErrorMessage(passwordMismatchError);
+        } else if (typeof(errorMessage) !== 'string' && !(errorMessage instanceof String)) {
+            await handleSignup();
+        }
+    }
 
     async function handleSignup() {
         const response: string = await userApi.createUser(username, password, firstName, lastName, email);

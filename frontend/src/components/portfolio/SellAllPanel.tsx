@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import SessionState from '../../state/SessionState';
 import UserAPI, { User, Holding } from '../../api/UserAPI';
 import AssetAPI, { Asset } from '../../api/AssetAPI';
 
-const SellAllPanel: React.FC<any> = ({ ticker, defaultPrice, maxQuantity, setHoldings, closeSellAll }) => {
+const SellAllPanel: React.FC<any> = ({ ticker, setHoldings, closeSellAll }) => {
     const state = SessionState();
     const user = state.getUser() as User;
     const userApi = UserAPI();
     const assetApi = AssetAPI();
-
-    const [priceDollars, setPriceDollars] = useState(Math.floor(defaultPrice).toFixed(0));
-    const [priceCents, setPriceCents] = useState(((defaultPrice - Math.floor(defaultPrice)) * 100).toFixed(0));
 
     async function sellAll() {
         if (user.username == "guest") {
@@ -19,20 +16,16 @@ const SellAllPanel: React.FC<any> = ({ ticker, defaultPrice, maxQuantity, setHol
             return;
         }
 
-        const priceDollarsNumber = parseInt(priceDollars);
-        const priceCentsNumber = parseInt(priceCents);
-        const price = priceDollarsNumber + (priceCentsNumber < 10 ? priceCentsNumber / 10 : priceCentsNumber / 100);
-
+        const holdings = user.holdings as Holding[];
         let newHoldings: Holding[] = [];
 
-        user.holdings.forEach((holding) => {
-            if (holding.ticker === ticker) {
-                holding.profit = 0;
-                holding.amount = 0;
-            } else {
+        holdings.forEach((holding) => {
+            if (!(holding.ticker === ticker)) {
                 newHoldings.push(holding);
             }
         });
+
+        newHoldings.sort((a, b) => a.ticker.localeCompare(b.ticker));
 
         await userApi.setUserHoldings(user.username, newHoldings);
 
@@ -41,8 +34,7 @@ const SellAllPanel: React.FC<any> = ({ ticker, defaultPrice, maxQuantity, setHol
         }));
         state.setHoldingAssets(holdingAssets);
 
-        state.setHoldings(newHoldings);
-        setHoldings(newHoldings);
+        setHoldings(newHoldings); // Used by the Portfolio component to update total holding profit.
 
         window.location.reload();
     }
@@ -51,30 +43,7 @@ const SellAllPanel: React.FC<any> = ({ ticker, defaultPrice, maxQuantity, setHol
         <div className="sell-all-panel">
             <h1>Sell All { ticker }</h1>
 
-            <div className="input-content">
-                <p>Share price</p>
-                <div className="price-container">
-                    <p>$</p>
-                    <input type="text" min="0" max="99999999" placeholder={ Math.floor(defaultPrice).toString() }
-                           onChange={e => {
-                                e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                                if (parseInt(e.target.value) > 99999999) {
-                                    e.target.value = e.target.value.slice(0, 8);
-                                }
-                                setPriceDollars(e.target.value)
-                           }}/>
-                    <span>.</span>
-                    <input type="text" placeholder={ (defaultPrice - Math.floor(defaultPrice) < .1 ? "0" : "")
-                                                         + ((defaultPrice - Math.floor(defaultPrice)) * 100).toFixed(0) }
-                            onChange={e => {
-                                e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                                if (parseInt(e.target.value) > 99) {
-                                    e.target.value = e.target.value.slice(0, 2);
-                                }
-                                setPriceCents(e.target.value)
-                            }}/>
-                </div>
-            </div>
+            <p>Are you sure you want to sell all { ticker }?</p>
 
             <div className="sell-all-button-container">
                 <div className="cancel-button" onClick={() => closeSellAll()}>
@@ -82,7 +51,7 @@ const SellAllPanel: React.FC<any> = ({ ticker, defaultPrice, maxQuantity, setHol
                 </div>
 
                 <div className="sell-all-button" onClick={() => sellAll()}>
-                    <p>Sell All { ticker }</p>
+                    <p>Sell All</p>
                 </div>
             </div>
         </div>

@@ -16,14 +16,19 @@ import SellAllPanel from './SellAllPanel.tsx';
 const Portfolio: React.FC = () => {
     const state = SessionState();
 
-    const [holdings, setHoldings] = useState(state.getHoldings() as Holding[]);
-    const [holdingsView, setHoldingsView] = useState("card");
+    const [holdings, setHoldings] = useState(state.getUser().holdings as Holding[]); // Updated by buys and sells.
     const [totalHoldingProfit, setTotalHoldingProfit] = useState(0);
 
+    const [holdingsView, setHoldingsView] = useState("card");
+
     useEffect(() => {
+        setHoldings(holdings.sort((a, b) => a.ticker.localeCompare(b.ticker)));
+
+        let newTotalHoldingProfit = 0;
         holdings.forEach((holding) => {
-            setTotalHoldingProfit(totalHoldingProfit + holding.profit);
+            newTotalHoldingProfit += holding.profit;
         })
+        setTotalHoldingProfit(newTotalHoldingProfit);
     }, [holdings])
 
     const [modalContent, setModalContent] = useState(<></>);
@@ -60,11 +65,9 @@ const Portfolio: React.FC = () => {
         setIsOpen(true);
     }
 
-    function openSellAll(ticker: string, defaultPrice: number, maxQuantity: number) {
+    function openSellAll(ticker: string) {
         setModalContent(
             <SellAllPanel ticker={ ticker }
-                          defaultPrice={ defaultPrice }
-                          maxQuantity={ maxQuantity }
                           setHoldings={(newHoldings: Holding[]) => setHoldings(newHoldings)}
                           closeSellAll={() => closeModal()}/>
         )
@@ -107,7 +110,7 @@ const Portfolio: React.FC = () => {
                     holdings={ holdings }
                     openRecordBuy={(ticker: string, defaultPrice: number) => openRecordBuy(ticker, defaultPrice)}
                     openRecordSell={(ticker: string, defaultPrice: number, maxQuantity: number) => openRecordSell(ticker, defaultPrice, maxQuantity)}
-                    openSellAll={(ticker: string, defaultPrice: number, maxQuantity: number) => openSellAll(ticker, defaultPrice, maxQuantity)}
+                    openSellAll={(ticker: string) => openSellAll(ticker)}
                 />
 
                 <Modal open={ isOpen }>{ modalContent }</Modal>

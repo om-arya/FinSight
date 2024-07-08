@@ -12,7 +12,7 @@ const ChangePasswordPanel: React.FC<any> = ({ closeChangePassword }) => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-    const [errorMessage, setErrorMessage]: any = useState(<br />);
+    const [errorMessage, setErrorMessage] = useState(<br />);
 
     const incorrectOldPasswordError = "Error: Incorrect old password."
     const newPasswordMismatchError = "Error: Your new passwords do not match."
@@ -22,15 +22,15 @@ const ChangePasswordPanel: React.FC<any> = ({ closeChangePassword }) => {
 
     async function handleSaveClick() {
         if (oldPassword !== user.password) {
-            setErrorMessage(incorrectOldPasswordError);
+            setErrorMessage(<>{ incorrectOldPasswordError }</>);
         } else if (newPassword !== confirmNewPassword) {
-            setErrorMessage(newPasswordMismatchError);
+            setErrorMessage(<>{ newPasswordMismatchError }</>);
         } else if (oldPassword === newPassword) {
-            setErrorMessage(samePasswordError);
+            setErrorMessage(<>{ samePasswordError }</>);
         } else if (newPassword.length < 6) {
-            setErrorMessage(shortNewPasswordError);
+            setErrorMessage(<>{ shortNewPasswordError }</>);
         } else if (newPassword.length >= 250) {
-            setErrorMessage(longNewPasswordError);
+            setErrorMessage(<>{ longNewPasswordError }</>);
         } else {
             await changePassword();
         }

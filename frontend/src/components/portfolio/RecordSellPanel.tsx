@@ -6,9 +6,7 @@ import AssetAPI, { Asset } from '../../api/AssetAPI.ts';
 
 const RecordSellPanel: React.FC<any> = ({ ticker, defaultPrice, maxQuantity, setHoldings, closeRecordSell }) => {
     const state = SessionState();
-
     const user = state.getUser() as User;
-
     const userApi = UserAPI();
     const assetApi = AssetAPI();
 
@@ -18,6 +16,14 @@ const RecordSellPanel: React.FC<any> = ({ ticker, defaultPrice, maxQuantity, set
 
     const [errorMessage, setErrorMessage]: any = useState(null);
     const sellTooManyError = `Error: You own ${maxQuantity} shares of ${ticker} and cannot sell more.`;
+
+    useEffect(() => {
+        if (quantity > maxQuantity) {
+            setErrorMessage(sellTooManyError);
+        } else {
+            setErrorMessage(null);
+        }
+    }, [quantity])
 
     async function handleSellClick() {
         if (user.username == "guest") {
@@ -29,27 +35,22 @@ const RecordSellPanel: React.FC<any> = ({ ticker, defaultPrice, maxQuantity, set
         if (quantityNumber > maxQuantity) {
             return;
         }
+
         const priceDollarsNumber = parseInt(priceDollars);
         const priceCentsNumber = parseInt(priceCents);
-        const price = priceDollarsNumber + (priceCentsNumber < 10 ? priceCentsNumber / 10 : priceCentsNumber / 100);
-        await handleSell(ticker, parseInt(quantity), price);
+        const price = priceDollarsNumber + (priceCents.length === 1 ? priceCentsNumber / 10 : priceCentsNumber / 100);
+
+        await handleSell(ticker, quantityNumber, price);
         
         window.location.reload();
     }
 
-    useEffect(() => {
-        if (quantity > maxQuantity) {
-            setErrorMessage(sellTooManyError);
-        } else {
-            setErrorMessage(null);
-        }
-    }, [quantity])
-
     async function handleSell(ticker: string, amount: number, price: number) {
+        const holdings = user.holdings as Holding[];
         const newHoldings: Holding[] = [];
         let assetWasRemoved = false;
 
-        user.holdings.forEach((holding) => {
+        holdings.forEach((holding) => {
             if (holding.ticker === ticker) {
                 holding.amount -= amount;
                 holding.profit = price * holding.amount;
@@ -63,6 +64,8 @@ const RecordSellPanel: React.FC<any> = ({ ticker, defaultPrice, maxQuantity, set
             }
         });
 
+        newHoldings.sort((a, b) => a.ticker.localeCompare(b.ticker));
+
         await userApi.setUserHoldings(user.username, newHoldings);
 
         if (assetWasRemoved) {
@@ -72,17 +75,7 @@ const RecordSellPanel: React.FC<any> = ({ ticker, defaultPrice, maxQuantity, set
             state.setHoldingAssets(holdingAssets);
         }
 
-        state.setUser({
-            username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            emailAddress: user.emailAddress,
-            password: user.password,
-            holdings: newHoldings
-        })
-
-        state.setHoldings(newHoldings);
-        setHoldings(newHoldings);
+        setHoldings(newHoldings); // Used by the Portfolio component to update total holding profit.
     }
 
     return (

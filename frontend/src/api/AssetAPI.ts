@@ -15,6 +15,10 @@ interface ResponseEntity {
     status: HttpStatusCode;
 }
 
+/**
+ * This function provides several methods to provide CRUD functionality on
+ * asset data, working closely with the back end REST API.
+ */
 const AssetAPI = () => {
 
     /* CREATE ENDPOINTS */

@@ -1,15 +1,15 @@
 import { User, Holding } from "../api/UserAPI";
 import { Asset } from "../api/AssetAPI";
 
+/**
+ * This function provides several getter and setter methods to streamline
+ * client-side state management via session storage.
+ */
+
 const SessionState = () => {
 
     function setUser(user: User) {
         sessionStorage.setItem("user", JSON.stringify(user));
-    }
-
-    function setHoldings(holdings: Holding[]) {
-        holdings.sort((a, b) => a.ticker.localeCompare(b.ticker));
-        sessionStorage.setItem("holdings", holdings ? JSON.stringify(holdings) : JSON.stringify([]));
     }
 
     function setHoldingAssets(holdingAssets: Asset[]) {
@@ -49,11 +49,6 @@ const SessionState = () => {
     function getUser() {
         const user = sessionStorage.getItem("user");
         return user ? JSON.parse(user) as User : null;
-    }
-
-    function getHoldings() {
-        const holdings = sessionStorage.getItem("holdings");
-        return holdings ? JSON.parse(holdings) as Holding[] : null;
     }
 
     function getHoldingAssets() {
@@ -100,10 +95,10 @@ const SessionState = () => {
         sessionStorage.clear();
     }
 
-    return { setUser, setHoldings, setHoldingAssets, setAllAssets, setTopAssetsByPriceChange, setTopAssetsByPriceGain,
-             setTopAssetsByPriceLoss, setTodayReturn, setQuarterlyReturn, setAnnualReturn, getUser, getHoldings,
-             getHoldingAssets, getAllAssets, getTopAssetsByPriceChange, getTopAssetsByPriceGain, getTopAssetsByPriceLoss,
-             getTodayReturn, getQuarterlyReturn, getAnnualReturn, clearSessionState };
+    return { setUser, setHoldingAssets, setAllAssets, setTopAssetsByPriceChange, setTopAssetsByPriceGain,
+             setTopAssetsByPriceLoss, setTodayReturn, setQuarterlyReturn, setAnnualReturn, getUser, getHoldingAssets,
+             getAllAssets, getTopAssetsByPriceChange, getTopAssetsByPriceGain, getTopAssetsByPriceLoss, getTodayReturn,
+             getQuarterlyReturn, getAnnualReturn, clearSessionState };
 }
 
 export default SessionState;

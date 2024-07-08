@@ -24,9 +24,13 @@ const HoldingsDisplay: React.FC<any> = ({ view, holdings, openRecordBuy, openRec
     }, [view])
 
     async function createAssetItems() {
+        holdings.sort((a: Holding, b: Holding) => a.ticker.localeCompare(b.ticker));
+
         const amounts = holdings.map((holding: Holding) => { return holding.amount });
         const profits = holdings.map((holding: Holding) => { return holding.profit });
+        
         const holdingAssets = state.getHoldingAssets() as Asset[];
+        holdingAssets.sort((a, b) => a.ticker.localeCompare(b.ticker));
 
         const items: DetailedReactHTMLElement<any, any>[] = holdingAssets.map((holdingAsset: Asset, i) => {
             const ticker = holdingAsset.ticker;

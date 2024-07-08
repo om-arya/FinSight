@@ -3,12 +3,13 @@ import { FaRegUser } from 'react-icons/fa6';
 import { MdLockOutline } from 'react-icons/md';
 import '../../static/home.css';
 
-import UserAPI, { User } from '../../api/UserAPI';
+import SessionState from '../../state/SessionState';
+import UserAPI, { User, Holding } from '../../api/UserAPI';
 
 import Modal from '../Modal';
 import SignupPanel from './SignupPanel';
 
-const LoginPanel: React.FC<any> = ({ handleLogin }) => {
+const LoginPanel: React.FC<any> = ({ handleLogin}) => {
     const userApi = UserAPI();
 
     const [modalContent, setModalContent] = useState(<></>);
@@ -16,9 +17,7 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
 
     function openSignup() {
         setModalContent(
-        <>
             <SignupPanel handleLogin={async (user: User) => await handleLogin(user)} closeSignup={() => closeSignup()} />
-        </>
         );
         setIsOpen(true);
     }
@@ -31,7 +30,7 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
     const [usernameOrEmail, setUsernameOrEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [errorMessage, setErrorMessage]: any = useState(<br />);
+    const [errorMessage, setErrorMessage] = useState(<br />);
 
     const emptyFieldError = "Error: You must enter your credentials.";
     const userDoesNotExistError = "Error: Invalid username/email address.";
@@ -39,14 +38,14 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
 
     async function handleLoginClick() {
         if (usernameOrEmail.length < 1 || password.length < 1) {
-            setErrorMessage(emptyFieldError);
+            setErrorMessage(<>{ emptyFieldError }</>);
             return;
         }
 
         const responseByUsername: User = await userApi.getUserByUsername(usernameOrEmail);
         const responseByEmail: User = await userApi.getUserByEmailAddress(usernameOrEmail);
         if (responseByUsername) {
-            const user = responseByUsername;
+            const user = responseByUsername as User;
             if (password === user.password) {
                 setErrorMessage(<br />);
 
@@ -58,24 +57,25 @@ const LoginPanel: React.FC<any> = ({ handleLogin }) => {
                     window.open("/portfolio", "_self");
                 }
             } else {
-                setErrorMessage(incorrectPasswordError);
+                setErrorMessage(<>{ incorrectPasswordError }</>);
             }
         } else if (responseByEmail) {
-            const user = responseByEmail;
+            const user = responseByEmail as User;
             if (password === user.password) {
                 setErrorMessage(<br />);
 
                 await handleLogin(user);
+
                 if (user.holdings.length > 0) {
                     window.open("/dashboard", "_self");
                 } else {
                     window.open("/portfolio", "_self");
                 }
             } else {
-                setErrorMessage(incorrectPasswordError);
+                setErrorMessage(<>{ incorrectPasswordError }</>);
             }
         } else {
-            setErrorMessage(userDoesNotExistError);
+            setErrorMessage(<>{ userDoesNotExistError }</>);
         }
     }
 

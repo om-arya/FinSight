@@ -23,9 +23,13 @@ const Overview: React.FC = () => {
     }, [changeRange]);
 
     async function createOverviewItems() {
-        const holdings = state.getHoldings() as Holding[];
+        const holdings = state.getUser().holdings as Holding[];
+        holdings.sort((a: Holding, b: Holding) => a.ticker.localeCompare(b.ticker));
+
         const amounts = holdings.map(holding => { return holding.amount; });
+        
         const holdingAssets = state.getHoldingAssets() as Asset[];
+        holdingAssets.sort((a, b) => a.ticker.localeCompare(b.ticker));
 
         const items: DetailedReactHTMLElement<any, any>[] = holdingAssets.map((holdingAsset: Asset, i) => {
             const price = holdingAsset.prices[holdingAsset.prices.length - 1];

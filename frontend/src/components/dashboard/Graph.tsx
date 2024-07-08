@@ -11,12 +11,13 @@ const Graph: React.FC = () => {
 
   const state = SessionState();
 
-  const [data, setData] = useState({labels: [], datasets: [{label: "", borderColor: "", borderWidth: 0, pointRadius: 0, data: []}]});
-
+  const [data, setData] = useState({labels: [], datasets: [{data: []}]});
   let topAssets = [];
+  
   useEffect(() => {
     const datasets = [];
     const holdingAssets = state.getHoldingAssets() as Asset[];
+
     topAssets = holdingAssets.sort((a1: Asset, a2: Asset) => {
       return a2.prices[a2.prices.length - 1] - a1.prices[a1.prices.length - 1];
     }).slice(0,5);

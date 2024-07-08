@@ -20,7 +20,7 @@ const SettingsPanel: React.FC<any> = ({ closeSettings, openChangePassword, openD
     const [lastName, setLastName] = useState(user.lastName);
     const [email, setEmail] = useState(user.emailAddress);
 
-    const [errorMessage, setErrorMessage]: any = useState(<br />);
+    const [errorMessage, setErrorMessage] = useState(<br />);
 
     const emptyFirstNameError = "Error: You must have a first name.";
     const emptyLastNameError = "Error: You must have a last name."
@@ -32,20 +32,20 @@ const SettingsPanel: React.FC<any> = ({ closeSettings, openChangePassword, openD
 
     async function handleSaveClick() {
         if (firstName.length < 1) {
-            setErrorMessage(emptyFirstNameError);
+            setErrorMessage(<>{ emptyFirstNameError }</>);
         } else if (lastName.length < 1) {
-            setErrorMessage(emptyLastNameError);
+            setErrorMessage(<>{ emptyLastNameError} </>);
         } else if (email.length < 1) {
-            setErrorMessage(emptyEmailError);
+            setErrorMessage(<>{ emptyEmailError }</>);
         } else if (firstName.length >= 250) {
-            setErrorMessage(longFirstNameError);
+            setErrorMessage(<>{ longFirstNameError }</>);
         } else if (lastName.length >= 250) {
-            setErrorMessage(longLastNameError);
+            setErrorMessage(<>{ longLastNameError }</>);
         } else if (email.length >= 250) {
-            setErrorMessage(longEmailError);
+            setErrorMessage(<>{ longEmailError }</>);
         } else if (!(email.includes('@')) || email.indexOf('@') < 1 || email.lastIndexOf('.') < email.indexOf('@') + 1
                    || email.lastIndexOf('.') === email.length - 1) {
-            setErrorMessage(invalidEmailError);
+            setErrorMessage(<>{ invalidEmailError }</>);
         } else {
             await saveSettings();
         }

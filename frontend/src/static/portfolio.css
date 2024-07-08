@@ -554,8 +554,7 @@
 }
 
 .record-buy-panel .input-content,
-.record-sell-panel .input-content,
-.sell-all-panel .input-content {
+.record-sell-panel .input-content {
     display: flex;
     flex-direction: column;
     gap: .5rem;
@@ -564,8 +563,7 @@
 }
 
 .record-buy-panel input,
-.record-sell-panel input,
-.sell-all-panel input {
+.record-sell-panel input {
     padding: .5rem;
     width: 5rem;
     font-size: 1.1rem;
