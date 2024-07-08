@@ -18,8 +18,8 @@ const DeleteAccountPanel: React.FC<any> = ({ closeDeleteAccount }) => {
 
     return (
         <div className="delete-account-panel">
-            <h1>Delete account</h1>
-            <p>Are you sure you would like to delete your account forever?</p>
+            <h1>Delete Account</h1>
+            <p>Are you sure you want to delete your account forever?</p>
             <div className="delete-account-button-container">
                 <div className="cancel-button" onClick={() => closeDeleteAccount()}>
                     <p>Cancel</p>

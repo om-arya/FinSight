@@ -4,12 +4,21 @@ import SessionState from '../../state/SessionState';
 import UserAPI, { User, Holding } from '../../api/UserAPI.ts';
 import AssetAPI, { Asset } from '../../api/AssetAPI.ts';
 
-const RecordSellPanel: React.FC = () => {
+const RecordSellPanel: React.FC<any> = ({ ticker, closeRecordSell }) => {
     const state = SessionState();
     const user = state.getUser() as User;
 
     const userApi = UserAPI();
     const assetApi = AssetAPI();
+
+    function handleSellClick() {
+        if (user.username == "guest") {
+            alert("You must be logged in to use this feature.");
+            return;
+        }
+        
+        window.location.reload();
+    }
 
     async function handleSell(ticker: string, amount: number, price: number) {
         if (user.username == "guest") {
@@ -63,8 +72,34 @@ const RecordSellPanel: React.FC = () => {
 
     return (
         <div className="record-sell-panel">
-            <h3>Sell asset</h3>
-            <input />
+            <h1>Sell { ticker }</h1>
+
+            <div className="record-sell-input-container">
+                <div className="input-content">
+                    <p>Quantity</p>
+                    <input type="number" min="0" />
+                </div>
+
+                <div className="input-content">
+                    <p>Sell price</p>
+                    <div className="price-container">
+                        <p>$</p>
+                        <input type="number" min="0" />
+                        <span>.</span>
+                        <input type="number" min="0" max="99" />
+                    </div>
+                </div>
+            </div>
+
+            <div className="record-sell-button-container">
+                <div className="cancel-button" onClick={() => closeRecordSell()}>
+                    <p>Cancel</p>
+                </div>
+
+                <div className="sell-button" onClick={() => handleSellClick()}>
+                    <p>Sell</p>
+                </div>
+            </div>
         </div>
     )
 }

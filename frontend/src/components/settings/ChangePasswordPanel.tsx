@@ -60,19 +60,19 @@ const ChangePasswordPanel: React.FC<any> = ({ closeChangePassword }) => {
             <div className="error-message">{ errorMessage }</div>
 
             <div className="input-container">
-                <p>Old password</p>
+                <p>Old Password</p>
                 <input type="password" name="oldPassword"
                        onChange={e => setOldPassword(e.target.value)}/>
             </div>
 
             <div className="input-container">
-                <p>New password</p>
+                <p>New Password</p>
                 <input type="password" name="newPassword"
                        onChange={e => setNewPassword(e.target.value)}/>
             </div>
 
             <div className="input-container">
-                <p>Confirm new password</p>
+                <p>Confirm New Password</p>
                 <input type="password" name="confirmNewPassword"
                        onChange={e => setConfirmNewPassword(e.target.value)}/>
             </div>

@@ -110,7 +110,7 @@ const SignupPanel: React.FC<any> = ({ handleLogin, closeSignup }) => {
             const newUser: User = await userApi.getUserByUsername(username);
             await handleLogin(newUser);
 
-            window.open("/dashboard", "_self");
+            window.open("/portfolio", "_self");
         }
     }
 

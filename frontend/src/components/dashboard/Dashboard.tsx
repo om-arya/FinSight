@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
             <div className="dashboard">
                 <div className="left-side">
                     <div className="dashboard-header">
-                        <h1>👋 Hi <strong>{ firstName.length > 20 ? firstName.substring(0, 20) + "..." : firstName }</strong>, welcome back.</h1>
+                        <h1>👋 Hi <strong>{ firstName.length >= 18 ? firstName.substring(0, 18) + "..." : firstName }</strong>, welcome back.</h1>
                         <p>What would you like to accomplish today?</p>
                     </div>
 

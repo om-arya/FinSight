@@ -80,6 +80,7 @@ const LeaderboardTab: React.FC<any> = ({ assets }) => {
 
     return (
         <div className="top-movers">
+            <h1>Market</h1>
             <div>{ leaderboardItems }</div>
         </div>
     )

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../../static/portfolio.css';
 
 import SessionState from '../../state/SessionState.ts';
+import { Holding } from '../../api/UserAPI.ts';
 
 import Navbar from '../Navbar';
 import Footer from '../Footer.tsx';
@@ -15,10 +16,14 @@ import SellAllPanel from './SellAllPanel.tsx';
 const Portfolio: React.FC = () => {
     const state = SessionState();
 
-    const todayReturn = state.getTodayReturn() as number;
+    const holdings = state.getHoldings() as Holding[];
+
+    let totalHoldingProfit = 0;
+    holdings.forEach((holding) => {
+        totalHoldingProfit += holding.profit;
+    })
 
     const [holdingsView, setHoldingsView] = useState("card");
-    const [holdings, setHoldings] = useState(state.getHoldings());
 
     const [modalContent, setModalContent] = useState(<></>);
     const [isOpen, setIsOpen] = useState(false);
@@ -26,29 +31,32 @@ const Portfolio: React.FC = () => {
     function openAddInvestments() {
         setModalContent(
             <AddInvestmentsPanel
-                handlePurchaseClick={() => openRecordBuy()}
+                handlePurchaseClick={(ticker: string) => openRecordBuy(ticker)}
                 closeAddInvestments={() => closeModal()}
             />
         );
         setIsOpen(true);
     }
 
-    function openRecordBuy() {
+    function openRecordBuy(ticker: string) {
         setModalContent(
-            <RecordBuyPanel />
+            <RecordBuyPanel ticker={ ticker } closeRecordBuy={() => closeModal()}/>
         )
+        setIsOpen(true);
     }
 
-    function openRecordSell() {
+    function openRecordSell(ticker: string) {
         setModalContent(
-            <RecordSellPanel />
+            <RecordSellPanel ticker={ ticker } closeRecordSell={() => closeModal()}/>
         )
+        setIsOpen(true);
     }
 
-    function openSellAll() {
+    function openSellAll(ticker: string) {
         setModalContent(
-            <SellAllPanel />
+            <SellAllPanel ticker={ ticker } closeSellAll={() => closeModal()}/>
         )
+        setIsOpen(true);
     }
 
     function closeModal() {
@@ -63,7 +71,7 @@ const Portfolio: React.FC = () => {
             <div className="portfolio">
                 <div className="portfolio-header">
                     <h1>Your Portfolio</h1>
-                    <h2>Today's Return: <span>{`${todayReturn < 0 ? "-$" : "$"}${Math.abs(todayReturn).toFixed(2)}`}</span></h2>
+                    <h2>Total Value: <span>{`${totalHoldingProfit < 0 ? "-$" : "$"}${Math.abs(totalHoldingProfit).toFixed(2)}`}</span></h2>
                     <p>Your holdings, your way.</p>
                 </div>
 
@@ -85,6 +93,9 @@ const Portfolio: React.FC = () => {
                 <HoldingsDisplay
                     view={ holdingsView }
                     holdings={ holdings }
+                    openRecordBuy = {(ticker: string) => openRecordBuy(ticker)}
+                    openRecordSell = {(ticker: string) => openRecordSell(ticker)}
+                    openSellAll = {(ticker: string) => openSellAll(ticker)}
                 />
 
                 <Modal open={ isOpen }>{ modalContent }</Modal>

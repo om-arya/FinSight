@@ -267,13 +267,13 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 3rem 3rem;
+    padding: 3rem;
     align-items: left;
     justify-content: center;
 }
 
 .delete-account-panel h1 {
-    margin-bottom: .5rem;
+    margin-bottom: .6rem;
     text-align: center;
     font-weight: 500;
 }
@@ -281,7 +281,7 @@
 .delete-account-panel .delete-account-button-container {
     display: flex;
     flex-direction: row;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     align-self: center;
     align-items: center;
     justify-content: space-evenly;

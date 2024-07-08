@@ -4,6 +4,7 @@ import { RiSettings2Fill } from "react-icons/ri";
 import '../index.css';
 
 import SessionState from '../state/SessionState';
+import { User } from '../api/UserAPI';
 
 import Modal from './Modal';
 import SettingsPanel from './settings/SettingsPanel';
@@ -12,6 +13,7 @@ import DeleteAccountPanel from './settings/DeleteAccountPanel';
 
 const Navbar: React.FC = () => {
     const state = SessionState();
+    const user = state.getUser() as User;
 
     const [modalContent, setModalContent] = useState(<></>);
     const [isOpen, setIsOpen] = useState(false);
@@ -65,7 +67,13 @@ const Navbar: React.FC = () => {
 
                 <div className="navbar-right-side">
                     <div className="settings-button">
-                        <RiSettings2Fill className="icon" onClick={() => openSettings()}/>
+                        <RiSettings2Fill className="icon" onClick={() => {
+                            if (user.username == "guest") {
+                                alert("You must be logged in to use this feature.");
+                                return;
+                            }
+                            openSettings()
+                        }}/>
                     </div>
                 
                     <div className="sign-out-button" onClick={() => handleSignout()}>

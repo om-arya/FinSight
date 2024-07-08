@@ -152,8 +152,41 @@
     color: var(--text-main-color);
 }
 
-.holdings-display .edit-holding-popup {
+.edit-holding-popup {
     display: none;
+}
+
+.edit-holding-popup.active {
+    z-index: 50;
+    position: absolute;
+    top: 2rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 10rem;
+    border: solid 1px var(--custom-midgray);
+    border-radius: 20px;
+    background: var(--bg-second-color);
+    animation: fade-in .2s;
+}
+
+.edit-holding-popup-button {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    padding: .7rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .1s ease;
+}
+
+.edit-holding-popup-button:hover {
+    background: var(--bg-third-color);
+}
+
+.edit-holding-popup p {
+    font-size: 1rem;
 }
 
 /* CARD VIEW */
@@ -258,27 +291,6 @@
     background: var(--translucent-gray);
 }
 
-.holdings-display.card .edit-holding-popup.active {
-    position: absolute;
-    top: 2rem;
-    right: 1rem;
-    display: flex;
-    flex-direction: column;
-    padding: .3rem;
-    width: 10rem;
-    background: var(--bg-second-color);
-}
-
-.holdings-display.card .edit-holding-popup p {
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: .1s ease;
-}
-
-.holdings-display.card .edit-holding-popup p:hover {
-    background: var(--bg-third-color);
-}
-
 /* LIST VIEW */
 
 .holdings-display.list {
@@ -302,6 +314,7 @@
 }
 
 .holdings-display.list .asset-item {
+    position: relative;
     display: grid;
     grid-template-columns: 13% 30% 13% 13% 13% 13% 5%;
     width: 100%;
@@ -511,4 +524,233 @@
 .purchase-item .purchase-button:hover {
     box-shadow: 0 0 .2rem var(--custom-green);
     background: var(--custom-midgreen);
+}
+
+/* RECORD BUY / RECORD SELL / SELL ALL PANELS */
+
+.record-buy-panel,
+.record-sell-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem;
+    align-items: left;
+    justify-content: center;
+}
+
+.record-buy-panel h1,
+.record-sell-panel h1 {
+    margin-bottom: .3rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.record-buy-panel .error-message,
+.record-sell-panel .error-message {
+    align-self: center;
+    width: 18rem;
+    text-align: center;
+    color: var(--custom-lightred);
+}
+
+.record-buy-input-container,
+.record-sell-input-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.record-buy-panel .input-content,
+.record-sell-panel .input-content,
+.sell-all-panel .input-content {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.record-buy-panel input,
+.record-sell-panel input,
+.sell-all-panel input {
+    padding: .5rem;
+    width: 5rem;
+    font-size: 1.1rem;
+}
+
+.price-container {
+    display: flex;
+    flex-direction: row;
+    gap: .2rem;
+}
+
+.price-container p {
+    align-self: center;
+}
+
+.price-container span {
+    align-self: end;
+    font-size: 1.3rem;
+}
+
+.record-buy-button-container,
+.record-sell-button-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5rem;
+    align-self: center;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.record-buy-panel .cancel-button,
+.record-sell-panel .cancel-button {
+    display: flex;
+    justify-self: left;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 2.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.record-buy-panel .cancel-button:hover,
+.record-sell-panel .cancel-button:hover {
+    background: var(--translucent-blue);
+}
+
+.record-buy-panel .cancel-button p,
+.record-sell-panel .cancel-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--custom-blue);
+}
+
+.record-buy-panel .buy-button {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 2.5rem;
+    border-radius: 20px;
+    background: var(--custom-green);
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.record-buy-panel .buy-button:hover {
+    box-shadow: 0 0 .3rem var(--custom-green);
+    background: var(--custom-midgreen);
+}
+
+.record-buy-panel .buy-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--bg-main-color);
+}
+
+.record-sell-panel .sell-button {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 2.5rem;
+    border-radius: 20px;
+    background: var(--custom-red);
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.record-sell-panel .sell-button:hover {
+    box-shadow: 0 0 .3rem var(--custom-midred);
+    background: var(--custom-midred);
+}
+
+.record-sell-panel .sell-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--bg-main-color);
+}
+
+.sell-all-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem;
+    min-width: 23rem;
+    align-items: left;
+    justify-content: center;
+}
+
+.sell-all-panel h1 {
+    margin-bottom: .6rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.sell-all-panel .sell-all-button-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2.5rem;
+    align-self: center;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.sell-all-panel .cancel-button {
+    display: flex;
+    justify-self: left;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    height: 2.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.sell-all-panel .cancel-button:hover {
+    background: var(--translucent-blue);
+}
+
+.sell-all-panel .cancel-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--custom-blue);
+}
+
+.sell-all-panel .sell-all-button {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 55%;
+    height: 2.5rem;
+    border-radius: 20px;
+    background: var(--custom-red);
+    cursor: pointer;
+    user-select: none;
+    transition: .2s ease;
+}
+
+.sell-all-panel .sell-all-button:hover {
+    box-shadow: 0 0 .3rem var(--custom-midred);
+    background: var(--custom-midred);
+}
+
+.sell-all-panel .sell-all-button p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--bg-main-color);
 }
