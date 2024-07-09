@@ -15,12 +15,12 @@
 <!-- FEATURES -->
 <a id="features"></a>
 ## Features 🏆
-- Support for every stock in the S&P500.
-- A RESTful API, conforming to architectural principles such as statelessness, separation of concerns, and a Model-View-Controller (MVC) pattern.
-- Daily price updates via automated API calls using a Node.js cron job with a GitHub Actions workflow.
-- A modern react interface with asset price visualization, card/list views for holdings, and market statistics.
-- UI elements for CRUD (Create, Read, Update, Delete) operations on data via HTTP requests.
-- A PostgreSQL database running on a Docker container to efficiently store and access user and asset data.
+- **Comprehensive Stock Coverage:** Support for all stocks in the S&P 500.
+- **RESTful API Design:** Adheres to architectural principles such as statelessness, separation of concerns, and the Model-View-Controller (MVC) pattern.
+- **Modern React Interface:** Includes asset price visualization, card/list views for holdings, and market statistics.
+- **Intuitive UI Elements:** Facilitates CRUD (Create, Read, Update, Delete) operations on data via HTTP requests.
+- **Automated Daily Price Updates:** Utilizes a Node.js cron job with a GitHub Actions workflow to fetch and store daily asset prices.
+- **Efficient Data Management:** A PostgreSQL database running on a Docker container to store and access user and asset data efficiently.
 
 <a id="suggestions"></a>
 ### Suggestions? 💡
