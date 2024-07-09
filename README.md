@@ -7,7 +7,7 @@
 <h1 align="center" font-size=36px>FinSight</h1>
 
   <p align="center">
-    A financial portfolio management application, leveraging a modern tech stack to combine usability, reliability, and power.
+    A financial portfolio management application that aims to combine usability, reliability, and power.
     <br />
   </p>
 </div>
