@@ -1,13 +1,13 @@
 <!-- PROJECT LOGO -->
 <p align="center">
-  <img src="frontend/public/fs_olivebranches.png" alt="frontend/public/fs_olivebranches.png" width="200">
+  <img src="frontend/public/fs_olivebranches.png" alt="frontend/public/fs_olivebranches.png" width="180">
 </p>
 <div align="center">
 
 <h1 align="center" font-size=36px>FinSight</h1>
 
   <p align="center">
-    A financial portfolio management application that aims to combine usability, reliability, and power.
+    A financial portfolio management application that combines usability, reliability, and power.
     <br />
   </p>
 </div>
