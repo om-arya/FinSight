@@ -54,6 +54,7 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
 
         try {
             const response = await axios.get(TD_URL + ticker_batch.join(',')) as EODData;
+            console.log(response);
             responses.push(response);
             count += batchLimit;
         } catch (error) {

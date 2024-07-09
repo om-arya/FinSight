@@ -1,6 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
 
-import { FLY_URL } from "./data/FLY_URL";
+import { FLY_URL } from "./data/FLY_URL.ts";
 
 const API_URL = FLY_URL + "assets";
 
