@@ -60,7 +60,7 @@ const SettingsPanel: React.FC<any> = ({ closeSettings, openChangePassword, openD
         const userByEmail: User = await userApi.getUserByEmailAddress(email);
         if (userByEmail && userByEmail.username !== user.username) {
             setErrorMessage(<>{ emailConflictError }</>);
-            return
+            return;
         }
 
         await userApi.setUserFirstName(user.username, firstName);
