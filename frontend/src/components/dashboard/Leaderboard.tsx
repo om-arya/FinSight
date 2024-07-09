@@ -14,9 +14,14 @@ const Leaderboard: React.FC<any> = () => {
         <LeaderboardTab assets={ state.getTopAssetsByPriceChange() as Asset[] }/>
     );
 
+    const today = new Date();
+    let yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
     return (
         <div className="dashboard-container leaderboard-container">
-            <h1>Market Watch</h1>
+            <h1>Market Watch { `(${yesterday.getMonth()}/${yesterday.getDate()}/${yesterday.getFullYear().toString().substring(2, 4)}
+                                - ${today.getMonth()}/${today.getDate()}/${today.getFullYear().toString().substring(2, 4)})` }</h1>
             <div className="leaderboard-button-container">
                 <div className={`leaderboard-button ${ topMoversIsActive ? "active" : ""}`} onClick={() => {
                     setTopMoversIsActive(true);
