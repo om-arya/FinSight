@@ -29,6 +29,7 @@ const SettingsPanel: React.FC<any> = ({ closeSettings, openChangePassword, openD
     const longLastNameError = "Error: Your last name must be less than 250 characters."
     const longEmailError = "Error: Your email address must be less than 250 characters.";
     const invalidEmailError = "Error: Invalid email address.";
+    const emailConflictError = "Error: This email address is already in use. Please use another one.";
 
     async function handleSaveClick() {
         if (firstName.length < 1) {
@@ -56,6 +57,12 @@ const SettingsPanel: React.FC<any> = ({ closeSettings, openChangePassword, openD
     }, [firstName, lastName, email])
 
     async function saveSettings() {
+        const userByEmail: User = await userApi.getUserByEmailAddress(email);
+        if (userByEmail && userByEmail.username !== user.username) {
+            setErrorMessage(<>{ emailConflictError }</>);
+            return
+        }
+
         await userApi.setUserFirstName(user.username, firstName);
         await userApi.setUserLastName(user.username, lastName);
         await userApi.setUserEmailAddress(user.username, email);
