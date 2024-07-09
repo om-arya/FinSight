@@ -12,6 +12,7 @@ interface EODData {
 const assetApi = AssetAPI();
 
 // Update asset prices daily at 2:00 AM EST via GitHub Actions.
+console.log("RUNNING");
 updateAssetPrices();
 
 /**
@@ -19,6 +20,7 @@ updateAssetPrices();
  * to be stored in the database.
  */
 async function updateAssetPrices() {
+    console.log("RUNNING UPDATE ASSET PRICES");
     const responses: EODData[] = await getEODData(TICKERS);
 
     responses.forEach(async (response) => {
@@ -42,6 +44,7 @@ const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
  *          provided tickers.
  */
 async function getEODData(tickers: string[]): Promise<EODData[]> {
+    console.log("RUNNING GETEODDATA");
     const TD_URL = `https://api.twelvedata.com/eod?apikey=${TD_PROD_KEY}&dp=2&symbol=`;
 
     let responses: EODData[] = [];
@@ -50,16 +53,14 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
     // API limit is 8 requests per minute, so we send 8 requests
     // every 65 seconds.
     while (count < tickers.length) {
+        console.log("COUNT: " + count);
         const ticker_batch: string[] = tickers.slice(count, count + batchLimit);
+        console.log("TICKER BATCH: " + ticker_batch);
 
-        try {
-            const response = await axios.get(TD_URL + ticker_batch.join(',')) as EODData;
-            console.log(response);
-            responses.push(response);
-            count += batchLimit;
-        } catch (error) {
-            console.error(error);
-        }
+        const response = await axios.get(TD_URL + ticker_batch.join(',')) as EODData;
+        console.log("RESPONSE: " + response);
+        responses.push(response);
+        count += batchLimit;
 
         if (count < tickers.length) {
             await sleep(65000);

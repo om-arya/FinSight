@@ -13,7 +13,6 @@ dist-ssr
 *.py
 assets.json
 *.csv
-FLY_URL.*
 
 .vscode/*
 !.vscode/extensions.json
