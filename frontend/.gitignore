@@ -10,9 +10,10 @@ node_modules
 dist
 dist-ssr
 *.local
-assets.json
 *.py
+assets.json
 *.csv
+FLY_URL.*
 
 .vscode/*
 !.vscode/extensions.json

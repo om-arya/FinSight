@@ -12,7 +12,7 @@ interface EODData {
 const assetApi = AssetAPI();
 
 // Update asset prices daily at 2:00 AM EST via GitHub Actions.
-// updateAssetPrices();
+updateAssetPrices();
 
 /**
  * Get the new prices for each ticker and send them to the back end
@@ -74,7 +74,7 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
  * 
  * We run this only when historical asset data must be replaced.
 */
-
+/*
 import assetsObj from './data/assets.json' with { type : "json" };
 async function createAllAssets() {
     assetsObj.forEach((asset) => {
@@ -82,6 +82,6 @@ async function createAllAssets() {
     }) 
 }
 createAllAssets();
-
+*/
 
 // Run this file with "cd frontend/src/api && node --loader ts-node/esm TwelveDataAPI.ts"
