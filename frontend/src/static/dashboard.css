@@ -366,3 +366,8 @@
     font-weight: 500;
     user-select: none;
 }
+
+.leaderboard-container .leaderboard-footer p {
+    text-align: left;
+    font-size: .8rem;
+}

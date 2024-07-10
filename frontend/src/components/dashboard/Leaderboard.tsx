@@ -48,7 +48,12 @@ const Leaderboard: React.FC<any> = () => {
                     <p>Top Losers</p>
                 </div>
             </div>
+
             { leaderboardContent }
+
+            <div className="leaderboard-footer">
+                <p>* Our market data is updated daily at 3:00 AM UTC.</p>
+            </div>
         </div>
     )
 }
