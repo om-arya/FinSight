@@ -49,7 +49,7 @@ async function getEODData(tickers: string[]): Promise<EODData[]> {
     let count = 0;
     // API limit is 8 requests per minute, so we send 8 requests
     // every 65 seconds.
-    while (count < tickers.length) {
+    while (count < tickers.length - 3) {
         const ticker_batch: string[] = tickers.slice(count, count + batchLimit);
 
         const response = await axios.get(TD_URL + ticker_batch.join(',')) as EODData;
