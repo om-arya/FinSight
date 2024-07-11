@@ -27,7 +27,6 @@ const Dashboard: React.FC = () => {
     }, [user.firstName]);
 
     useEffect(() => {
-        console.log(sessionStorage);
         const holdings: Holding[] = user.holdings;
         holdings.sort((a: Holding, b: Holding) => a.ticker.localeCompare(b.ticker));
 

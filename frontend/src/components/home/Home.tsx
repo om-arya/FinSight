@@ -49,7 +49,7 @@ const Home: React.FC = () => {
         const guest: User = await userApi.getUserByUsername("guest");
         await handleLogin(guest);
         
-        window.open('/dashboard','_blank');
+        window.open('/dashboard','_self');
     }
 
     return (
