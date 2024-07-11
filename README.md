@@ -1,6 +1,6 @@
 <!-- PROJECT LOGO -->
 <p align="center">
-  <img src="frontend/public/fs_olivebranches.png" alt="frontend/public/fs_olivebranches.png" width="180">
+  <img src="frontend/public/fs_olivebranches.png" alt="frontend/public/fs_olivebranches.png" width="170">
 </p>
 <div align="center">
 
