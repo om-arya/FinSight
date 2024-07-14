@@ -52,7 +52,7 @@ const Leaderboard: React.FC<any> = () => {
             { leaderboardContent }
 
             <div className="leaderboard-footer">
-                <p>* Our market data is updated daily at 3:00 AM UTC.</p>
+                <p>* Our market data is updated daily M-F at 3:00 AM UTC.</p>
             </div>
         </div>
     )

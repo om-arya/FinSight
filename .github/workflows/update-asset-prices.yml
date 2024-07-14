@@ -3,7 +3,7 @@ name: Update Asset Prices
 on:
   schedule:
     # Run at 3:00 UTC (10:00 PM EST) daily
-    - cron: '0 3 * * *'
+    - cron: '0 3 * * 1-5'
   workflow_dispatch:
 
 jobs:
