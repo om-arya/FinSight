@@ -72,8 +72,8 @@ const Overview: React.FC = () => {
     return (
         <div className="dashboard-container overview-container">
             <div className="overview-top-container">
-                <h4>Your Portfolio { `(${yesterday.getMonth()}/${yesterday.getDate()}/${yesterday.getFullYear().toString().substring(2, 4)}
-                                      - ${today.getMonth()}/${today.getDate()}/${today.getFullYear().toString().substring(2, 4)})` }</h4>
+                <h4>Your Portfolio { `(${yesterday.getMonth() + 1}/${yesterday.getDate()}/${yesterday.getFullYear().toString().substring(2, 4)}
+                                      - ${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear().toString().substring(2, 4)})` }</h4>
                 <div className="overview-button-container">
                     <div className={`overview-button ${ allIsActive ? "active" : ""}`} onClick={() => {
                         setAllIsActive(true);
