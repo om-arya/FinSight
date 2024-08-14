@@ -20,8 +20,8 @@ const Leaderboard: React.FC<any> = () => {
 
     return (
         <div className="dashboard-container leaderboard-container">
-            <h1>Market Watch { `(${yesterday.getMonth()}/${yesterday.getDate()}/${yesterday.getFullYear().toString().substring(2, 4)}
-                                - ${today.getMonth()}/${today.getDate()}/${today.getFullYear().toString().substring(2, 4)})` }</h1>
+            <h1>Market Watch { `(${yesterday.getMonth() + 1}/${yesterday.getDate()}/${yesterday.getFullYear().toString().substring(2, 4)}
+                                - ${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear().toString().substring(2, 4)})` }</h1>
             <div className="leaderboard-button-container">
                 <div className={`leaderboard-button ${ topMoversIsActive ? "active" : ""}`} onClick={() => {
                     setTopMoversIsActive(true);
