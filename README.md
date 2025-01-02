@@ -34,9 +34,7 @@
 
 <a id="demo-video"></a>
 ### Demo Video 📼
-<div align="center">
-  <a href="https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU">https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU</a>
-</div>
+<a href="https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU">https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU</a>
 
 <!-- BUILT WITH -->
 <a id="built-with"></a>
