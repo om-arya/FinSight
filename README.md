@@ -34,7 +34,7 @@
 <a id="demo-video"></a>
 ### Demo Video 📼
 <a href="https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU">
-    <img src="frontend/public/fs_screenshot.png" alt="Watch the video" width="300">
+    <img src="frontend/public/fs_screenshot.png" alt="Watch the video" width="800">
 </a>
 
 <!-- BUILT WITH -->
