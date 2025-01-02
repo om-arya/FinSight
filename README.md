@@ -34,9 +34,7 @@
 <!-- DEMO VIDEO -->
 <a id="demo-video"></a>
 ### Demo Video 📼
-<video width="320" controls>
-  <source src="frontend/public/fs_demo.mp4" type="video/mp4">
-</video>
+[![Watch the video](frontend/public/fs_olivebranches.png)](https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU)
 
 <!-- BUILT WITH -->
 <a id="built-with"></a>
