@@ -12,10 +12,15 @@
   </p>
 </div>
 
+<h3>IMPORTANT: FinSight has been discontinued as of January 2, 2025 due to high database hosting costs. A demo video of the application in its full functionality can be found below.</h3>
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
+    <li>
+      <a href="#demo-video">Demo Video</a>
+    </li>
     <li>
       <a href="#built-with">Built With</a>
     </li>
@@ -25,6 +30,13 @@
     <li><a href="#suggestions">Suggestions?</a></li>
   </ol>
 </details>
+
+<!-- DEMO VIDEO -->
+<a id="demo-video"></a>
+### Demo Video 📼
+<video width="320" controls>
+  <source src="fs_demo.mp4" type="video/mp4">
+</video>
 
 <!-- BUILT WITH -->
 <a id="built-with"></a>
@@ -44,7 +56,7 @@
 - A RESTful API design, following architectural principles such as statelessness, separation of concerns, and the Model-View-Controller (MVC) pattern.
 - A modern React interface with asset price visualization, card/list views for holdings, and market statistics.
 - Intuitive UI elements for CRUD (Create, Read, Update, Delete) operations on data via HTTP requests.
-- Automated Daily Price Updates via a Node.js cron job with a GitHub Actions workflow to fetch and store daily asset prices.
+- Automated daily price updates via a Node.js cron job with a GitHub Actions workflow to fetch and store daily asset prices.
 - A PostgreSQL database running on a Docker container to store and access user and asset data efficiently.
 
 <a id="suggestions"></a>
