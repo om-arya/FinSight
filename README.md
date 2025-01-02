@@ -31,13 +31,14 @@
   </ol>
 </details>
 
+
 <a id="demo-video"></a>
 ### Demo Video 📼
-<a href="https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU">
-    <img src="frontend/public/fs_screenshot.png" alt="Watch the video" width="800">
-</a>
-
-<video src='frontend/public/fs_demo.mp4' width=500></video>
+<div align="center">
+  <a href="https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU">
+      <img src="frontend/public/fs_screenshot.png" alt="Watch the video" width="600">
+  </a>
+</div>
 
 <!-- BUILT WITH -->
 <a id="built-with"></a>
