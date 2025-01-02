@@ -37,6 +37,8 @@
     <img src="frontend/public/fs_screenshot.png" alt="Watch the video" width="800">
 </a>
 
+<video src='frontend/public/fs_demo.mp4' width=500/>
+
 <!-- BUILT WITH -->
 <a id="built-with"></a>
 ### Built With ⚒️
