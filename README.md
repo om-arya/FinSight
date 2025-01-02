@@ -36,7 +36,7 @@
 ### Demo Video 📼
 <div align="center">
   <a href="https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU">
-      <img src="frontend/public/fs_screenshot.png" alt="Watch the video" width="600">
+      <img src="frontend/public/fs_screenshot.png" alt="Watch the video" width="400">
   </a>
 </div>
 
