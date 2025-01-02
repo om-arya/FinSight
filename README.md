@@ -31,10 +31,11 @@
   </ol>
 </details>
 
-<!-- DEMO VIDEO -->
 <a id="demo-video"></a>
 ### Demo Video 📼
-[![Watch the video](frontend/public/fs_olivebranches.png)](https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU)
+<a href="https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU">
+    <img src="frontend/public/fs_screenshot.png" alt="Watch the video" width="300">
+</a>
 
 <!-- BUILT WITH -->
 <a id="built-with"></a>
