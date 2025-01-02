@@ -1,3 +1,5 @@
+<h3>IMPORTANT: FinSight has been discontinued as of January 2, 2025 due to high database hosting costs. A demo video of the application in its full functionality can be found below.</h3>
+
 <!-- PROJECT LOGO -->
 <p align="center">
   <img src="frontend/public/fs_olivebranches.png" alt="frontend/public/fs_olivebranches.png" width="170">
@@ -11,8 +13,6 @@
     <br />
   </p>
 </div>
-
-<h3>IMPORTANT: FinSight has been discontinued as of January 2, 2025 due to high database hosting costs. A demo video of the application in its full functionality can be found below.</h3>
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -35,7 +35,7 @@
 <a id="demo-video"></a>
 ### Demo Video 📼
 <video width="320" controls>
-  <source src="fs_demo.mp4" type="video/mp4">
+  <source src="frontend/public/fs_demo.mp4" type="video/mp4">
 </video>
 
 <!-- BUILT WITH -->
