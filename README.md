@@ -1,5 +1,3 @@
-<h3>IMPORTANT: FinSight has been discontinued as of January 2, 2025 due to high database hosting costs. A demo video of the application in its full functionality can be found below.</h3>
-
 <!-- PROJECT LOGO -->
 <p align="center">
   <img src="frontend/public/fs_olivebranches.png" alt="frontend/public/fs_olivebranches.png" width="170">
