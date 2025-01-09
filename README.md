@@ -32,7 +32,7 @@
 
 <a id="demo-video"></a>
 ### Demo Video 📼
-<a href="https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU">https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU</a>
+<a href="https://youtu.be/DxdjAgAkRgY?si=JDLpUdAeeXL0wIdV">https://youtu.be/Ghq9S92YTYE?si=DSzSWvnQW7cw7vAU</a>
 
 <!-- BUILT WITH -->
 <a id="built-with"></a>
